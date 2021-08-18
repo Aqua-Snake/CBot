@@ -1,14 +1,14 @@
 {
     "name": "Bot",
-    "description": " UserBot made for WhatsApp.",
-    "logo": "https://i.ibb.co/s1KQtSQ/botlogo.jpg",
-    "keywords": [, "userbot", "bot", "api", "ai"],
+    "description": " Makes it easy and fun to use Whatsapp. made for WhatsApp.",
+    "logo": "https://i.hizliresim.com/6Bbj7i.jpg",
+    "keywords": ["whatsapp", "userbot", "bot", "api", "ai"],
     "repository": "https://github.com/Aqua-Snake/Bot",
     "website":   "https://t.me/aqua_snake",
     "success_url": "https://t.me/Bot_support_for_users",
     "stack": "container",
     "env": {
-        "BOT_SESSION": {
+        "ASENA_SESSION": {
             "description": "Qr.Js  Type here yours Bot Session.",
             "required": true
         },
@@ -19,7 +19,7 @@
         "LANGUAGE": {
             "description": "Bot language. Azerice => az, English => en, Türkçe => tr, Malayalam => ml, Hindi => HI, Indonesia => ID, Español => ES, Portuguese => pt, Russian => ru",
             "required": true,
-            "value": "EN"
+            "value": "TR"
         },
         "ANTİ_LİNK": {
             "description": " Link Blocking System.",
@@ -32,7 +32,7 @@
             "value": "false"
         },
         "HANDLERS": {
-            "description": "Komutlar için. For commands.",
+            "description": " For commands.",
             "required": true,
             "value": "^[.!;]"
         },
@@ -42,12 +42,12 @@
             "value": "false"
         },
         "NO_LOG": {
-            "description": " Set true if you don't want to see error log.",
+            "description": "Set true if you don't want to see error log.",
             "required": true,
             "value": "false"
         },
         "SEND_READ": {
-            "description": " Write true if you want to throw seen.",
+            "description": "Write true if you want to throw seen.",
             "required": true,
             "value": "true"
         },
@@ -91,7 +91,7 @@
             "value": "private"
         },
         "HEROKU_APP_NAME": {
-            "description": " Heroku APP Name.",
+            "description": ". Heroku APP Name.",
             "required": true
         },
         "DEBUG": {
@@ -139,17 +139,17 @@
             "value": "default"
         },
         "GAN_IMAGE": {
-            "description": " Type image link for Gan Style plugin.",
+            "description": "Type image link for Gan Style plugin.",
             "required": true,
-            "value": "https://i.ibb.co/s1KQtSQ/botlogo.jpg"
+            "value": "https://i.hizliresim.com/loUtAb.jpg"
         },
         "NO_ONLINE": {
-            "description": "Type true if you don't want to appear online.",
+            "description": " Type true if you don't want to appear online.",
             "required": false,
             "value": "true"
         },
         "COFFEEHOUSE_API_KEY": {
-            "description": "Pass This Step! ",
+            "description": "Pass This Step",
             "required": false,
             "value": "true"
         }
