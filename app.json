@@ -1,14 +1,14 @@
 {
     "name": "Bot",
     "description": " Makes it easy and fun to use Whatsapp. made for WhatsApp.",
-    "logo": "https://i.hizliresim.com/6Bbj7i.jpg",
+    "logo": "https://i.ibb.co/s1KQtSQ/botlogo.jpg",
     "keywords": ["whatsapp", "userbot", "bot", "api", "ai"],
     "repository": "https://github.com/Aqua-Snake/Bot",
     "website":   "https://t.me/aqua_snake",
     "success_url": "https://t.me/Bot_support_for_users",
     "stack": "container",
     "env": {
-        "ASENA_SESSION": {
+        "BOT_SESSION": {
             "description": "Qr.Js  Type here yours Bot Session.",
             "required": true
         },
@@ -19,7 +19,7 @@
         "LANGUAGE": {
             "description": "Bot language. Azerice => az, English => en, Türkçe => tr, Malayalam => ml, Hindi => HI, Indonesia => ID, Español => ES, Portuguese => pt, Russian => ru",
             "required": true,
-            "value": "TR"
+            "value": "EN"
         },
         "ANTİ_LİNK": {
             "description": " Link Blocking System.",
@@ -141,7 +141,7 @@
         "GAN_IMAGE": {
             "description": "Type image link for Gan Style plugin.",
             "required": true,
-            "value": "https://i.hizliresim.com/loUtAb.jpg"
+            "value": "https://i.ibb.co/s1KQtSQ/botlogo.jpg"
         },
         "NO_ONLINE": {
             "description": " Type true if you don't want to appear online.",
