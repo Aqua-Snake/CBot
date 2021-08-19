@@ -41,9 +41,9 @@
             "ALREADY_NOT_ADMIN": "```How can I make someone admin who is already admin?```",
             "DEMOTED": "```, has been demoted!```",
             "MUTE_DESC": "Mute the group chat. Only the admins can send a message.\n⌨️ Example: .mute & .mute 5m etc",
-            "MUTED": "```Group chat muted!```",
+            "MUTED": "•      🌟 GROUP CLOSED 🌟      •\n\nBy Cyber Army Bot\n\n🔥 Powered by CYBER ARMY  🔥",
             "UNMUTE_DESC": "Unmute the group chat. Anyone can send a message.",
-            "UNMUTED": "```The group chat has unmuted!```",
+            "UNMUTED": "•      🌟 GROUP OPENED 🌟      •\n\nBy Cyber Army Bot\n\n🔥 Powered by CYBER ARMY  🔥",
             "INVITE_DESC": "Provides the group's invitation link.",
             "INVITE": "```Invitation link: ```"
         },
