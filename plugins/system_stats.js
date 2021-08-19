@@ -23,7 +23,7 @@ if (Config.WORKTYPE == 'private') {
     Asena.addCommand({pattern: 'alive', fromMe: true, desc: Lang.ALIVE_DESC}, (async (message, match) => {
 
         if (Config.ALIVEMSG == 'default') {
-            await message.client.sendMessage(message.jid,'```Cyber Army Bot!```\n\n*Version:* ```'+Config.VERSION+'```\n*Bot is online*\nType .ca for command list ' , MessageType.text);
+            await message.client.sendMessage(message.jid,'```Cyber Army Bot!```\n\n*Version:* ```'+Config.VERSION+'```\n\n*Bot is online*\n\nType .ca for command list ' , MessageType.text);
         }
         else {
             const pow = '*Powered by Cyber Army Bot*'
@@ -54,7 +54,7 @@ else if (Config.WORKTYPE == 'public') {
     Asena.addCommand({pattern: 'alive', fromMe: false, desc: Lang.ALIVE_DESC}, (async (message, match) => {
 
         if (Config.ALIVEMSG == 'default') {
-            await message.client.sendMessage(message.jid,'```Cyber Army Bot!```\n\n*Version:* ```'+Config.VERSION+'```\n*Bot is online*\nType .ca for command list ', MessageType.text);
+            await message.client.sendMessage(message.jid,'```Cyber Army Bot!```\n\n*Version:* ```'+Config.VERSION+'```\n\n*Bot is online*\n\nType .ca for command list ', MessageType.text);
         }
         else {
             const pow = '*Powered by Cyber Army Bot*'
