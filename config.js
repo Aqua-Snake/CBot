@@ -19,7 +19,7 @@ DATABASE_URL = process.env.DATABASE_URL === undefined ? './whatsasena.db' : proc
 DEBUG = process.env.DEBUG === undefined ? false : convertToBool(process.env.DEBUG);
 
 module.exports = {
-    VERSION: 'v1.1.1 Bot',
+    VERSION: 'v1.1.1 ',
     CHANNEL: 'https://t.me/Bot_support_for_users',
     SESSION: process.env.BOT_SESSION === undefined ? '' : process.env.BOT_SESSION,
     ANTİLİNK: process.env.ANTİ_LİNK === undefined ? 'false' : process.env.ANTİ_LİNK,
