@@ -20,7 +20,7 @@ DEBUG = process.env.DEBUG === undefined ? false : convertToBool(process.env.DEBU
 
 module.exports = {
     VERSION: 'v1.1.1 Bot',
-    CHANNEL: 'https://t.me/remasterplugin',
+    CHANNEL: 'https://t.me/Bot_support_for_users',
     SESSION: process.env.BOT_SESSION === undefined ? '' : process.env.BOT_SESSION,
     ANTİLİNK: process.env.ANTİ_LİNK === undefined ? 'false' : process.env.ANTİ_LİNK,
     AUTOBİO: process.env.AUTO_BİO === undefined ? 'false' : process.env.AUTO_BİO,
