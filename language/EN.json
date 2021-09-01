@@ -70,7 +70,7 @@
             "GIVE_ME_CODE": "*Give me a code!*"
         },
         "nekobin": {
-            "NEKO_DESC": "Replied messages will be added to nekobin.com.",
+            "NEKO_DESC": "Replied messages will be added to nekobin .com.",
             "NEED_REPLY": "```Please reply to a message!```",
             "MUST_TEXT": "```Please reply to any message```"
         },
