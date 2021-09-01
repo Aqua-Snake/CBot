@@ -2,7 +2,7 @@
 
 <div align="center">
   
-![Cyber Army Bot Logo](https://i.ibb.co/Kw02v9J/logo.jpg)
+![Cyber Army Bot Logo](https://i.ibb.co/jf9Tkq6/logo.jpg)
 
 </div>
   ### Simple Method
