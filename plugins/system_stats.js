@@ -1,11 +1,10 @@
-/* Copyright (C) 2021 Aqua-Snake
+/* Copyright (C) 2020 Yusuf Usta.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
 WhatsAsena - Yusuf Usta
 Developer & Co-Founder - Phaticusthiccy
-Modified by - Aqua-Snake
 */
 
 const Asena = require('../events');
@@ -24,7 +23,7 @@ if (Config.WORKTYPE == 'private') {
     Asena.addCommand({pattern: 'alive', fromMe: true, desc: Lang.ALIVE_DESC}, (async (message, match) => {
 
         if (Config.ALIVEMSG == 'default') {
-            await message.client.sendMessage(message.jid, +Config.GANSTYLE+'```CYBER ARMY BOT```\n\n*Version:* ```'+Config.VERSION+'```\n\n*Bot is online*\n\nType .ca for command list' , MessageType.text);
+            await message.client.sendMessage(message.jid,'```Cyber Army Bot!```\n\n*Version:* ```'+Config.VERSION+'```\n\n*Bot is online*\n\nType .ca for command list ' , MessageType.text);
         }
         else {
             const pow = '*Powered by Cyber Army Bot*'
@@ -55,7 +54,7 @@ else if (Config.WORKTYPE == 'public') {
     Asena.addCommand({pattern: 'alive', fromMe: false, desc: Lang.ALIVE_DESC}, (async (message, match) => {
 
         if (Config.ALIVEMSG == 'default') {
-            await message.client.sendMessage(message.jid, +Config.GANSTYLE+'```CYBER ARMY BOT```\n\n*Version:* ```'+Config.VERSION+'```\n\n*Bot is online*\n\nType .ca for command list' , MessageType.text);
+            await message.client.sendMessage(message.jid,'```Cyber Army Bot!```\n\n*Version:* ```'+Config.VERSION+'```\n\n*Bot is online*\n\nType .ca for command list ', MessageType.text);
         }
         else {
             const pow = '*Powered by Cyber Army Bot*'
