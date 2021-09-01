@@ -1,8 +1,12 @@
-<center>
+
 ## Thanks for Everything 
 
-[img]https://i.ibb.co/XV4DCQq/logo.jpg[img]
-### Simple Method
+<div align="center">
+  
+[Cyber Army Bot Logo](https://i.ibb.co/XV4DCQq/logo.jpg)
+
+</div>
+  ### Simple Method
 
 [![Run on Repl.it](https://repl.it/badge/github/phaticusthiccy/WhatsAsenaDuplicated)](https://repl.it/@aquasnake/Bot-QR)
 
