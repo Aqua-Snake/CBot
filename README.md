@@ -1,6 +1,7 @@
+<center>
 ## Thanks for Everything 
 
-
+[img]https://i.ibb.co/XV4DCQq/logo.jpg[img]
 ### Simple Method
 
 [![Run on Repl.it](https://repl.it/badge/github/phaticusthiccy/WhatsAsenaDuplicated)](https://repl.it/@aquasnake/Bot-QR)
@@ -35,3 +36,5 @@ This project is protected by `GNU General Public Licence v3.0` license.
 
 ### Disclaimer
 `WhatsApp` name, its variations and the logo are registered trademarks of Facebook. We have nothing to do with the registered trademark
+
+  </center>
