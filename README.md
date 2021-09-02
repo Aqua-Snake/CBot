@@ -5,7 +5,8 @@
 ![Cyber Army Bot Logo](https://i.ibb.co/jf9Tkq6/logo.jpg)
 
 </div>
-  ### Simple Method
+
+### Simple Method
 
 [![Run on Repl.it](https://repl.it/badge/github/phaticusthiccy/WhatsAsenaDuplicated)](https://repl.it/@aquasnake/Bot-QR)
 
