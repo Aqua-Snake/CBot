@@ -18,7 +18,6 @@ $ git clone https://github.com/Aqua-Snake/Bot.git
 $ cd Bot
 $ npm i
 $ nano Config.env
-// Config.env oluşturun ve düzenleyin.
 // Config.env create and edit.
 $ node bot.js
 ```
