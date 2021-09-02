@@ -75,9 +75,9 @@
             "MUST_TEXT": "```Responde cualquier mensaje```"
         },
         "heroku": {
-            "RESTART_DESC": "Reiniciar WhatsAsena",
+            "RESTART_DESC": "Reiniciar ☣️Cyber Army Bot",
             "RESTART_MSG": "```Reiniciando...```",
-            "SHUTDOWN_DESC": "Apagar WhatsAsena",
+            "SHUTDOWN_DESC": "Apagar ☣️Cyber Army Bot",
             "SHUTDOWN_MSG": "```Apagando ⛔```",
             "DYNO_DESC": "Verificar el uso de heroku dyno",
             "DYNO_TOTAL": "```Cuota total```",
@@ -250,7 +250,7 @@
             "INVALID_HEROKU": "*❌ ¡Tu información de Heroku es incorrecta!*",
             "UPDATED": "*✅ ¡La actualización fue exitosa!*",
             "UPDATED_LOCAL": "*✅ ¡La actualización fue exitosa!*",
-            "AFTER_UPDATE": "*¡Reinicio de WhatsAsena*",
+            "AFTER_UPDATE": "*¡Reinicio de ☣️Cyber Army Bot*",
             "IN_AF": "*Asegúrate de que* ```HEROKU_APP_NAME``` *sea el mismo que* ```app name```\n*Si estos dos valores son iguales, cambie* ```HEROKU_API_KEY```!*\n\n_Siga estos pasos para acceder a estas configuraciones: Heroku >> App >> Settings >> Reavel Configs_\n_Siga estos pasos para renovar su API key:  Heroku >> Account >> API Key Luego reemplácelo con el viejo API key._"
         },
         "weather": {
@@ -438,7 +438,7 @@
             "SAVE_USAGE": "Registra el mensaje al que responde o la nota oficial.",
             "REPLY": "Por favor cite un mensaje o usar como .save <yournote>",
             "SUCCESSFULLY_ADDED": "Tu nota ha sido guardada con éxito, puede acceder a sus notas escribiendo .notes",
-            "UNSUCCESSFUL": "Encontramos un error al guardar tu nota, ınténtalo de nuevo. Si el problema persiste, comuníquese con los desarrolladores de WhatsAsena.",
+            "UNSUCCESSFUL": "Encontramos un error al guardar tu nota, ınténtalo de nuevo. Si el problema persiste, comuníquese con los desarrolladores de ☣️Cyber Army Bot.",
             "DELETE_USAGE": "Elimina *todas* las notas que ha guardado.",
             "SUCCESSFULLY_DELETED": "Todas tus notas se han eliminado correctamente."
         },

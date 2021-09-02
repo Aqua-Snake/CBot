@@ -75,9 +75,9 @@
             "MUST_TEXT": "```कृपया किसी भी संदेश का जवाब दें```"
         },
         "heroku": {
-            "RESTART_DESC": "WhatsAsena को फिर से शुरू करें",
+            "RESTART_DESC": "☣️Cyber Army Bot को फिर से शुरू करें",
             "RESTART_MSG": "```पुनरारंभ करते हुए प्रतीक्षा करें...```",
-            "SHUTDOWN_DESC": "WhatsAsena को बंद करो",
+            "SHUTDOWN_DESC": "☣️Cyber Army Bot को बंद करो",
             "SHUTDOWN_MSG": "```बंद कर रहा है ⛔```",
             "DYNO_DESC": "heroku dyno उपयोग की जाँच करें",
             "DYNO_TOTAL": "```कुल कोटा```",

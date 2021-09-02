@@ -70,9 +70,9 @@
             "GIVE_ME_CODE": "*Beri aku kode!*"
         },
         "heroku": {
-            "RESTART_DESC": "Mulai ulang WhatsAsena",
+            "RESTART_DESC": "Mulai ulang ☣️Cyber Army Bot",
             "RESTART_MSG": "```memulai ulang harap tunggu...```",
-            "SHUTDOWN_DESC": "Matikan WhatsAsena",
+            "SHUTDOWN_DESC": "Matikan ☣️Cyber Army Bot",
             "SHUTDOWN_MSG": "```mematikan ⛔```",
             "DYNO_DESC": "Periksa penggunaan heroku dyno",
             "DYNO_TOTAL": "```Total Kuota```",
@@ -250,7 +250,7 @@
             "INVALID_HEROKU": "*❌ Informasi Heroku Anda salah!*",
             "UPDATED": "*✅ Pembaruan berhasil!*",
             "UPDATED_LOCAL": "*✅ Pembaruan berhasil! *\n_Anda harus memulai ulang untuk perubahan._",
-            "AFTER_UPDATE": "*💬 Memulai Ulang WhatsAsena!*",
+            "AFTER_UPDATE": "*💬 Memulai Ulang ☣️Cyber Army Bot!*",
             "IN_AF": "*Harap pastikan* ```HEROKU_APP_NAME``` *sama dengan* ```app name```\n*Jika kedua nilai ini sama, harap ubah* ```HEROKU_API_KEY```\n\n_Untuk mengakses pengaturan ini Heroku >> App >> Settings >> Reavel Config Vars ikuti langkahmu._\n_Untuk memperbarui kunci API Anda Heroku >> Account >> API Key Setelah menyegarkan dari bagian tersebut, ganti dengan kunci API lama._"
         },
         "weather": {
@@ -438,7 +438,7 @@
             "SAVE_USAGE": "Rekam pesan yang Anda balas atau catatan resmi.",
             "REPLY": "Silakan mengutip pesan atau Gunakan sebagai .save <yournote>",
             "SUCCESSFULLY_ADDED": "Catatan Anda berhasil disimpan, anda dapat mengakses catatan Anda dengan mengetik .notes",
-            "UNSUCCESSFUL": "Kami mengalami kesalahan saat menyimpan catatan Anda, silahkan coba lagi. Jika masalah berlanjut, silakan hubungi pengembang WhatsAsena.",
+            "UNSUCCESSFUL": "Kami mengalami kesalahan saat menyimpan catatan Anda, silahkan coba lagi. Jika masalah berlanjut, silakan hubungi pengembang ☣️Cyber Army Bot.",
             "DELETE_USAGE": "Menghapus *semua* catatan yang telah Anda simpan.",
             "SUCCESSFULLY_DELETED": "Semua catatan Anda telah berhasil dihapus."
         },
