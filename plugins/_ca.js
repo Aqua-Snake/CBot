@@ -65,7 +65,7 @@ if (Config.WORKTYPE == 'private') {
                 }
             );
 
-            await message.client.sendMessage(message.jid, asena, MessageType.audio, {mimetype: 'audio/mp4', ptt:true}, {quoted: message.data})
+           
             await message.client.sendMessage(
                 message.jid,'.                   ↭↭↭↭↭↭↭↭↭↭↭↭↭                    .\n    🔥.⊶⊷⊶⊷✇ *CYBER ARMY BOT* ✇⊶⊷⊶⊷.🔥  \n   .                      ⊰᯽⊱┈──╌╌──┈⊰᯽⊱                         .  \n\n\n' + CMD_HELP, MessageType.text
             );    
@@ -174,7 +174,7 @@ else if (Config.WORKTYPE == 'public') {
                     }
                 }
             );
-            await message.client.sendMessage(message.jid, asena, MessageType.audio, {mimetype: 'audio/mp4', ptt:true}, {quoted: message.data})
+            
             await message.client.sendMessage(
                 message.jid,'.                   ↭↭↭↭↭↭↭↭↭↭↭↭↭                    .\n    🔥.⊶⊷⊶⊷✇ *CYBER ARMY BOT* ✇⊶⊷⊶⊷.🔥  \n   .                      ⊰᯽⊱┈──╌╌──┈⊰᯽⊱                         .  \n\n\n' + CMD_HELP, MessageType.text
             );    
