@@ -1,4 +1,4 @@
-## Thanks for Everything 
+## Cyber Army Bot
 
 <div align="center">
   
@@ -6,13 +6,64 @@
 
 </div>
 
+
+<p align="center">
+	<a href="httsp://github.com/Aqua-Snake/CBot">
+    <img src="https://img.shields.io/github/repo-size/Aqua-Snake/CBot?color=purple&label=Repo%20Size&style=plastic">
+
+  </a>
+  <a href="httsp://github.com/Aqua-Snake/CBot">
+    <img src="https://img.shields.io/codefactor/grade/github/Aqua-Snake/CBot?color=purple&label=Code%20Quality&style=plastic">
+
+  </a>
+  <a href="https://github.com/Aqua-Snake/CBot/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/Aqua-Snake/CBot?color=purple&label=Lisance&style=plastic">
+
+  </a>
+  <a href="https://github.com/Aqua-Snake/CBot">
+    <img src="https://img.shields.io/github/languages/top/Aqua-Snake/CBot?color=purple&label=Javascript&style=plastic">
+
+  </a>
+  <a href="https://github.com/Aqua-Snake">
+    <img src="https://img.shields.io/static/v1?label=Author&message=Thiccy&color=purple&style=plastic">
+
+  </a>
+  <a href="https://t.me/Bot_support_for_users">
+    <img src="https://img.shields.io/badge/Telegram-CBot%20Support-purple&style=plastic">
+
+   </a>
+  <a href="https://t.me/aqua_snake">
+    <img src="https://img.shields.io/badge/Telegram-CBot%20Contact-purple&style=plastic">
+
+  </a>
+</p>
+
+
+
+```
+WhatsAsena - Asena Userbot is Open Source software open to development. 
+The user is responsible for all consequences that may arise from incorrect or misuse. 
+Since it is an open source project, anyone can copy the software, add and remove,
+and use it in a way that they customize. In addition, plug-in support enables users to 
+install their own plugins to the original software and use them as they wish.
+Using the bot out of purpose will explicitly ban you.
+Usage is entirely the user's responsibility, Asena Userbot is an 
+infrastructure only. Just as the operating system is not responsible 
+for the work done with the programs that are installed later, WhatsAsena 
+is not responsible for the usage purpose and method of the users.
+Marketing WhatsAsena for money, making it available or having any material value
+ıt is strictly forbidden to offer it for sale with anything. All legal investigations that may arise
+the user is responsible.
+```
+
+
 ### Simple Method
 
-[![Run on Repl.it](https://repl.it/badge/github/phaticusthiccy/WhatsAsenaDuplicated)](https://repl.it/@aquasnake/Bot-QR)
+[![Run on Repl.it](https://repl.it/badge/github/Aqua-Snake/CBot)](https://repl.it/@aquasnake/Bot-QR)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Aqua-Snake/Bot)
 
-### The Hard Method
+### The Hard Method(Difficult to make)
 ```js
 $ git clone https://github.com/Aqua-Snake/Bot.git
 $ cd Bot
