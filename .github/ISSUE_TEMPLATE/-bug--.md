@@ -3,7 +3,7 @@ name: "[BUG] "
 about: Create a report to help us improve
 title: ''
 labels: Bug
-assignees: phaticusthiccy
+assignees: Aqua-Snake
 
 ---
 
@@ -24,7 +24,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Users, please complete the following actions.**
 - WhatApp Package Name
-- WhatsAsena Version
+- CBot Version
 - Work Type (Private || Public)
 
 ##
