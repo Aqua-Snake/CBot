@@ -1,5 +1,4 @@
-# Contributing to Thiccy
-
+# Contributing to Aqua Snake
 When contributing to this repository, please first discuss the change you wish to make via issue,
 email, or any other method with the owners of this repository before making a change. 
 
@@ -12,7 +11,7 @@ Please note we have a code of conduct, please follow it in all your interactions
 2. Update the README.md with details of changes to the interface, this includes new environment 
    variables, exposed ports, useful file locations and container parameters.
 3. Increase the version numbers in any examples files and the README.md to the new version that this
-   Pull Request would represent. The versioning scheme we use is [ReadMe](https://github.com/Aqua-Snake/Bot/blob/main/README.md).
+   Pull Request would represent. The versioning scheme we use is [ReadMe](https://github.com/Aqua-Snake/CBot/blob/master/README.md).
 4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you 
    do not have permission to do that, you may request the second reviewer to merge it for you.
 
@@ -84,13 +83,15 @@ faith may face temporary or permanent repercussions as determined by other
 members of the project's leadership.
 
 
-[Home Page](https://github.com/Aqua-Snake/Bot)
+[Home Page](https://github.com/Aqua-Snake/CBot)
 
-[Thiccy's Blog](https://phaticusthiccy.jimdofree.com)
 
 ### Warning ⚠️
 
 This project is open source. So you are responsible for the changes you make.
 It is your responsibility to use these codes. We are not responsible for any bad things you make.
 
-##
+##### Sharing CBot on Social Medias
+
+> Users Allowed 
+

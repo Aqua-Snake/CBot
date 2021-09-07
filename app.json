@@ -1,15 +1,15 @@
 {
-    "name": "Bot",
+    "name": "CBot",
     "description": " Makes it easy and fun to use Whatsapp. made for WhatsApp.",
-    "logo": "https://i.ibb.co/s1KQtSQ/botlogo.jpg",
+    "logo": "https://i.ibb.co/jf9Tkq6/logo.jpg",
     "keywords": ["whatsapp", "userbot", "bot", "api", "ai"],
-    "repository": "https://github.com/Aqua-Snake/Bot",
+    "repository": "https://github.com/Aqua-Snake/CBot",
     "website":   "https://t.me/aqua_snake",
     "success_url": "https://t.me/Bot_support_for_users",
     "stack": "container",
     "env": {
-        "BOT_SESSION": {
-            "description": "Qr.Js  Type here yours Bot Session.",
+        "CBOT_SESSION": {
+            "description": "Qr.Js  Type here yours CBot Session.",
             "required": true
         },
         "SUDO": {
