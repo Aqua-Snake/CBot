@@ -1,9 +1,12 @@
-/* Codded by @phaticusthiccy
-Telegram: t.me/phaticusthiccy
-Instagram: www.instagram.com/kyrie.baran
+/* Copyright (C) 2021 Aqua Snake.
+
+Licensed under the  GPL-3.0 License;
+you may not use this file except in compliance with the License.
+
+Cyber Army Bot  - Aqua-Snake
 */
 
-const Asena = require('../events')
+const CBot = require('../events')
 const { MessageType } = require('@adiwajshing/baileys')
 const axios = require('axios')
 const cn = require('../config');
@@ -15,7 +18,7 @@ const Tlang = Language.getString('tiktok')
 
 if (cn.WORKTYPE == 'private') {
 
-    Asena.addCommand({ pattern: 'insta ?(.*)', fromMe: true, desc: Lang.DESC }, (async (message, match) => {
+    CBot.addCommand({ pattern: 'insta ?(.*)', fromMe: true, desc: Lang.DESC }, (async (message, match) => {
         if (match[0].includes('install')) return;
         if (match[1] === '') return await message.client.sendMessage(message.jid, Lang.NEED_WORD, MessageType.text, { quoted: message.data });
         if (!match[1].includes('www.instagram.com')) return await message.client.sendMessage(message.jid, Lang.NEED_WORD, MessageType.text, { quoted: message.data });
@@ -40,8 +43,7 @@ if (cn.WORKTYPE == 'private') {
 
     }));
 
-    /*
-    Asena.addCommand({ pattern: 'tiktok ?(.*)', fromMe: true, desc: Tlang.TİKTOK }, async (message, match) => {
+    CBot.addCommand({ pattern: 'tiktok ?(.*)', fromMe: true, desc: Tlang.TİKTOK }, async (message, match) => {
 
         const userName = match[1]
 
@@ -61,7 +63,7 @@ if (cn.WORKTYPE == 'private') {
             })
 
             await message.sendMessage(Buffer.from(profileBuffer.data), MessageType.video, {
-              caption: 'Made by WhatsAsena',
+              caption: 'Made by CBot',
             })
           })
           .catch(
@@ -69,11 +71,10 @@ if (cn.WORKTYPE == 'private') {
           )
       },
     )
-    */
 }
 else if (cn.WORKTYPE == 'public') {
 
-    Asena.addCommand({ pattern: 'insta ?(.*)', fromMe: false, desc: Lang.DESC }, (async (message, match) => {
+    CBot.addCommand({ pattern: 'insta ?(.*)', fromMe: false, desc: Lang.DESC }, (async (message, match) => {
         if (match[0].includes('install')) return;
         if (match[1] === '') return await message.client.sendMessage(message.jid, Lang.NEED_WORD, MessageType.text, { quoted: message.data });
         if (!match[1].includes('www.instagram.com')) return await message.client.sendMessage(message.jid, Lang.NEED_WORD, MessageType.text, { quoted: message.data });
@@ -97,7 +98,7 @@ else if (cn.WORKTYPE == 'public') {
         });
 
     }));
-    Asena.addCommand({ pattern: 'insta ?(.*)', fromMe: true, desc: Lang.DESC, dontAddCommandList: true }, (async (message, match) => {
+    CBot.addCommand({ pattern: 'insta ?(.*)', fromMe: true, desc: Lang.DESC, dontAddCommandList: true }, (async (message, match) => {
         if (match[0].includes('install')) return;
         if (match[1] === '') return await message.client.sendMessage(message.jid, Lang.NEED_WORD, MessageType.text, { quoted: message.data });
         if (!match[1].includes('www.instagram.com')) return await message.client.sendMessage(message.jid, Lang.NEED_WORD, MessageType.text, { quoted: message.data });
@@ -121,8 +122,7 @@ else if (cn.WORKTYPE == 'public') {
         });
 
     }));
-    /*
-    Asena.addCommand({ pattern: 'tiktok ?(.*)', fromMe: false, desc: Tlang.TİKTOK }, async (message, match) => {
+    CBot.addCommand({ pattern: 'tiktok ?(.*)', fromMe: false, desc: Tlang.TİKTOK }, async (message, match) => {
 
         const userName = match[1]
 
@@ -142,7 +142,7 @@ else if (cn.WORKTYPE == 'public') {
             })
 
             await message.sendMessage(Buffer.from(profileBuffer.data), MessageType.video, {
-              caption: 'Made by WhatsAsena',
+              caption: 'Made by CBot',
             })
           })
           .catch(
@@ -150,7 +150,7 @@ else if (cn.WORKTYPE == 'public') {
           )
       },
     )
-    Asena.addCommand({ pattern: 'tiktok ?(.*)', fromMe: true, desc: Tlang.TİKTOK }, async (message, match) => {
+    CBot.addCommand({ pattern: 'tiktok ?(.*)', fromMe: true, desc: Tlang.TİKTOK }, async (message, match) => {
 
         const userName = match[1]
 
@@ -170,7 +170,7 @@ else if (cn.WORKTYPE == 'public') {
             })
 
             await message.sendMessage(Buffer.from(profileBuffer.data), MessageType.video, {
-              caption: 'Made by WhatsAsena',
+              caption: 'Made by CBot',
             })
           })
           .catch(
@@ -178,5 +178,4 @@ else if (cn.WORKTYPE == 'public') {
           )
       },
     )
-    */
 }

@@ -1,16 +1,17 @@
-/* Copyright (C) 2020 Yusuf Usta.
+/* Copyright (C) 2021 Aqua Snake.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-WhatsAsena - Yusuf Usta
+Cyber Army Bot  - Aqua-Snake
 */
 
-const Asena = require('../events');
+const CBot = require('../events');
 const {MessageType,Mimetype} = require('@adiwajshing/baileys');
 const translatte = require('translatte');
 const config = require('../config');
 const LanguageDetect = require('languagedetect');
+const CBotStack = require('CBot-npm');
 const lngDetector = new LanguageDetect();
 const Heroku = require('heroku-client');
 const heroku = new Heroku({
@@ -134,7 +135,7 @@ if (config.LANG == 'RU') {
 
 if (config.WORKTYPE == 'private') {
 
-    Asena.addCommand({pattern: 'trt(?: |$)(\\S*) ?(\\S*)', desc: Lang.TRANSLATE_DESC, usage: Lang.TRANSLATE_USAGE, fromMe: true}, (async (message, match) => {
+    CBot.addCommand({pattern: 'trt(?: |$)(\\S*) ?(\\S*)', desc: Lang.TRANSLATE_DESC, usage: Lang.TRANSLATE_USAGE, fromMe: true}, (async (message, match) => {
 
         if (!message.reply_message) {
             return await message.client.sendMessage(message.jid,Lang.NEED_REPLY,MessageType.text);
@@ -217,29 +218,28 @@ if (config.WORKTYPE == 'private') {
         succ_on = 'Antilink Berhasil Dibuka!'
         succ_off = 'Antilink Berhasil Ditutup!'
     }
-    Asena.addCommand({pattern: 'antilink ?(.*)', fromMe: true, desc: l_dsc, usage: '.antilink on / off' }, (async (message, match) => {
-        const anti_status = `${config.ANTİLİNK}`
+    CBot.addCommand({pattern: 'antilink ?(.*)', fromMe: true, desc: l_dsc, usage: '.antilink on / off' }, (async (message, match) => {
         if (match[1] == 'on') {
-            if (anti_status == 'true') {
+            if (config.ANTILINK == 'true') {
                 return await message.client.sendMessage(message.jid, '*' + alr_on + '*', MessageType.text)
             }
             else {
                 await heroku.patch(baseURI + '/config-vars', { 
                     body: { 
-                        ['ANTİ_LİNK']: 'true'
+                        ['ANTI_LINK']: 'true'
                     } 
                 });
                 await message.client.sendMessage(message.jid, '*' + succ_on + '*', MessageType.text)
             }
         }
         else if (match[1] == 'off') {
-            if (anti_status !== 'true') {
+            if (config.ANTI_LINK !== 'true') {
                 return await message.client.sendMessage(message.jid, '*' + alr_off + '*', MessageType.text)
             }
             else {
                 await heroku.patch(baseURI + '/config-vars', { 
                     body: { 
-                        ['ANTİ_LİNK']: 'false'
+                        ['ANTI_LINK']: 'false'
                     } 
                 });
                 await message.client.sendMessage(message.jid, '*' + succ_off + '*', MessageType.text)
@@ -314,36 +314,35 @@ if (config.WORKTYPE == 'private') {
         succ_on_bio = 'Autobio Berhasil Dibuka!'
         succ_off_bio = 'Autobio Berhasil Ditutup!'
     }
-    Asena.addCommand({pattern: 'autobio ?(.*)', fromMe: true, desc: auto_dsc, usage: '.autobio on / off' }, (async (message, match) => {
-        const bio_status = `${config.AUTOBİO}`
+    CBot.addCommand({pattern: 'autobio ?(.*)', fromMe: true, desc: auto_dsc, usage: '.autobio on / off' }, (async (message, match) => {
         if (match[1] == 'on') {
-            if (bio_status == 'true') {
+            if (config.AUTOBIO == 'true') {
                 return await message.client.sendMessage(message.jid, '*' + alr_on_bio + '*', MessageType.text)
             }
             else {
                 await heroku.patch(baseURI + '/config-vars', { 
                     body: { 
-                        ['AUTO_BİO']: 'true'
+                        ['AUTO_BIO']: 'true'
                     } 
                 });
                 await message.client.sendMessage(message.jid, '*' + succ_on_bio + '*', MessageType.text)
             }
         }
         else if (match[1] == 'off') {
-            if (bio_status !== 'true') {
+            if (config.AUTOBIO !== 'true') {
                 return await message.client.sendMessage(message.jid, '*' + alr_off_bio + '*', MessageType.text)
             }
             else {
                 await heroku.patch(baseURI + '/config-vars', { 
                     body: { 
-                        ['AUTO_BİO']: 'false'
+                        ['AUTO_BIO']: 'false'
                     } 
                 });
                 await message.client.sendMessage(message.jid, '*' + succ_off_bio + '*', MessageType.text)
             }
         }
     }));
-    Asena.addCommand({pattern: 'detectlang$', fromMe: true, desc: dlang_dsc}, (async (message, match) => {
+    CBot.addCommand({pattern: 'detectlang$', fromMe: true, desc: dlang_dsc}, (async (message, match) => {
 
         if (!message.reply_message) return await message.client.sendMessage(message.jid,Lang.NEED_REPLY, MessageType.text)
         const msg = message.reply_message.text
@@ -368,7 +367,7 @@ if (config.WORKTYPE == 'private') {
         const rep_7 = res_1 + res_2 + res_3 + res_4 + res_5 + res_6
         await message.client.sendMessage(message.jid,rep_7,MessageType.text);
     }));
-    Asena.addCommand({pattern: 'currency(?: ([0-9.]+) ([a-zA-Z]+) ([a-zA-Z]+)|$|(.*))', fromMe: true}, (async (message, match) => {
+    CBot.addCommand({pattern: 'currency(?: ([0-9.]+) ([a-zA-Z]+) ([a-zA-Z]+)|$|(.*))', fromMe: true}, (async (message, match) => {
 
         if(match[1] === undefined || match[2] == undefined || match[3] == undefined) {
             return await message.client.sendMessage(message.jid,Lang.CURRENCY_ERROR,MessageType.text);
@@ -395,7 +394,7 @@ if (config.WORKTYPE == 'private') {
 
     if (config.LANG == 'TR' || config.LANG == 'AZ') {
 
-        Asena.addCommand({pattern: 'tts (.*)', fromMe: true, desc: Lang.TTS_DESC}, (async (message, match) => {
+        CBot.addCommand({pattern: 'tts (.*)', fromMe: true, desc: Lang.TTS_DESC}, (async (message, match) => {
 
             if(match[1] === undefined || match[1] == "")
                 return;
@@ -422,7 +421,7 @@ if (config.WORKTYPE == 'private') {
         }));
     }
     else {
-        Asena.addCommand({pattern: 'tts (.*)', fromMe: true, desc: Lang.TTS_DESC}, (async (message, match) => {
+        CBot.addCommand({pattern: 'tts (.*)', fromMe: true, desc: Lang.TTS_DESC}, (async (message, match) => {
 
             if(match[1] === undefined || match[1] == "")
                 return;
@@ -448,7 +447,7 @@ if (config.WORKTYPE == 'private') {
             await message.client.sendMessage(message.jid,buffer, MessageType.audio, {mimetype: Mimetype.mp4Audio, ptt: true});
         }));
     }
-    Asena.addCommand({pattern: 'song ?(.*)', fromMe: true, desc: Lang.SONG_DESC}, (async (message, match) => { 
+    CBot.addCommand({pattern: 'song ?(.*)', fromMe: true, desc: Lang.SONG_DESC}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_TEXT_SONG,MessageType.text);    
         let arama = await yts(match[1]);
@@ -481,7 +480,7 @@ if (config.WORKTYPE == 'private') {
             });
     }));
 
-    Asena.addCommand({pattern: 'video ?(.*)', fromMe: true, desc: Lang.VIDEO_DESC}, (async (message, match) => { 
+    CBot.addCommand({pattern: 'video ?(.*)', fromMe: true, desc: Lang.VIDEO_DESC}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_VIDEO,MessageType.text);    
     
@@ -508,7 +507,7 @@ if (config.WORKTYPE == 'private') {
         });
     }));
 
-    Asena.addCommand({pattern: 'yt ?(.*)', fromMe: true, desc: Lang.YT_DESC}, (async (message, match) => { 
+    CBot.addCommand({pattern: 'yt ?(.*)', fromMe: true, desc: Lang.YT_DESC}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_WORDS,MessageType.text);    
         var reply = await message.client.sendMessage(message.jid,Lang.GETTING_VIDEOS,MessageType.text);
@@ -528,7 +527,7 @@ if (config.WORKTYPE == 'private') {
         await reply.delete();
     }));
 
-    Asena.addCommand({pattern: 'wiki ?(.*)', fromMe: true, desc: Lang.WIKI_DESC}, (async (message, match) => { 
+    CBot.addCommand({pattern: 'wiki ?(.*)', fromMe: true, desc: Lang.WIKI_DESC}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_WORDS,MessageType.text);    
         var reply = await message.client.sendMessage(message.jid,Lang.SEARCHING,MessageType.text);
@@ -541,69 +540,73 @@ if (config.WORKTYPE == 'private') {
         await reply.delete();
     }));
 
-    Asena.addCommand({pattern: 'img ?(.*)', fromMe: true, desc: Lang.IMG_DESC}, (async (message, match) => { 
+    CBot.addCommand({pattern: 'img ?(.*)', fromMe: true, desc: Lang.IMG_DESC}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_WORDS,MessageType.text);
-        gis(match[1], async (error, result) => {
-            for (var i = 0; i < (result.length < 5 ? result.length : 5); i++) {
-                var get = got(result[i].url, {https: {rejectUnauthorized: false}});
-                var stream = get.buffer();
-                
-                stream.then(async (image) => {
-                    await message.client.sendMessage(message.jid,image, MessageType.image);
-                });
-            }
-
-            message.reply(Lang.IMG.format((result.length < 5 ? result.length : 5), match[1]));
-        });
+        
+        var img_list = await CBotStack.search_image(match[1])
+        await message.client.sendMessage(message.jid, Lang.IMG.format(5, match[1]), MessageType.text);
+        var img1 = await axios.get(img_list.link1, {responseType: 'arraybuffer'})
+        await message.sendMessage(Buffer.from(img1.data), MessageType.image)
+        var img2 = await axios.get(img_list.link2, {responseType: 'arraybuffer'})
+        await message.sendMessage(Buffer.from(img2.data), MessageType.image)
+        var img3 = await axios.get(img_list.link3, {responseType: 'arraybuffer'})
+        await message.sendMessage(Buffer.from(img3.data), MessageType.image)
+        var img4 = await axios.get(img_list.link4, {responseType: 'arraybuffer'})
+        await message.sendMessage(Buffer.from(img4.data), MessageType.image)
+        var img5 = await axios.get(img_list.link5, {responseType: 'arraybuffer'})
+        await message.sendMessage(Buffer.from(img5.data), MessageType.image)
     }));
 
-    Asena.addCommand({ pattern: 'github ?(.*)', fromMe: true, desc: Glang.GİTHUB_DESC }, async (message, match) => {
-
-        const userName = match[1]
- 
-        if (userName === '') return await message.client.sendMessage(message.jid, Glang.REPLY, MessageType.text)
-
-        await axios
-          .get(`https://videfikri.com/api/github/?username=${userName}`)
-          .then(async (response) => {
-
-            const {
-              hireable,
-              company,
-              profile_pic,
-              username,
-              fullname, 
-              blog, 
-              location,
-              email,
-              public_repository,
-              biografi,
-              following,
-              followers,
-              public_gists,
-              profile_url,
-              last_updated,
-              joined_on,
-            } = response.data.result
-
-            const githubscrap = await axios.get(profile_pic, 
-              {responseType: 'arraybuffer',
-            })
-
-            const msg = `*${Glang.USERNAME}* ${username} \n*${Glang.NAME}* ${fullname} \n*${Glang.FOLLOWERS}* ${followers} \n*${Glang.FOLLOWİNG}* ${following} \n*${Glang.BİO}* ${biografi} \n*${Glang.REPO}* ${public_repository} \n*${Glang.GİST}* ${public_gists} \n*${Glang.LOCATİON}* ${location} \n*${Glang.MAİL}* ${email} \n*${Glang.BLOG}* ${blog} \n*${Glang.COMPANY}* ${company} \n*${Glang.HİRE}* ${hireable === "true" ? Glang.HİRE_TRUE : Glang.HİRE_FALSE} \n*${Glang.JOİN}* ${joined_on} \n*${Glang.UPDATE}* ${last_updated} \n*${Glang.URL}* ${profile_url}`
-
-            await message.sendMessage(Buffer.from(githubscrap.data), MessageType.image, { 
-              caption: msg,
-            })
-          })
-          .catch(
-            async (err) => await message.client.sendMessage(message.jid, Glang.NOT, MessageType.text),
-          )
-      },
-    )
-
-    Asena.addCommand({pattern: 'lyric ?(.*)', fromMe: true, desc: Slang.LY_DESC }, (async (message, match) => { 
+    CBot.addCommand({ pattern: 'github ?(.*)', fromMe: true, desc: Glang.GİTHUB_DESC, usage: 'github phaticusthiccy // github phaticusthiccy/Emacs-Train' }, (async (message, match) => {
+      var Msg = CBotStack.github_message(config.LANG)
+      if (match[1].includes('/')) {
+        var data = await CBotStack.github_repos(match[1])     
+        if (data.username == undefined) return await message.client.sendMessage(message.jid, Msg.not_found_repo, MessageType.text)
+        var payload = Msg.repo.username + data.username + '\n' +
+          Msg.repo.repo_name + data.repo_name + '\n' +
+          Msg.repo.repo_id + data.repo_id + '\n' +
+          Msg.repo.repo_desc + data.repo_desc + '\n' +
+          Msg.repo.created_at + data.created_at + '\n' +
+          Msg.repo.updated_at + data.updated_at + '\n' +
+          Msg.repo.fork + data.fork == true ? '✅\n' : '❌\n' +
+          Msg.repo.size + data.size + 'KB' + '\n' +
+          Msg.repo.star + data.star + '\n' +
+          Msg.repo.forks + data.forks + '\n' +
+          Msg.repo.watcher + data.watcher + '\n' +
+          Msg.repo.subscribers + data.subscribers + '\n' +
+          Msg.repo.language + data.language + '\n' +
+          Msg.repo.issues + data.issues + '\n' +
+          Msg.repo.has_lisance + data.has_lisance == false ? '❌\n' : '✅\n' +
+          Msg.repo.lisance_key + data.lisance_key + '\n' +
+          Msg.repo.lisance_name + data.lisance_name + '\n' +
+          Msg.repo.branch + data.branch
+        await message.client.sendMessage(massage.jid, payload, MessageType.text)
+      } else {
+        var data = await CBotStack.github_user(match[1])
+        if (data.status == false) return await message.client.sendMessage(message.jid, Msg.not_found_user, MassageType.text)
+        var payload = Msg.user.username + data.username + '\n' +
+          Msg.user.name + data.name == 'null' ? '' + '\n' : data.name + '\n' + 
+          Msg.user.biography + data.biography == 'null' ? '' + '\n' : data.biography + '\n' +
+          Msg.user.created_at + data.created_at + '\n' +
+          Msg.user.last_update + data.last_update + '\n' +
+          Msg.user.id + data.id + '\n' +
+          Msg.user.repos + data.repos + '\n' +
+          Msg.user.gists + data.gists + '\n' +
+          Msg.user.location + data.location == 'null' ? '' + '\n' : data.location + '\n' +
+          Msg.user.following + data.following + '\n' +
+          Msg.user.follower + data.follower + '\n' +
+          Msg.user.hireable + data.hireable == 'null' ? Msg.cant_rent + '\n' : Msg.can_rent + '\n'
+          Msg.user.blog + data.blog == false ? '' + '\n' : data.blog + '\n' +
+          Msg.user.twitter + data.twitter == 'null' ? '' + '\n' : data.twitter + '\n' +
+          Msg.user.company + data.company == 'null' ? '' + '\n' : data.company + '\n' +
+          Msg.user.mail + data.mail == 'null' ? '' + '\n' : data.mail
+        var bf = await axios.get(data.image, {responseType:'arraybuffer'})
+        await message.sendMessage(Buffer.from(bf.data), MessageType.image, { caption: payload })
+      }
+    }));
+        
+    CBot.addCommand({pattern: 'lyric ?(.*)', fromMe: true, desc: Slang.LY_DESC }, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid, Slang.NEED, MessageType.text);
 
@@ -618,7 +621,7 @@ if (config.WORKTYPE == 'private') {
 
     }));
 
-    Asena.addCommand({pattern: "covid ?(.*)", fromMe: true, desc: Clang.COV_DESC}, (async (message, match) => {
+    CBot.addCommand({pattern: "covid ?(.*)", fromMe: true, desc: Clang.COV_DESC}, (async (message, match) => {
         if (match[1] === "") {
             try{
                 //const resp = await fetch("https://coronavirus-19-api.herokuapp.com/all").then(r => r.json());
@@ -824,7 +827,7 @@ if (config.WORKTYPE == 'private') {
 }
 else if (config.WORKTYPE == 'public') {
 
-    Asena.addCommand({pattern: 'trt(?: |$)(\\S*) ?(\\S*)', desc: Lang.TRANSLATE_DESC, usage: Lang.TRANSLATE_USAGE, fromMe: false}, (async (message, match) => {
+    CBot.addCommand({pattern: 'trt(?: |$)(\\S*) ?(\\S*)', desc: Lang.TRANSLATE_DESC, usage: Lang.TRANSLATE_USAGE, fromMe: false}, (async (message, match) => {
 
         if (!message.reply_message) {
             return await message.client.sendMessage(message.jid,Lang.NEED_REPLY,MessageType.text);
@@ -839,7 +842,7 @@ else if (config.WORKTYPE == 'public') {
             return await message.client.sendMessage(message.jid,Lang.TRANSLATE_ERROR,MessageType.text)
         }
     }));
-    Asena.addCommand({pattern: 'detectlang$', fromMe: false, desc: dlang_dsc}, (async (message, match) => {
+    CBot.addCommand({pattern: 'detectlang$', fromMe: false, desc: dlang_dsc}, (async (message, match) => {
 
         if (!message.reply_message) return await message.client.sendMessage(message.jid,Lang.NEED_REPLY, MessageType.text)
         const msg = message.reply_message.text
@@ -864,7 +867,7 @@ else if (config.WORKTYPE == 'public') {
         const rep_7 = res_1 + res_2 + res_3 + res_4 + res_5 + res_6
         await message.client.sendMessage(message.jid,rep_7,MessageType.text, { quoted: message.data });
     }));
-    Asena.addCommand({pattern: 'currency(?: ([0-9.]+) ([a-zA-Z]+) ([a-zA-Z]+)|$|(.*))', fromMe: false}, (async (message, match) => {
+    CBot.addCommand({pattern: 'currency(?: ([0-9.]+) ([a-zA-Z]+) ([a-zA-Z]+)|$|(.*))', fromMe: false}, (async (message, match) => {
 
         if(match[1] === undefined || match[2] == undefined || match[3] == undefined) {
             return await message.client.sendMessage(message.jid,Lang.CURRENCY_ERROR,MessageType.text);
@@ -888,8 +891,103 @@ else if (config.WORKTYPE == 'public') {
             }
         }
     }));
-
-    Asena.addCommand({pattern: 'tts (.*)', fromMe: false, desc: Lang.TTS_DESC}, (async (message, match) => {
+    var l_dsc = ''
+    var alr_on = ''
+    var alr_off = ''
+    var succ_on = ''
+    var succ_off = ''
+    if (config.LANG == 'TR') {
+        l_dsc = 'Antilink aracını etkinleştirir.'
+        alr_on = 'Antilink halihazırda açık!'
+        alr_off = 'Antilink halihazırda kapalı!'
+        succ_on = 'Antilink Başarıyla Açıldı!'
+        succ_off = 'Antilink Başarıyla Kapatıldı!'
+    }
+    if (config.LANG == 'EN') {
+        l_dsc = 'Activates the Antilink tool.'
+        alr_on = 'Antilink is already open!'
+        alr_off = 'Antilink is currently closed!'
+        succ_on = 'Antilink Opened Successfully!'
+        succ_off = 'Antilink Closed Successfully!'
+    }
+    if (config.LANG == 'AZ') {
+        l_dsc = 'Antilink alətini aktivləşdirir.'
+        alr_on = 'Antilink hazırda açıqdır!'
+        alr_off = 'Antilink hazırda bağlıdır!'
+        succ_on = 'Antilink Uğurla Açıldı!'
+        succ_off = 'Antilink Uğurla Bağlandı!'
+    }
+    if (config.LANG == 'HI') {
+        l_dsc = 'एंटीलिंक टूल को सक्रिय करता है।'
+        alr_on = 'एंटीलिंक पहले से ही खुला है!'
+        alr_off = 'एंटीलिंक वर्तमान में बंद है!'
+        succ_on = 'एंटीलिंक सफलतापूर्वक खोला गया!'
+        succ_off = 'एंटीलिंक सफलतापूर्वक बंद!'
+    }
+    if (config.LANG == 'ML') {
+        l_dsc = 'ആന്റിലിങ്ക് ഉപകരണം സജീവമാക്കുന്നു.'
+        alr_on = 'ആന്റിലിങ്ക് ഇതിനകം തുറന്നു!'
+        alr_off = 'ആന്റിലിങ്ക് നിലവിൽ അടച്ചിരിക്കുന്നു!'
+        succ_on = 'ആന്റിലിങ്ക് വിജയകരമായി തുറന്നു!'
+        succ_off = 'ആന്റിലിങ്ക് വിജയകരമായി അടച്ചു!'
+    }
+    if (config.LANG == 'PT') {
+        l_dsc = 'Ativa a ferramenta Antilink.'
+        alr_on = 'O Antilink já está aberto!'
+        alr_off = 'Antilink está fechado no momento!'
+        succ_on = 'Antilink aberto com sucesso!'
+        succ_off = 'Antilink fechado com sucesso!'
+    }
+    if (config.LANG == 'RU') {
+        l_dsc = 'Активирует инструмент Antilink.'
+        alr_on = 'Антилинк уже открыт!'
+        alr_off = 'Антилинк сейчас закрыт!'
+        succ_on = 'Антилинк успешно открыт!'
+        succ_off = 'Антилинк успешно закрыт!'
+    }
+    if (config.LANG == 'ES') {
+        l_dsc = 'Activa la herramienta Antilink.'
+        alr_on = '¡Antilink ya está abierto!'
+        alr_off = '¡Antilink está cerrado actualmente!'
+        succ_on = '¡Antilink se abrió con éxito!'
+        succ_off = 'Antilink cerrado correctamente!'
+    }
+    if (config.LANG == 'ID') {
+        l_dsc = 'Mengaktifkan alat Antilink.'
+        alr_on = 'Antilink sudah terbuka!'
+        alr_off = 'Antilink saat ini ditutup!'
+        succ_on = 'Antilink Berhasil Dibuka!'
+        succ_off = 'Antilink Berhasil Ditutup!'
+    }
+    CBot.addCommand({pattern: 'antilink ?(.*)', fromMe: true, desc: l_dsc, usage: '.antilink on / off' }, (async (message, match) => {
+        if (match[1] == 'on') {
+            if (config.ANTILINK == 'true') {
+                return await message.client.sendMessage(message.jid, '*' + alr_on + '*', MessageType.text)
+            }
+            else {
+                await heroku.patch(baseURI + '/config-vars', { 
+                    body: { 
+                        ['ANTI_LINK']: 'true'
+                    } 
+                });
+                await message.client.sendMessage(message.jid, '*' + succ_on + '*', MessageType.text)
+            }
+        }
+        else if (match[1] == 'off') {
+            if (config.ANTI_LINK !== 'true') {
+                return await message.client.sendMessage(message.jid, '*' + alr_off + '*', MessageType.text)
+            }
+            else {
+                await heroku.patch(baseURI + '/config-vars', { 
+                    body: { 
+                        ['ANTI_LINK']: 'false'
+                    } 
+                });
+                await message.client.sendMessage(message.jid, '*' + succ_off + '*', MessageType.text)
+            }
+        }
+    }));
+    CBot.addCommand({pattern: 'tts (.*)', fromMe: false, desc: Lang.TTS_DESC}, (async (message, match) => {
 
         if(match[1] === undefined || match[1] == "")
             return;
@@ -915,7 +1013,7 @@ else if (config.WORKTYPE == 'public') {
         await message.client.sendMessage(message.jid,buffer, MessageType.audio, {mimetype: Mimetype.mp4Audio, ptt: true});
     }));
 
-    Asena.addCommand({pattern: 'song ?(.*)', fromMe: false, desc: Lang.SONG_DESC}, (async (message, match) => { 
+    CBot.addCommand({pattern: 'song ?(.*)', fromMe: false, desc: Lang.SONG_DESC}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_TEXT_SONG,MessageType.text);    
         let arama = await yts(match[1]);
@@ -948,7 +1046,7 @@ else if (config.WORKTYPE == 'public') {
             });
     }));
 
-    Asena.addCommand({pattern: 'video ?(.*)', fromMe: false, desc: Lang.VIDEO_DESC}, (async (message, match) => { 
+    CBot.addCommand({pattern: 'video ?(.*)', fromMe: false, desc: Lang.VIDEO_DESC}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_VIDEO,MessageType.text);    
     
@@ -975,7 +1073,7 @@ else if (config.WORKTYPE == 'public') {
         });
     }));
 
-    Asena.addCommand({pattern: 'yt ?(.*)', fromMe: false, desc: Lang.YT_DESC}, (async (message, match) => { 
+    CBot.addCommand({pattern: 'yt ?(.*)', fromMe: false, desc: Lang.YT_DESC}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_WORDS,MessageType.text);    
         var reply = await message.client.sendMessage(message.jid,Lang.GETTING_VIDEOS,MessageType.text);
@@ -995,7 +1093,7 @@ else if (config.WORKTYPE == 'public') {
         await reply.delete();
     }));
 
-    Asena.addCommand({pattern: 'wiki ?(.*)', fromMe: false, desc: Lang.WIKI_DESC}, (async (message, match) => { 
+    CBot.addCommand({pattern: 'wiki ?(.*)', fromMe: false, desc: Lang.WIKI_DESC}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_WORDS,MessageType.text);    
         var reply = await message.client.sendMessage(message.jid,Lang.SEARCHING,MessageType.text);
@@ -1008,69 +1106,74 @@ else if (config.WORKTYPE == 'public') {
         await reply.delete();
     }));
 
-    Asena.addCommand({pattern: 'img ?(.*)', fromMe: false, desc: Lang.IMG_DESC}, (async (message, match) => { 
+    CBot.addCommand({pattern: 'img ?(.*)', fromMe: false, desc: Lang.IMG_DESC}, (async (message, match) => { 
 
         if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_WORDS,MessageType.text);
-        gis(match[1], async (error, result) => {
-            for (var i = 0; i < (result.length < 5 ? result.length : 5); i++) {
-                var get = got(result[i].url, {https: {rejectUnauthorized: false}});
-                var stream = get.buffer();
-                
-                stream.then(async (image) => {
-                    await message.client.sendMessage(message.jid,image, MessageType.image);
-                });
-            }
-
-            message.reply(Lang.IMG.format((result.length < 5 ? result.length : 5), match[1]));
-        });
+        
+        var img_list = await CBotStack.search_image(match[1])
+        await message.client.sendMessage(message.jid, Lang.IMG.format(5, match[1]), MessageType.text);
+        var img1 = await axios.get(img_list.link1, {responseType: 'arraybuffer'})
+        await message.sendMessage(Buffer.from(img1.data), MessageType.image)
+        var img2 = await axios.get(img_list.link2, {responseType: 'arraybuffer'})
+        await message.sendMessage(Buffer.from(img2.data), MessageType.image)
+        var img3 = await axios.get(img_list.link3, {responseType: 'arraybuffer'})
+        await message.sendMessage(Buffer.from(img3.data), MessageType.image)
+        var img4 = await axios.get(img_list.link4, {responseType: 'arraybuffer'})
+        await message.sendMessage(Buffer.from(img4.data), MessageType.image)
+        var img5 = await axios.get(img_list.link5, {responseType: 'arraybuffer'})
+        await message.sendMessage(Buffer.from(img5.data), MessageType.image)
     }));
 
-    Asena.addCommand({ pattern: 'github ?(.*)', fromMe: false, desc: Glang.GİTHUB_DESC }, async (message, match) => {
+    CBot.addCommand({ pattern: 'github ?(.*)', fromMe: false, desc: Glang.GİTHUB_DESC, usage: 'github phaticusthiccy // github phaticusthiccy/Emacs-Train' }, (async (message, match) => {
+      if (match[1].includes('/')) {
+        var data = await CBotStack.github_repos(match[1])
+        var Msg = await CBotStack.github_message(config.LANG)
+        if (data.username == undefined) return await message.client.sendMessage(message.jid, Msg.not_found_repo, MessageType.text)
+        var payload = Msg.repo.username + data.username + '\n' +
+          Msg.repo.repo_name + data.repo_name + '\n' +
+          Msg.repo.repo_id + data.repo_id + '\n' +
+          Msg.repo.repo_desc + data.repo_desc + '\n' +
+          Msg.repo.created_at + data.created_at + '\n' +
+          Msg.repo.updated_at + data.updated_at + '\n' +
+          Msg.repo.fork + data.fork == true ? '✅\n' : '❌\n' +
+          Msg.repo.size + data.size + 'KB' + '\n' +
+          Msg.repo.star + data.star + '\n' +
+          Msg.repo.forks + data.forks + '\n' +
+          Msg.repo.watcher + data.watcher + '\n' +
+          Msg.repo.subscribers + data.subscribers + '\n' +
+          Msg.repo.language + data.language + '\n' +
+          Msg.repo.issues + data.issues + '\n' +
+          Msg.repo.has_lisance + data.has_lisance == false ? '❌\n' : '✅\n' +
+          Msg.repo.lisance_key + data.lisance_key + '\n' +
+          Msg.repo.lisance_name + data.lisance_name + '\n' +
+          Msg.repo.branch + data.branch
+        await message.client.sendMessage(massage.jid, payload, MessageType.text)
+      } else {
+        var data = await CBotStack.github_user(match[1])
+        var Msg = await CBotStack.github_message(config.LANG)
+        if (data.status == false) return await message.client.sendMessage(message.jid, Msg.not_found_user, MassageType.text)
+        var payload = Msg.user.username + data.username + '\n' +
+          Msg.user.name + data.name == 'null' ? '' + '\n' : data.name + '\n' + 
+          Msg.user.biography + data.biography == 'null' ? '' + '\n' : data.biography + '\n' +
+          Msg.user.created_at + data.created_at + '\n' +
+          Msg.user.last_update + data.last_update + '\n' +
+          Msg.user.id + data.id + '\n' +
+          Msg.user.repos + data.repos + '\n' +
+          Msg.user.gists + data.gists + '\n' +
+          Msg.user.location + data.location == 'null' ? '' + '\n' : data.location + '\n' +
+          Msg.user.following + data.following + '\n' +
+          Msg.user.follower + data.follower + '\n' +
+          Msg.user.hireable + data.hireable == 'null' ? Msg.cant_rent + '\n' : Msg.can_rent + '\n'
+          Msg.user.blog + data.blog == false ? '' + '\n' : data.blog + '\n' +
+          Msg.user.twitter + data.twitter == 'null' ? '' + '\n' : data.twitter + '\n' +
+          Msg.user.company + data.company == 'null' ? '' + '\n' : data.company + '\n' +
+          Msg.user.mail + data.mail == 'null' ? '' + '\n' : data.mail
+        var bf = await axios.get(data.image, {responseType:'arraybuffer'})
+        await message.sendMessage(Buffer.from(bf.data), MessageType.image, { caption: payload })
+      }
+    }));
 
-        const userName = match[1]
- 
-        if (userName === '') return await message.client.sendMessage(message.jid, Glang.REPLY, MessageType.text)
-
-        await axios
-          .get(`https://videfikri.com/api/github/?username=${userName}`)
-          .then(async (response) => {
-
-            const {
-              hireable,
-              company,
-              profile_pic,
-              username,
-              fullname, 
-              blog, 
-              location,
-              email,
-              public_repository,
-              biografi,
-              following,
-              followers,
-              public_gists,
-              profile_url,
-              last_updated,
-              joined_on,
-            } = response.data.result
-
-            const githubscrap = await axios.get(profile_pic, 
-              {responseType: 'arraybuffer',
-            })
-
-            const msg = `*${Glang.USERNAME}* ${username} \n*${Glang.NAME}* ${fullname} \n*${Glang.FOLLOWERS}* ${followers} \n*${Glang.FOLLOWİNG}* ${following} \n*${Glang.BİO}* ${biografi} \n*${Glang.REPO}* ${public_repository} \n*${Glang.GİST}* ${public_gists} \n*${Glang.LOCATİON}* ${location} \n*${Glang.MAİL}* ${email} \n*${Glang.BLOG}* ${blog} \n*${Glang.COMPANY}* ${company} \n*${Glang.HİRE}* ${hireable === "true" ? Glang.HİRE_TRUE : Glang.HİRE_FALSE} \n*${Glang.JOİN}* ${joined_on} \n*${Glang.UPDATE}* ${last_updated} \n*${Glang.URL}* ${profile_url}`
-
-            await message.sendMessage(Buffer.from(githubscrap.data), MessageType.image, { 
-              caption: msg,
-            })
-          })
-          .catch(
-            async (err) => await message.client.sendMessage(message.jid, Glang.NOT, MessageType.text),
-          )
-      },
-    )
-
-    Asena.addCommand({pattern: 'lyric ?(.*)', fromMe: false, desc: Slang.LY_DESC }, (async (message, match) => {
+    CBot.addCommand({pattern: 'lyric ?(.*)', fromMe: false, desc: Slang.LY_DESC }, (async (message, match) => {
 
         if (match[1] === '') return await message.client.sendMessage(message.jid, Slang.NEED, MessageType.text);
 
@@ -1085,7 +1188,7 @@ else if (config.WORKTYPE == 'public') {
 
     }));
 
-    Asena.addCommand({pattern: "covid ?(.*)", fromMe: false, desc: Clang.COV_DESC}, (async (message, match) => {
+    CBot.addCommand({pattern: "covid ?(.*)", fromMe: false, desc: Clang.COV_DESC}, (async (message, match) => {
         if (match[1] === "") {
             try{
                 //const resp = await fetch("https://coronavirus-19-api.herokuapp.com/all").then(r => r.json());

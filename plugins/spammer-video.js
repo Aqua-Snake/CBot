@@ -1,4 +1,12 @@
-const Asena = require('../events');
+/* Copyright (C) 2021 Aqua Snake.
+
+Licensed under the  GPL-3.0 License;
+you may not use this file except in compliance with the License.
+
+Cyber Army Bot  - Aqua-Snake
+*/
+
+const CBot = require('../events');
 const {MessageType, Mimetype} = require('@adiwajshing/baileys');
 const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
@@ -9,7 +17,7 @@ const Language = require('../language');
 const Lang = Language.getString('spammer');
     
 
-Asena.addCommand({pattern: 'vid spam$', fromMe: true, desc: Lang.VİD_DESC }, (async (message, match) => {
+CBot.addCommand({pattern: 'vid spam$', fromMe: true, desc: Lang.VİD_DESC }, (async (message, match) => {
     
     if (!message.reply_message) return await message.client.sendMessage(message.jid, Lang.VİD_NEED, MessageType.text);
 

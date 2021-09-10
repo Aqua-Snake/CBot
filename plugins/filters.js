@@ -1,12 +1,12 @@
-/* Copyright (C) 2020 Yusuf Usta.
+/* Copyright (C) 2021 Aqua Snake.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-WhatsAsena - Yusuf Usta
+Cyber Army Bot  - Aqua-Snake
 */
 
-const Asena = require('../events');
+const CBot = require('../events');
 const {MessageType} = require('@adiwajshing/baileys');
 const FilterDb = require('./sql/filters');
 const Config = require('../config')
@@ -24,7 +24,7 @@ if (Config.LANG == 'ML') f_rep = '*ഫിൽട്ടർ സെറ്റ് ✅*
 if (Config.LANG == 'ID') f_rep = '*Filter Set ✅*'
 if (Config.LANG == 'PT') f_rep = '*Filtro Ajustado ✅*'
 
-Asena.addCommand({pattern: 'filter ?(.*)', fromMe: true, desc: Lang.FILTER_DESC}, (async (message, match) => {
+CBot.addCommand({pattern: 'filter ?(.*)', fromMe: true, desc: Lang.FILTER_DESC}, (async (message, match) => {
     Mat = match[1].match(/[\'\"\“](.*?)[\'\"\“]/gsm);
 
     if (Mat === null) {
@@ -48,7 +48,7 @@ Asena.addCommand({pattern: 'filter ?(.*)', fromMe: true, desc: Lang.FILTER_DESC}
     }
 }));
 
-Asena.addCommand({pattern: 'stop ?(.*)', fromMe: true, desc: Lang.STOP_DESC}, (async (message, match) => {
+CBot.addCommand({pattern: 'stop ?(.*)', fromMe: true, desc: Lang.STOP_DESC}, (async (message, match) => {
     match = match[1].match(/[\'\"\“](.*?)[\'\"\“]/gsm);
     if (match === null) {
         return await message.client.sendMessage(message.jid,Lang.NEED_REPLY + '\n*Example:* ```.stop "hello"```',MessageType.text)
@@ -64,7 +64,7 @@ Asena.addCommand({pattern: 'stop ?(.*)', fromMe: true, desc: Lang.STOP_DESC}, (a
 }));
 
 
-Asena.addCommand({on: 'text', fromMe: false}, (async (message, match) => {
+CBot.addCommand({on: 'text', fromMe: false}, (async (message, match) => {
     var filtreler = await FilterDb.getFilter(message.jid);
     if (!filtreler) return; 
     return filtreler.map(
@@ -77,7 +77,7 @@ Asena.addCommand({on: 'text', fromMe: false}, (async (message, match) => {
         }
     );
 }));
-Asena.addCommand({on: 'text', fromMe: true, deleteCommand: false, dontAddCommandList: true}, (async (message, match) => {
+CBot.addCommand({on: 'text', fromMe: true, deleteCommand: false, dontAddCommandList: true}, (async (message, match) => {
     var filtreler = await FilterDb.getFilter(message.jid);
     if (!filtreler) return; 
     return filtreler.map(

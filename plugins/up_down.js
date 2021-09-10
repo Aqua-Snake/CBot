@@ -1,9 +1,10 @@
-/* Copyright (C) 2020 Yusuf Usta.
+/* Copyright (C) 2021 Aqua Snake.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-WhatsAsena - Yusuf Usta
+Cyber Army Bot  - Aqua-Snake
+*/
 
 
 const Asena = require('../events');
@@ -17,4 +18,4 @@ Asena.addCommand({pattern: 'download ?(.*)', fromMe: true, desc: Lang.MEMES_DESC
     if (message.reply_message === false) return await message.sendMessage(Lang.NEED_REPLY);
 
 }));
-*/
+

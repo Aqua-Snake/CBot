@@ -1,13 +1,12 @@
-/* Copyright (C) 2020 Yusuf Usta.
+/* Copyright (C) 2021 Aqua Snake.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-WhatsAsena - Yusuf Usta
-Coded by @KursadHD
+Cyber Army Bot  - Aqua-Snake
 */
 
-const Asena = require('../events');
+const CBot = require('../events');
 const {MessageType, Mimetype} = require('@adiwajshing/baileys');
 const memeMaker = require('meme-maker')
 const fs = require('fs')
@@ -18,7 +17,7 @@ const Lang = Language.getString('memes');
 
 if (Config.WORKTYPE == 'private') {
 
-    Asena.addCommand({pattern: 'meme ?(.*)', fromMe: true, desc: Lang.MEMES_DESC}, (async (message, match) => {   
+    CBot.addCommand({pattern: 'meme ?(.*)', fromMe: true, desc: Lang.MEMES_DESC}, (async (message, match) => {   
 
         if (message.reply_message === false) return await message.client.sendMessage(message.jid,Lang.NEED_REPLY, MessageType.text);
         var topText, bottomText;
@@ -44,19 +43,19 @@ if (Config.WORKTYPE == 'private') {
     
 	    memeMaker({
             image: location,         
-            outfile: 'cyberarmybot-meme.png',
+            outfile: 'CBot-meme.png',
             topText: topText,
             bottomText: bottomText,
         }, async function(err) {
             if(err) throw new Error(err)
-            await message.client.sendMessage(message.jid, fs.readFileSync('cyberarmybot-meme.png'), MessageType.image, {filename: 'cyberarmybot-meme.png', mimetype: Mimetype.png, caption: 'Made by Cyber Army Bot'});
+            await message.client.sendMessage(message.jid, fs.readFileSync('CBot-meme.png'), MessageType.image, {filename: 'CBot-meme.png', mimetype: Mimetype.png, caption: 'Made by CBot'});
             await info.delete();    
         });
     }));
 }
 else if (Config.WORKTYPE == 'public') {
 
-    Asena.addCommand({pattern: 'meme ?(.*)', fromMe: false, desc: Lang.MEMES_DESC}, (async (message, match) => {    
+    CBot.addCommand({pattern: 'meme ?(.*)', fromMe: false, desc: Lang.MEMES_DESC}, (async (message, match) => {    
 
         if (message.reply_message === false) return await message.client.sendMessage(message.jid,Lang.NEED_REPLY, MessageType.text);
         var topText, bottomText;
@@ -82,12 +81,12 @@ else if (Config.WORKTYPE == 'public') {
     
 	    memeMaker({
             image: location,         
-            outfile: 'cyberarmybot-meme.png',
+            outfile: 'CBot-meme.png',
             topText: topText,
             bottomText: bottomText,
         }, async function(err) {
             if(err) throw new Error(err)
-            await message.client.sendMessage(message.jid, fs.readFileSync('cyberarmybot-meme.png'), MessageType.image, {filename: 'cyberarmybot-meme.png', mimetype: Mimetype.png, caption: 'Made by Cyber Army Bot'});
+            await message.client.sendMessage(message.jid, fs.readFileSync('CBot-meme.png'), MessageType.image, {filename: 'CBot-meme.png', mimetype: Mimetype.png, caption: 'Made by CBot'});
             await info.delete();    
         });
     }));

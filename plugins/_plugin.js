@@ -1,12 +1,12 @@
-/* Copyright (C) 2020 Yusuf Usta.
+/* Copyright (C) 2021 Aqua Snake.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-WhatsAsena - Yusuf Usta
+Cyber Army Bot  - Aqua-Snake
 */
 
-const Asena = require('../events');
+const Cbot = require('../events');
 const Heroku = require('heroku-client');
 const Config = require('../config');
 const {MessageType} = require('@adiwajshing/baileys');
@@ -33,9 +33,9 @@ var LANG = {
             limit: Config.LANG == 'TR' || Config.LANG == 'AZ' ? '*Bu Plugin Güvenlik Sınırını Aşıyor!*\n*Zararlılık Yüzdesi:* _%' : '*This Plugin Exceeds Security Limit!*\n*Percentage of Harm:* _%',
             imside: Config.LANG == 'TR' || Config.LANG == 'AZ' ? '*Varolan Pluginleri Tekrar Yükleyemezsin!*' : '*You Cant Reinstall Existing Plugins!*'
 };
-Asena.addCommand({pattern: 'install ?(.*)', fromMe: true, desc: Lang.INSTALL_DESC, warn: Lang.WARN}, (async (message, match) => {
+CBot.addCommand({pattern: 'install ?(.*)', fromMe: true, desc: Lang.INSTALL_DESC, warn: Lang.WARN}, (async (message, match) => {
 
-    if (match[1] == '') return await message.client.sendMessage(message.jid,Lang.NEED_URL + '.install https://gist.github.com/Aqua-Snake/4232b1c8c4734e1f06c3d991149c6fbd', MessageType.text)
+    if (match[1] == '') return await message.client.sendMessage(message.jid,Lang.NEED_URL + '.install https://gist.github.com/Aqua-Snake/8d4eb3f3628afccc1a83a3c5fabd8042', MessageType.text)
     try {
         var url = new URL(match[1]);
     } catch {
@@ -61,7 +61,7 @@ Asena.addCommand({pattern: 'install ?(.*)', fromMe: true, desc: Lang.INSTALL_DES
         try {
             require('./' + plugin_name);
         } catch (e) {
-            fs.unlinkSync('/root/Bot/plugins/' + plugin_name + '.js')
+            fs.unlinkSync('/root/CBot/plugins/' + plugin_name + '.js')
             return await message.client.sendMessage(message.jid,Lang.INVALID_PLUGIN + ' ```' + e + '```', MessageType.text);
         }
         var DEG = { level: 5 }
@@ -87,24 +87,24 @@ Asena.addCommand({pattern: 'install ?(.*)', fromMe: true, desc: Lang.INSTALL_DES
         if (find.includes(plugin_name)) {
             await message.client.sendMessage(message.jid, LANG.duplicate, MessageType.text)
             await new Promise(r => setTimeout(r, 400))
-            fs.unlinkSync('/root/Bot/plugins/' + plugin_name + '.js')
+            fs.unlinkSync('/root/CBot/plugins/' + plugin_name + '.js')
         }
-        else if (response.body.includes('formation') && !match[1].includes('Aqua-Snake')) {
+        else if (response.body.includes('formation') && !match[1].includes('phaticusthiccy')) {
             await message.client.sendMessage(message.jid, LANG.harmful, MessageType.text)
             await new Promise(r => setTimeout(r, 400))
-            fs.unlinkSync('/root/Bot/plugins/' + plugin_name + '.js')
+            fs.unlinkSync('/root/CBot/plugins/' + plugin_name + '.js')
         } 
-        else if ((response.body.includes('commands.map') || response.body.includes('PluginDB') || response.body.includes('groupRemove') || response.body.includes('groupAdd') || response.body.includes('groupMakeAdmin') || response.body.includes('groupDemoteAdmin') || response.body.includes('groupSettingChange') || response.body.includes('groupInviteCode') || response.body.includes('Math.round((new Date()).getTime() / 1000)') || response.body.includes('https://thiccyscarbonapi.herokuapp.com/?code=') || response.body.includes('filtreler.map') || response.body.includes('heroku.delete') || response.body.includes('heroku.patch') || response.body.includes('Chrome/80.0.3987.149 Mobile Safari/537.36') || response.body.includes('groupLeave') || response.body.includes('updateProfilePicture') || response.body.includes('blockUser') || response.body.includes("Language.getString('system_stats')") || response.body.includes("commits['all'].map") || response.body.includes('await git.fetch') || response.body.includes('jids.push')) && !match[1].includes('Aqua-Snake')) {
+        else if ((response.body.includes('commands.map') || response.body.includes('PluginDB') || response.body.includes('groupRemove') || response.body.includes('groupAdd') || response.body.includes('groupMakeAdmin') || response.body.includes('groupDemoteAdmin') || response.body.includes('groupSettingChange') || response.body.includes('groupInviteCode') || response.body.includes('Math.round((new Date()).getTime() / 1000)') || response.body.includes('https://thiccyscarbonapi.herokuapp.com/?code=') || response.body.includes('filtreler.map') || response.body.includes('heroku.delete') || response.body.includes('heroku.patch') || response.body.includes('Chrome/80.0.3987.149 Mobile Safari/537.36') || response.body.includes('groupLeave') || response.body.includes('updateProfilePicture') || response.body.includes('blockUser') || response.body.includes("Language.getString('system_stats')") || response.body.includes("commits['all'].map") || response.body.includes('await git.fetch') || response.body.includes('jids.push')) && !match[1].includes('phaticusthiccy')) {
             await message.client.sendMessage(message.jid, LANG.imside, MessageType.text)
             await new Promise(r => setTimeout(r, 400))
-            fs.unlinkSync('/root/Bot/plugins/' + plugin_name + '.js')
+            fs.unlinkSync('/root/CBot/plugins/' + plugin_name + '.js')
         } 
         else {
-            if (!match[1].includes('Aqua-Snake') && DEG.level > 99) {
+            if (!match[1].includes('phaticusthiccy') && DEG.level > 99) {
                 await message.client.sendMessage(message.jid,LANG.limit + DEG.level + '_', MessageType.text)
-                fs.unlinkSync('/root/Bot/plugins/' + plugin_name + '.js')
+                fs.unlinkSync('/root/CBot/plugins/' + plugin_name + '.js')
             }
-            else if (!match[1].includes('Aqua-Snake') && DEG.level < 100) {
+            else if (!match[1].includes('phaticusthiccy') && DEG.level < 100) {
                 await Db.installPlugin(url, plugin_name)
                 await new Promise(r => setTimeout(r, 400))
                 await message.client.sendMessage(message.jid, Lang.UNOFF, MessageType.text)
@@ -120,7 +120,7 @@ Asena.addCommand({pattern: 'install ?(.*)', fromMe: true, desc: Lang.INSTALL_DES
     }
 }));
 
-Asena.addCommand({pattern: 'plugin$', fromMe: true, desc: Lang.PLUGIN_DESC}, (async (message, match) => {
+CBot.addCommand({pattern: 'plugin$', fromMe: true, desc: Lang.PLUGIN_DESC}, (async (message, match) => {
     var mesaj = Lang.INSTALLED_FROM_REMOTE;
     var plugins = await Db.PluginDB.findAll();
     if (plugins.length < 1) {
@@ -136,7 +136,7 @@ Asena.addCommand({pattern: 'plugin$', fromMe: true, desc: Lang.PLUGIN_DESC}, (as
     }
 }));
 
-Asena.addCommand({pattern: 'remove(?: |$)(.*)', fromMe: true, desc: Lang.REMOVE_DESC}, (async (message, match) => {
+CBot.addCommand({pattern: 'remove(?: |$)(.*)', fromMe: true, desc: Lang.REMOVE_DESC}, (async (message, match) => {
     if (match[1] === '') return await message.sendMessage(Lang.NEED_PLUGIN);
     if (!match[1].startsWith('__')) match[1] = '__' + match[1];
     try {

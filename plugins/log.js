@@ -1,4 +1,12 @@
-const Asena = require('../events');
+/* Copyright (C) 2021 Aqua Snake.
+
+Licensed under the  GPL-3.0 License;
+you may not use this file except in compliance with the License.
+
+Cyber Army Bot  - Aqua-Snake
+*/
+
+const CBot = require('../events');
 const { MessageType, Mimetype, GroupSettingChange, MessageOptions } = require('@adiwajshing/baileys');
 const dil = require('axios');
 const fs = require('fs');
@@ -8,7 +16,7 @@ const {execFile} = require('child_process');
 const Language = require('../language'); 
 const Lang = Language.getString('log'); 
 
-Asena.addCommand({ pattern: 'log', fromMe: true, desc: Lang.LOG, warn: Lang.ANIM, onlyGroup: true}, (async (message, match) => { 
+CBot.addCommand({ pattern: 'log', fromMe: true, desc: Lang.LOG, warn: Lang.ANIM, onlyGroup: true}, (async (message, match) => { 
 
     const meta = await message.client.groupMetadata(message.jid)
     const usmeta = message.client.isOnWhatsApp(message.jid)

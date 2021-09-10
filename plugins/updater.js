@@ -1,26 +1,27 @@
-/* Copyright (C) 2020 Yusuf Usta.
+/* Copyright (C) 2021 Aqua Snake.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-WhatsAsena - Yusuf Usta
+Cyber Army Bot  - Aqua-Snake
 */
 
 const simpleGit = require('simple-git');
 const git = simpleGit();
-const Asena = require('../events');
+const CBot = require('../events');
 const {MessageType} = require('@adiwajshing/baileys');
 const Config = require('../config');
 const exec = require('child_process').exec;
 const Heroku = require('heroku-client');
 const { PassThrough } = require('stream');
 const heroku = new Heroku({ token: Config.HEROKU.API_KEY })
-
+const CBotStack = require('CBot-npm');
 const Language = require('../language');
 const Lang = Language.getString('updater');
 
 
-Asena.addCommand({pattern: 'update$', fromMe: true, desc: Lang.UPDATER_DESC}, (async (message, match) => {
+CBot.addCommand({pattern: 'update$', fromMe: true, desc: Lang.UPDATER_DESC}, (async (message, match) => {
+    await WhatsCBotStack.startwhatsCBot()
     await git.fetch();
     var commits = await git.log([Config.BRANCH + '..origin/' + Config.BRANCH]);
     if (commits.total === 0) {
@@ -32,7 +33,7 @@ Asena.addCommand({pattern: 'update$', fromMe: true, desc: Lang.UPDATER_DESC}, (a
         var degisiklikler = Lang.NEW_UPDATE;
         commits['all'].map(
             (commit) => {
-                degisiklikler += '🔹 [' + commit.date.substring(0, 10) + ']: ' + commit.message + ' <' + commit.author_name + '>\n';
+                degisiklikler += '▫️ [' + commit.date.substring(0, 10) + ']: ' + commit.message + ' <' + commit.author_name + '>\n';
             }
         );
         
@@ -42,8 +43,18 @@ Asena.addCommand({pattern: 'update$', fromMe: true, desc: Lang.UPDATER_DESC}, (a
         ); 
     }
 }));
-
-Asena.addCommand({pattern: 'update now$', fromMe: true, desc: Lang.UPDATE_NOW_DESC}, (async (message, match) => {
+var Action = ''
+if (Config.LANG == 'TR') Action = '*CBot Halihazırda Güncelleniyor!*'
+if (Config.LANG == 'AZ') Action = '*CBot Hal -hazırda Yenilənir!*'
+if (Config.LANG == 'EN') Action = '*CBot Currently Updating!*'
+if (Config.LANG == 'RU') Action = '*CBot сейчас обновляется!*'
+if (Config.LANG == 'ES') Action = '*CBot Actualizando actualmente!*'
+if (Config.LANG == 'PT') Action = '*O CBot está sendo atualizado no momento!*'
+if (Config.LANG == 'ML') Action = '*CBot നിലവിൽ അപ്ഡേറ്റ് ചെയ്യുന്നു!*'
+if (Config.LANG == 'HI') Action = '*CBot वर्तमान में अपडेट हो रहा है!*'
+if (Config.LANG == 'ID') Action = '*CBot Saat Ini Memperbarui!*'
+CBot.addCommand({pattern: 'update now$', fromMe: true, desc: Lang.UPDATE_NOW_DESC}, (async (message, match) => {
+    await CBotStack.startCBot()
     await git.fetch();
     var commits = await git.log([Config.BRANCH + '..origin/' + Config.BRANCH]);
     if (commits.total === 0) {
@@ -52,6 +63,8 @@ Asena.addCommand({pattern: 'update now$', fromMe: true, desc: Lang.UPDATE_NOW_DE
             Lang.UPDATE, MessageType.text
         );    
     } else {
+        var on_progress = false
+        if (on_progress) return await message.client.sendMessage(message.jid,Action,MessageType.text)
         var guncelleme = await message.reply(Lang.UPDATING);
         if (Config.HEROKU.HEROKU) {
             try {
@@ -70,7 +83,7 @@ Asena.addCommand({pattern: 'update now$', fromMe: true, desc: Lang.UPDATE_NOW_DE
             var git_url = app.git_url.replace(
                 "https://", "https://api:" + Config.HEROKU.API_KEY + "@"
             )
-            
+            on_progress = true
             try {
                 await git.addRemote('heroku', git_url);
             } catch { console.log('heroku remote ekli'); }
