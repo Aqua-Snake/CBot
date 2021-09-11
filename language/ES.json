@@ -1,10 +1,10 @@
 {
-    "__ASENAJSON__": true,
+    "__CBOTJSON__": true,
     "LANGUAGE": "Español",
     "LANGCODE": "es",
     "AUTHOR": "Phaticusthiccy / Skueletor",
     "STRINGS": {
-        "_asena": {
+        "_cbot": {
             "COMMAND": "Comando",
             "DESC": "Explicación",
             "EXAMPLE": "Ejemplo",
@@ -75,9 +75,9 @@
             "MUST_TEXT": "```Responde cualquier mensaje```"
         },
         "heroku": {
-            "RESTART_DESC": "Reiniciar ☣️Cyber Army Bot",
+            "RESTART_DESC": "Reiniciar CBot",
             "RESTART_MSG": "```Reiniciando...```",
-            "SHUTDOWN_DESC": "Apagar ☣️Cyber Army Bot",
+            "SHUTDOWN_DESC": "Apagar CBot",
             "SHUTDOWN_MSG": "```Apagando ⛔```",
             "DYNO_DESC": "Verificar el uso de heroku dyno",
             "DYNO_TOTAL": "```Cuota total```",
@@ -95,7 +95,7 @@
             "NOT_FOUND": "```No se encontraron resultados para esta key```",
             "SUCC": "*Başarıyla Ayarlandı ✅* \n*Lütfen Biraz Bekleyin.*",
             "SUCC_AF": "*Usa texto* ```default``` *para restaurarlo.*",
-            "DEGİS_NONE": "```Ingrese cualquier nombre de módulo!``` \n\n*.degis afk*\n*.degis alive* << *Variables* >> \n_{pp}: Es suficiente usar una vez. Agrega tu foto de perfil al mensaje._ \n_{info}: Muestra tu estado._ \n_{version}: Muestra la versión del bot._ \n_{plugin}: Muestra el canal plugin._\n*.degis ban*\n*.degis add*\n*.degis mute*\n*.degis unmute*\n*.degis welcome* \n*.degis goodbye* \n*.degis promote*\n*.degis demote*\n*.degis kickme*\n*.degis block*\n*.degis unblock*",
+            "DEGİS_NONE": "```Ingrese cualquier nombre de módulo!``` \n\n*.degis afk*\n*.degis alive* << *Variables* >> \n_{pp}: Es suficiente usar una vez. Agrega tu foto de perfil al mensaje._ \n_{asenalogo}: Agrega el logotipo animado de CBot._ \n_{info}: Muestra tu estado._ \n_{version}: Muestra la versión del bot._ \n_{plugin}: Muestra el canal plugin._\n*.degis ban*\n*.degis add*\n*.degis mute*\n*.degis unmute*\n*.degis welcome* \n*.degis goodbye* \n*.degis promote*\n*.degis demote*\n*.degis kickme*\n*.degis block*\n*.degis unblock*",
             "WR": "*Utilice los módulos que correspondan!*",
             "DEGİS_DESC": "Reemplazar el texto de módulos como alive, afk."        
         },
@@ -250,7 +250,7 @@
             "INVALID_HEROKU": "*❌ ¡Tu información de Heroku es incorrecta!*",
             "UPDATED": "*✅ ¡La actualización fue exitosa!*",
             "UPDATED_LOCAL": "*✅ ¡La actualización fue exitosa!*",
-            "AFTER_UPDATE": "*¡Reinicio de ☣️Cyber Army Bot*",
+            "AFTER_UPDATE": "*¡Reinicio de CBot*",
             "IN_AF": "*Asegúrate de que* ```HEROKU_APP_NAME``` *sea el mismo que* ```app name```\n*Si estos dos valores son iguales, cambie* ```HEROKU_API_KEY```!*\n\n_Siga estos pasos para acceder a estas configuraciones: Heroku >> App >> Settings >> Reavel Configs_\n_Siga estos pasos para renovar su API key:  Heroku >> Account >> API Key Luego reemplácelo con el viejo API key._"
         },
         "weather": {
@@ -400,7 +400,7 @@
             "CARBON_WARN": "Escriba solo en los idiomas TR y EN!"
         },
         "scam": {
-            "SCAM_DESC": "Crea 5 minutos de acciones falsas.",
+            "SCAM_DESC": "Crea acciones falsas.",
             "SCAM_NOTFOUND": "*¡Debe ingresar una acción falsa*\nEtipos Existentes: ```typing & recording & online & stop```",
             "SCAM_NULL": "```Acción incorrecta ingresada! Utilice los tipos existentes.```"
         },
@@ -438,7 +438,7 @@
             "SAVE_USAGE": "Registra el mensaje al que responde o la nota oficial.",
             "REPLY": "Por favor cite un mensaje o usar como .save <yournote>",
             "SUCCESSFULLY_ADDED": "Tu nota ha sido guardada con éxito, puede acceder a sus notas escribiendo .notes",
-            "UNSUCCESSFUL": "Encontramos un error al guardar tu nota, ınténtalo de nuevo. Si el problema persiste, comuníquese con los desarrolladores de ☣️Cyber Army Bot.",
+            "UNSUCCESSFUL": "Encontramos un error al guardar tu nota, ınténtalo de nuevo. Si el problema persiste, comuníquese con los desarrolladores de CBot.",
             "DELETE_USAGE": "Elimina *todas* las notas que ha guardado.",
             "SUCCESSFULLY_DELETED": "Todas tus notas se han eliminado correctamente."
         },

@@ -1,10 +1,10 @@
 {
-    "__ASENAJSON__": true,
+    "__CBOTJSON__": true,
     "LANGUAGE": "Türkcə",
     "LANGCODE": "Tr",
     "AUTHOR": "AsenaDev",
     "STRINGS": {
-        "_asena": {
+        "_cbot": {
             "COMMAND": "Əmr",
             "DESC": "Açığlama",
             "EXAMPLE": "Nümunə",
@@ -75,9 +75,9 @@
             "MUST_TEXT": "```Cavab mətn olmalıdır```"
         },
         "heroku": {
-            "RESTART_DESC": "WhatsAsena-nı yenidən başladın",
+            "RESTART_DESC": "CBot-nı yenidən başladın",
             "RESTART_MSG": "```yenidən başladır ...```",
-            "SHUTDOWN_DESC": "WhatsAsena-nı söndürün",
+            "SHUTDOWN_DESC": "CBot-nı söndürün",
             "SHUTDOWN_MSG": "```söndürmək ⛔```",
             "DYNO_DESC": "Heroku dyno istifadəsini yoxlayın",
             "DYNO_TOTAL": "```Ümumi kvota```",
@@ -95,7 +95,7 @@
             "NOT_FOUND": "```bu açar üçün heç bir nəticə tapılmadı```",
             "SUCC": "*Uğurla qurun! ✅* \n*Xahiş edirəm bir az gözləyin.*",
             "SUCC_AF": "*Bərpa etmək üçün* ```default``` *mətn istifadə edin.*",
-            "DEGİS_NONE": "```Zəhmət olmasa istənilən modul adını daxil edin!``` \n\n*.degis afk*\n*.degis alive* << *Dəyişənlər* >> \n_{pp}: Bir dəfə istifadə etmək kifayətdir. Profil şəklinizi mesaja əlavə edir._\n_{info}: Statusunuzu göstərir._ \n_{version}: Botun versiyasını göstərir._ \n_{plugin}: Plugin kanalını göstərir._\n*.degis ban*\n*.degis add*\n*.degis mute*\n*.degis unmute*\n*.degis promote*\n*.degis demote*\n*.degis welcome* \n*.degis goodbye* \n*.degis kickme*\n*.degis block*\n*.degis unblock*",
+            "DEGİS_NONE": "```Zəhmət olmasa istənilən modul adını daxil edin!``` \n\n*.degis afk*\n*.degis alive* << *Dəyişənlər* >> \n_{pp}: Bir dəfə istifadə etmək kifayətdir. Profil şəklinizi mesaja əlavə edir._ \n_{asenalogo}: Cizgi CBot loqotipi əlavə edir._\n_{info}: Statusunuzu göstərir._ \n_{version}: Botun versiyasını göstərir._ \n_{plugin}: Plugin kanalını göstərir._\n*.degis ban*\n*.degis add*\n*.degis mute*\n*.degis unmute*\n*.degis promote*\n*.degis demote*\n*.degis welcome* \n*.degis goodbye* \n*.degis kickme*\n*.degis block*\n*.degis unblock*",
             "WR": "*Zəhmət olmasa tətbiq olunan modullardan istifadə edin!*",
             "DEGİS_DESC": "Modulların mətnini alive, afk kimi dəyişdirin."        
         },
@@ -248,7 +248,7 @@
             "INVALID_HEROKU": "*❌ Heroku məlumatlarınız yanlışdır!*",
             "UPDATED": "*✅ Yenilənmə müvəffəqiyyətlə sona çatdı!*",
             "UPDATED_LOCAL": "*✅ Yenilənmə müvəffəqiyyətlə sona çatdı!*",
-            "AFTER_UPDATE": "*💬 WhatsAsena Yenidən Başladır.*",
+            "AFTER_UPDATE": "*💬 CBot Yenidən Başladır.*",
             "IN_AF": "*Zəhmət olmasa* ```HEROKU_APP_NAME``` *ilə* ```app_name``` *eyni olduğuna əmin olun.*\n*Bu iki dəyər eynidirsə, xahiş edirəm* ```HEROKU_API_KEY```'inizi *dəyişdirin!*\n\n_Bu parametrlərə daxil olmaq üçün Heroku >> Uygulama >> Settings >> Reavel Config Vars addımlarınızı izləyin._\n_API açarınızı yeniləmək üçün Heroku >> Account >> API Key Bölmədən təzələndikdən sonra onu köhnə API açarı ilə əvəz edin._"
         },
         "weather": {
@@ -398,7 +398,7 @@
             "CARBON_WARN": "Xahiş edirəm yalnız en və en dillərində yazın!"
         },
         "scam": {
-            "SCAM_DESC": "5 dəqiqəlik saxta hərəkətlər yaradır.",
+            "SCAM_DESC": "Saxta hərəkətlər yaradır.",
             "SCAM_NOTFOUND": "*Saxta Fəaliyyət Yazmalısınız!*\nMövcud Növləri: ```typing & recording & online & stop```",
             "SCAM_NULL": "```Səhv Əməliyyat Girdi! Zəhmət olmasa mövcud növlərdən istifadə edin.```"
         },
@@ -436,7 +436,7 @@
             "SAVE_USAGE": "Cavabladığınız mesajı və ya rəsmi qeydləri qeyd edir.",
             "REPLY": "Xahiş edirəm bir mesaj verin və ya onu .save <öz qeydiniz> olaraq istifadə edin.",
             "SUCCESSFULLY_ADDED": "Qeydiniz uğurla qeyd edildi, qeydlərinizə .notes yazaraq daxil ola bilərsiniz.",
-            "UNSUCCESSFUL": "Qeydinizi saxlayarkən bir səhvlə qarşılaşdıq, xahiş edirəm yenidən cəhd edin. Problem davam edərsə, xahiş edirəm WhatsAsena inkişaf etdiriciləri ilə əlaqə saxlayın..",
+            "UNSUCCESSFUL": "Qeydinizi saxlayarkən bir səhvlə qarşılaşdıq, xahiş edirəm yenidən cəhd edin. Problem davam edərsə, xahiş edirəm CBot inkişaf etdiriciləri ilə əlaqə saxlayın..",
             "DELETE_USAGE": "Yadda saxladığınız *bütün* qeydləri silir.",
             "SUCCESSFULLY_DELETED": "Bütün qeydləriniz uğurla silindi."
         },
