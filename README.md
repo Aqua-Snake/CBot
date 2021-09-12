@@ -71,7 +71,7 @@ the user is responsible.
 
 ### The Hard Method(Difficult to make)
 ```js
-$ git clone https://github.com/Aqua-Snake/Bot.git
+$ git clone https://github.com/Aqua-Snake/CBot.git
 $ cd Bot
 $ npm i
 $ nano Config.env
