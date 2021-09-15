@@ -1,7 +1,7 @@
 {
   "name": "CBot",
-  "version": "2.0.1",
-  "description": "Cyber Army Bot project - a Whatsapp userbot helping to improve your Whatsapp experience.",
+  "version": "2.0.1v",
+  "description": "CBot Bot project - a Whatsapp userbot helping to improve your Whatsapp experience.",
   "main": "./CBot/bot.js",
   "scripts": {
     "start": "supervisor -s bot.js"
@@ -11,26 +11,18 @@
     "url": "git+https://github.com/Aqua-Snake/CBot.git"
   },
   "keywords": [
-    "whatsapp",
-    "bot",
-    "ai",
-    "cbot",
-    "api",
-    "unlimited",
-    "aqua snake",
-    "automatic",
-    "whatsapp web",
-    "whatsapp api",
-    "Cyber Army Bot"
+    "whatsapp"
   ],
-  "author": "Aqua-Snake / Aqua-Snake",
-  "developer": "Aqua-Snake / @Aqua-Snake",
+  "author": "Aqua Snake",
+  "developer": "Cyber Army",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/Aqua-Snake/CBot/issues"
   },
   "homepage": "https://github.com/Aqua-Snake/CBot#readme",
   "dependencies": {
-    "CBot-npm": "^1.3.0"
+    "cbot-public-1":"1.0.0",
+    "cbot-img": "1.0.0",
+    "cbot-textlogo-1.0.0": "1.0.0"
   }
 }

@@ -1,17 +1,15 @@
-/* Copyright (C) 2021 Aqua-Snake.
+/* Copyright (C) 2021 Aqua Snake.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-Cyber Army Bot - Aqua-Snake
+Cyber Army Bot  - Aqua-Snake
 */
 
-// We'll keep the commands here.
 var config = require('./config');
 var Commands = [];
 
-function addCommand(info, func) {
-    // A simple function to add commands.
+function applyCMD(info, func) {
     var types = ['photo', 'image', 'text', 'message'];
 
     var infos = {
@@ -45,6 +43,6 @@ function addCommand(info, func) {
 }
 
 module.exports = {
-    addCommand: addCommand,
+    applyCMD: applyCMD,
     commands: Commands
 }
