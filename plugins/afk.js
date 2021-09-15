@@ -1,9 +1,9 @@
-/* Copyright (C) 2021 Aqua Snake.
+/* Copyright (C) 2021 Cyber Bot.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-Cyber Army Bot  - Aqua-Snake
+Cyber Bot - Aqua Snake
 */
 
 const CBot = require('../events');
@@ -19,7 +19,6 @@ var AFK = {
     lastseen: 0
 };
 
-// https://stackoverflow.com/a/37096512
 function secondsToHms(d) {
     d = Number(d);
     var h = Math.floor(d / 3600);
@@ -32,7 +31,7 @@ function secondsToHms(d) {
     return hDisplay + mDisplay + sDisplay; 
 }
 
-CBot.addCommand({on: 'text', fromMe: false, deleteCommand: false}, (async (message, match) => {
+CBot.applyCMD({on: 'text', fromMe: false, deleteCommand: false}, (async (message, match) => {
     if (Config.AFKMSG == 'default') {
 
         if (AFK.isAfk && ((!message.jid.includes('-')) || (message.jid.includes('-') && 
@@ -84,7 +83,7 @@ CBot.addCommand({on: 'text', fromMe: false, deleteCommand: false}, (async (messa
     }
 }));
 
-CBot.addCommand({on: 'text', fromMe: true, deleteCommand: false}, (async (message, match) => {
+CBot.applyCMD({pattern: 'online ?(.*)', fromMe: true, deleteCommand: false, dontAddCommandList: true}, (async (message, match) => {
     if (AFK.isAfk && !message.id.startsWith('3EB0')) {
         AFK.lastseen = 0;
         AFK.reason = false;
@@ -94,7 +93,8 @@ CBot.addCommand({on: 'text', fromMe: true, deleteCommand: false}, (async (messag
     }
 }));
 
-CBot.addCommand({pattern: 'afk ?(.*)', fromMe: true, deleteCommand: false, desc: Lang.AFK_DESC}, (async (message, match) => {     
+
+CBot.applyCMD({pattern: 'afk ?(.*)', fromMe: true, deleteCommand: false, desc: Lang.AFK_DESC, dontAddCommandList: true}, (async (message, match) => {     
     if (!AFK.isAfk) {
         AFK.lastseen = Math.round((new Date()).getTime() / 1000);
         if (match[1] !== '') { AFK.reason = match[1]; }

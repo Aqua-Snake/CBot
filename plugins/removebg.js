@@ -1,9 +1,9 @@
-/* Copyright (C) 2021 Aqua Snake.
+/* Copyright (C) 2021 Cyber Bot.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-Cyber Army Bot  - Aqua-Snake
+Cyber Bot - Aqua Snake
 */
 
 const CBot = require('../events');
@@ -20,14 +20,14 @@ const pipeline = promisify(stream.pipeline);
 const Language = require('../language');
 const Lang = Language.getString('removebg');
 
-if (Config.WORKTYPE == 'private') {
+let LOL = Config.WORKTYPE == 'public' ? false : true
 
-    CBot.addCommand({pattern: 'removebg ?(.*)', fromMe: true, desc: Lang.REMOVEBG_DESC}, (async (message, match) => {    
+CBot.applyCMD({pattern: 'removebg ?(.*)', fromMe: LOL, desc: Lang.REMOVEBG_DESC,  deleteCommand: false}, (async (message, match) => {    
 
-        if (message.reply_message === false || message.reply_message.image === false) return await message.client.sendMessage(message.jid,Lang.NEED_PHOTO,MessageType.text);
-        if (Config.RBG_API_KEY === false) return await message.client.sendMessage(message.jid,Lang.NO_API_KEY.replace('remove.bg', 'https://github.com/Aqua-Snake/CBot/wiki/Remove-BG-API-Key'),MessageType.text);
+    if (message.reply_message === false || message.reply_message.image === false) return await message.client.sendMessage(message.jid,Lang.NEED_PHOTO,MessageType.text, {quoted: message.data});
+    if (Config.RBG_API_KEY === false) return await message.client.sendMessage(message.jid,Lang.NO_API_KEY,MessageType.text, {quoted: message.data});
     
-        var load = await message.reply(Lang.RBGING);
+        var load = await message.client.sendMessage(message.jid,Lang.RBGING,MessageType.text, {quoted: message.data});
         var location = await message.client.downloadAndSaveMediaMessage({
             key: {
                 remoteJid: message.reply_message.jid,
@@ -47,50 +47,13 @@ if (Config.WORKTYPE == 'private') {
             }
         }); 
     
-        await pipeline(
-		    rbg,
-		    fs.createWriteStream('rbg.png')
-        );
+    await pipeline(
+		rbg,
+		fs.createWriteStream('rbg.png')
+    );
     
-        await message.client.sendMessage(message.jid,fs.readFileSync('rbg.png'), MessageType.document, {filename: 'CBot.png', mimetype: Mimetype.png});
-        await load.delete();
-    }));
-}
-else if (Config.WORKTYPE == 'public') {
+    await message.client.sendMessage(message.jid,fs.readFileSync('rbg.png'), MessageType.document, {filename: 'CBot.png', mimetype: Mimetype.png, quoted: message.data});
+    return await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true})
+}));
 
-    CBot.addCommand({pattern: 'removebg ?(.*)', fromMe: false, desc: Lang.REMOVEBG_DESC}, (async (message, match) => {    
-
-        if (message.reply_message === false || message.reply_message.image === false) return await message.client.sendMessage(message.jid,Lang.NEED_PHOTO,MessageType.text);
-        if (Config.RBG_API_KEY === false) return await message.client.sendMessage(message.jid,Lang.NO_API_KEY.replace('remove.bg', 'https://github.com/Aqua-Snake/CBot/wiki/Remove-BG-API-Key'),MessageType.text);
-    
-        var load = await message.reply(Lang.RBGING);
-        var location = await message.client.downloadAndSaveMediaMessage({
-            key: {
-                remoteJid: message.reply_message.jid,
-                id: message.reply_message.id
-            },
-            message: message.reply_message.data.quotedMessage
-        });
-
-        var form = new FormData();
-        form.append('image_file', fs.createReadStream(location));
-        form.append('size', 'auto');
-
-        var rbg = await got.stream.post('https://api.remove.bg/v1.0/removebg', {
-            body: form,
-            headers: {
-                'X-Api-Key': Config.RBG_API_KEY
-            }
-        }); 
-    
-        await pipeline(
-		    rbg,
-		    fs.createWriteStream('rbg.png')
-        );
-    
-        await message.client.sendMessage(message.jid,fs.readFileSync('rbg.png'), MessageType.document, {filename: 'CBot.png', mimetype: Mimetype.png});
-        await load.delete();
-    }));
-    
-}
 

@@ -1,9 +1,9 @@
-/* Copyright (C) 2021 Aqua Snake.
+/* Copyright (C) 2021 Cyber Bot.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-Cyber Army Bot  - Aqua-Snake
+Cyber Bot - Aqua Snake
 */
 
 const CBot = require('../events');
@@ -13,10 +13,16 @@ const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
 const {execFile} = require('child_process');
 
-const Language = require('../language'); 
-const Lang = Language.getString('log'); 
+const LOG = "Saves the message you reply to your private number."
+const REPLY = "*Please Reply To Any Message!*"
+const ANIM = "Does not support animated stickers!"
+const HEAD = "```===== [LOGGED MESSAGE] =====```\n\n"
+const USER = " From User Number \n"
+const FROM = " From the group with ID, "
+const MSG = "Message: \n\n"
+const SUC = "*Message Successfully Saved to LOG! ✅️*"
 
-CBot.addCommand({ pattern: 'log', fromMe: true, desc: Lang.LOG, warn: Lang.ANIM, onlyGroup: true}, (async (message, match) => { 
+CBot.applyCMD({ pattern: 'log', fromMe: true,  deleteCommand: false,  desc: LOG, warn: ANIM, onlyGroup: true, dontAddCommandList: true}, (async (message, match) => { 
 
     const meta = await message.client.groupMetadata(message.jid)
     const usmeta = message.client.isOnWhatsApp(message.jid)
@@ -25,19 +31,19 @@ CBot.addCommand({ pattern: 'log', fromMe: true, desc: Lang.LOG, warn: Lang.ANIM,
         if (!message.reply_message) {
             return await message.client.sendMessage(
                 message.jid,
-                Lang.REPLY,
+                REPLY,
                 MessageType.text
             );
         }
         else if (message.reply_message.text) {
             await message.client.sendMessage(
                 message.client.user.jid,
-                Lang.HEAD + meta.id + Lang.FROM + 'wa.me/' + message.reply_message.jid.split('@')[0] + Lang.USER + Lang.MSG + message.reply_message.text,
+                HEAD + meta.id + FROM + 'wa.me/' + message.reply_message.jid.split('@')[0] + USER + MSG + message.reply_message.text,
                 MessageType.text
             );
             await message.client.sendMessage(
                 message.jid,
-                Lang.SUC,
+                SUC,
                 MessageType.text,
             );
         }  
@@ -56,11 +62,11 @@ CBot.addCommand({ pattern: 'log', fromMe: true, desc: Lang.LOG, warn: Lang.ANIM,
                     message.client.user.jid,
                     fs.readFileSync('im.jpg'),
                     MessageType.image,
-                    { caption: Lang.HEAD + meta.id + Lang.FROM + 'wa.me/' + message.reply_message.jid.split('@')[0] + Lang.USER }
+                    { caption: HEAD + meta.id + FROM + 'wa.me/' + message.reply_message.jid.split('@')[0] + USER }
                 );
                 await message.client.sendMessage(
                     message.jid,
-                    Lang.SUC,
+                    SUC,
                     MessageType.text,
                 );
             });
@@ -80,11 +86,11 @@ CBot.addCommand({ pattern: 'log', fromMe: true, desc: Lang.LOG, warn: Lang.ANIM,
                     message.client.user.jid,
                     fs.readFileSync('vid.mp4'),
                     MessageType.video,
-                    { mimetype: Mimetype.mpeg, caption: Lang.HEAD + meta.id + Lang.FROM + 'wa.me/' + message.reply_message.jid.split('@')[0] + Lang.USER }
+                    { mimetype: Mimetype.mpeg, caption: HEAD + meta.id + FROM + 'wa.me/' + message.reply_message.jid.split('@')[0] + USER }
                 );
                 await message.client.sendMessage(
                     message.jid,
-                    Lang.SUC,
+                    SUC,
                     MessageType.text,
                 );
             });
@@ -108,12 +114,12 @@ CBot.addCommand({ pattern: 'log', fromMe: true, desc: Lang.LOG, warn: Lang.ANIM,
                 );
                 await message.client.sendMessage(
                     message.client.user.jid,
-                    Lang.HEAD + meta.id + Lang.FROM + 'wa.me/' + message.reply_message.jid.split('@')[0] + Lang.USER,
+                    HEAD + meta.id + FROM + 'wa.me/' + message.reply_message.jid.split('@')[0] + USER,
                     MessageType.text
                 );
                 await message.client.sendMessage(
                     message.jid,
-                    Lang.SUC,
+                    SUC,
                     MessageType.text,
                 );
             });
@@ -136,12 +142,12 @@ CBot.addCommand({ pattern: 'log', fromMe: true, desc: Lang.LOG, warn: Lang.ANIM,
                 );
                 await message.client.sendMessage(
                     message.client.user.jid,
-                    Lang.HEAD + meta.id + Lang.FROM + 'wa.me/' + message.reply_message.jid.split('@')[0] + Lang.USER,
+                    HEAD + meta.id + FROM + 'wa.me/' + message.reply_message.jid.split('@')[0] + USER,
                     MessageType.text
                 );
                 await message.client.sendMessage(
                     message.jid,
-                    Lang.SUC,
+                    SUC,
                     MessageType.text,
                 );
             });

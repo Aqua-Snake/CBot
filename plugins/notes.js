@@ -1,9 +1,9 @@
-/* Copyright (C) 2021 Aqua Snake.
+/* Copyright (C) 2021 Cyber Bot.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-Cyber Army Bot  - Aqua-Snake
+Cyber Bot - Aqua Snake
 */
 
 const fs = require('fs/promises')
@@ -15,14 +15,14 @@ const NotesDB = require('./sql/notes');
 const Language = require('../language')
 const Lang = Language.getString('notes')
 
-CBot.addCommand({ pattern: 'notes', fromMe: true, desc: Lang.NOTES_USAGE }, async (message, match) => {
+CBot.applyCMD({ pattern: 'notes', fromMe: true,  deleteCommand: false,  desc: Lang.NOTES_USAGE }, async (message, match) => {
 
 
     const _notes = await NotesDB.getNotes()
     const notes = []
     _notes.map(note => {
         if (!note.note.includes('IMG;;;')) {
-            notes.push('📜' + note.note)
+            notes.push('📝' + note.note)
         }
     })
 
@@ -44,7 +44,7 @@ CBot.addCommand({ pattern: 'notes', fromMe: true, desc: Lang.NOTES_USAGE }, asyn
 
 
 
-CBot.addCommand({ pattern: 'save ?(.*)', fromMe: true, desc: Lang.SAVE_USAGE }, async (message, match) => {
+CBot.applyCMD({ pattern: 'save ?(.*)', fromMe: true,  deleteCommand: false,  desc: Lang.SAVE_USAGE }, async (message, match) => {
 
     const userNote = match[1]
 
@@ -92,7 +92,7 @@ CBot.addCommand({ pattern: 'save ?(.*)', fromMe: true, desc: Lang.SAVE_USAGE }, 
     }
 })
 
-CBot.addCommand({ pattern: 'deleteNotes', fromMe: true, desc: Lang.DELETE_USAGE }, async (message, match) => {
+CBot.applyCMD({ pattern: 'deleteNotes', fromMe: true,  deleteCommand: false,  desc: Lang.DELETE_USAGE }, async (message, match) => {
 
     await NotesDB.deleteAllNotes()
 

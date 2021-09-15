@@ -1,20 +1,25 @@
-/* Copyright (C) 2021 Aqua Snake.
+/* Copyright (C) 2021 Cyber Bot.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-Cyber Army Bot  - Aqua-Snake
+Cyber Bot - Aqua Snake
 */
 
 const CBot = require('../events');
 const {MessageType} = require('@adiwajshing/baileys');
 const Config = require('../config');
-
+const Heroku = require('heroku-client');
+const CBotUploader = require("CBot-img");
 const fs = require('fs');
 const Language = require('../language');
 const Lang = Language.getString('profile');
+const heroku = new Heroku({
+    token: Config.HEROKU.API_KEY
+});
+let baseURI = '/apps/' + Config.HEROKU.APP_NAME;
 
-CBot.addCommand({pattern: 'kickme$', fromMe: true, desc: Lang.KICKME_DESC, onlyGroup: true}, (async (message, match) => {
+CBot.applyCMD({pattern: 'kickme', fromMe: true, desc: Lang.KICKME_DESC, onlyGroup: true, dontAddCommandList: true,  deleteCommand: false}, (async (message, match) => {
     if (Config.KICKMEMSG == 'default') { 
         await message.client.sendMessage(message.jid,Lang.KICKME,MessageType.text);
         await message.client.groupLeave(message.jid);
@@ -25,8 +30,8 @@ CBot.addCommand({pattern: 'kickme$', fromMe: true, desc: Lang.KICKME_DESC, onlyG
     }
 }));
 
-CBot.addCommand({pattern: 'pp$', fromMe: true, desc: Lang.PP_DESC}, (async (message, match) => {    
-    if (!message.reply_message || !message.reply_message.image) return await message.client.sendMessage(message.jid,Lang.NEED_PHOTO, MessageType.text);
+CBot.applyCMD({pattern: 'pp', fromMe: true, desc: Lang.PP_DESC, dontAddCommandList: true,  deleteCommand: false}, (async (message, match) => {    
+    if (message.reply_message === false || message.reply_message.image === false) return await message.client.sendMessage(message.jid,Lang.NEED_PHOTO);
     
     var load = await message.client.sendMessage(message.jid,Lang.PPING,MessageType.text);
     var location = await message.client.downloadAndSaveMediaMessage({
@@ -38,10 +43,10 @@ CBot.addCommand({pattern: 'pp$', fromMe: true, desc: Lang.PP_DESC}, (async (mess
     });
 
     await message.client.updateProfilePicture(message.client.user.jid, fs.readFileSync(location));
-    await message.client.deleteMessage(message.jid, {id: load.key.id, remoteJid: message.jid, fromMe: true})
+    await load.delete();
 }));
 
-CBot.addCommand({pattern: 'block ?(.*)', fromMe: true, desc: Lang.BLOCK_DESC}, (async (message, match) => {   
+CBot.applyCMD({pattern: 'block ?(.*)', fromMe: true, desc: Lang.BLOCK_DESC, dontAddCommandList: true,  deleteCommand: false}, (async (message, match) => {   
     if (Config.BLOCKMSG == 'default') {  
         if (message.reply_message !== false) {
             await message.client.sendMessage(message.jid, '@' + message.reply_message.jid.split('@')[0] + '```, ' + Lang.BLOCKED + '!```', MessageType.text, {
@@ -84,53 +89,30 @@ CBot.addCommand({pattern: 'block ?(.*)', fromMe: true, desc: Lang.BLOCK_DESC}, (
     }
 }));
 
-CBot.addCommand({pattern: 'unblock ?(.*)', fromMe: true, desc: Lang.UNBLOCK_DESC}, (async (message, match) => { 
-    if (Config.UNBLOCKMSG == 'default') { 
-   
-        if (message.reply_message !== false) {
-            await message.client.blockUser(message.reply_message.jid, "remove");
-            await message.client.sendMessage(message.jid, '@' + message.reply_message.jid.split('@')[0] + '```, ' + Lang.UNBLOCKED + '!```', MessageType.text, {
-                quotedMessage: message.reply_message.data, contextInfo: {mentionedJid: [message.reply_message.jid.replace('c.us', 's.whatsapp.net')]}
-            });
-        } else if (message.mention !== false) {
-            message.mention.map(async user => {
-                await message.client.blockUser(user, "remove");
-                await message.client.sendMessage(message.jid, '@' + user.split('@')[0] + '```, ' + Lang.UNBLOCKED + '!```', MessageType.text, {
-                    contextInfo: {mentionedJid: [user.replace('c.us', 's.whatsapp.net')]}
-                });    
-            });
-        } else if (!message.jid.includes('-')) {
-            await message.client.blockUser(message.jid, "remove");
-            await message.client.sendMessage(message.jid, '*' + Lang.UNBLOCKED_UPPER + '*', MessageType.text,);
-        } else {
-            await message.client.sendMessage(message.jid, '*' + Lang.NEED_USER + '*', MessageType.text,);
-        }
-    }
-    else {
-        if (message.reply_message !== false) {
-            await message.client.blockUser(message.reply_message.jid, "remove");
-            await message.client.sendMessage(message.jid, '@' + message.reply_message.jid.split('@')[0] + Config.UNBLOCKMSG, MessageType.text, {
-                quotedMessage: message.reply_message.data, contextInfo: {mentionedJid: [message.reply_message.jid.replace('c.us', 's.whatsapp.net')]}
-            });
-        } else if (message.mention !== false) {
-            message.mention.map(async user => {
-                await message.client.blockUser(user, "remove");
-                await message.client.sendMessage(message.jid, '@' + user.split('@')[0] + Config.UNBLOCKMSG, MessageType.text, {
-                    contextInfo: {mentionedJid: [user.replace('c.us', 's.whatsapp.net')]}
-                });    
-            });
-        } else if (!message.jid.includes('-')) {
-            await message.client.blockUser(message.jid, "remove");
-            await message.client.sendMessage(message.jid, '*' + Lang.UNBLOCKED_UPPER + '*', MessageType.text,);
-        } else {
-            await message.client.sendMessage(message.jid, '*' + Lang.NEED_USER + '*', MessageType.text,);
-        }
+CBot.applyCMD({pattern: 'unblock ?(.*)', fromMe: true, desc: Lang.UNBLOCK_DESC, dontAddCommandList: true,  deleteCommand: false}, (async (message, match) => {    
+    if (message.reply_message !== false) {
+        await message.client.blockUser(message.reply_message.jid, "remove");
+        await message.client.sendMessage(message.jid, '@' + message.reply_message.jid.split('@')[0] + '```, ' + Lang.UNBLOCKED + '!```', MessageType.text, {
+            quotedMessage: message.reply_message.data, contextInfo: {mentionedJid: [message.reply_message.jid.replace('c.us', 's.whatsapp.net')]}
+        });
+    } else if (message.mention !== false) {
+        message.mention.map(async user => {
+            await message.client.blockUser(user, "remove");
+            await message.client.sendMessage(message.jid, '@' + user.split('@')[0] + '```, ' + Lang.UNBLOCKED + '!```', MessageType.text, {
+                contextInfo: {mentionedJid: [user.replace('c.us', 's.whatsapp.net')]}
+            });    
+        });
+    } else if (!message.jid.includes('-')) {
+        await message.client.blockUser(message.jid, "remove");
+        await message.client.sendMessage(message.jid, '*' + Lang.UNBLOCKED_UPPER + '*', MessageType.text,);
+    } else {
+        await message.client.sendMessage(message.jid, '*' + Lang.NEED_USER + '*', MessageType.text,);
     }
 }));
 
 if (Config.WORKTYPE == 'private') {
 
-    CBot.addCommand({pattern: 'jid ?(.*)', fromMe: true, desc: Lang.JID_DESC}, (async (message, match) => {    
+    CBot.applyCMD({pattern: 'jid ?(.*)', fromMe: true, desc: Lang.JID_DESC,  deleteCommand: false}, (async (message, match) => {    
         if (message.reply_message !== false) {
             await message.client.sendMessage(message.jid, Lang.JID.format(message.reply_message.jid.split('@')[0], message.reply_message.jid), MessageType.text, {
                 quotedMessage: message.reply_message.data, contextInfo: {mentionedJid: [message.reply_message.jid.replace('c.us', 's.whatsapp.net')]}
@@ -148,7 +130,7 @@ if (Config.WORKTYPE == 'private') {
 }
 else if (Config.WORKTYPE == 'public') {
 
-    CBot.addCommand({pattern: 'jid ?(.*)', fromMe: false, desc: Lang.JID_DESC}, (async (message, match) => {    
+    CBot.applyCMD({pattern: 'jid ?(.*)', fromMe: true, desc: Lang.JID_DESC, dontAddCommandList: true}, (async (message, match) => {    
         if (message.reply_message !== false) {
             await message.client.sendMessage(message.jid, Lang.JID.format(message.reply_message.jid.split('@')[0], message.reply_message.jid), MessageType.text, {
                 quotedMessage: message.reply_message.data, contextInfo: {mentionedJid: [message.reply_message.jid.replace('c.us', 's.whatsapp.net')]}
@@ -165,3 +147,68 @@ else if (Config.WORKTYPE == 'public') {
     }));
 }
 
+CBot.applyCMD({pattern: 'setalive', fromMe: true, desc: Lang.ALIVE_DESC, dontAddCommandList: true,  deleteCommand: false}, (async (message, match) => {    
+    if (message.reply_message === false || message.reply_message.image === false) return await message.client.sendMessage(message.jid,Lang.NEED_PHOTO);
+    
+    var location = await message.client.downloadAndSaveMediaMessage({
+        key: {
+            remoteJid: message.reply_message.jid,
+            id: message.reply_message.id
+        },
+        message: message.reply_message.data.quotedMessage
+    });
+    const anu = await CBotUploader(Config.IMGBB, location)
+    const varKey = "ALIVE_LOGO"
+    const varValue = anu.display_url
+    await heroku.patch(baseURI + '/config-vars', {
+        body: {
+            [varKey]: varValue
+        }
+    }).then(async (app) => {
+        await message.client.sendMessage(message.jid,Lang.SET_ALIVE, MessageType.text);
+    });
+}));
+
+CBot.applyCMD({pattern: 'setwelcome', fromMe: true, desc: Lang.WEL_DESC, dontAddCommandList: true,  deleteCommand: false}, (async (message, match) => {    
+    if (message.reply_message === false || message.reply_message.image === false) return await message.client.sendMessage(message.jid,Lang.NEED_PHOTO);
+    
+    var location = await message.client.downloadAndSaveMediaMessage({
+        key: {
+            remoteJid: message.reply_message.jid,
+            id: message.reply_message.id
+        },
+        message: message.reply_message.data.quotedMessage
+    });
+    const anu = await CBotUploader(Config.IMGBB, location)
+    const varKey = "WELCOME_LOGO"
+    const varValue = anu.display_url
+    await heroku.patch(baseURI + '/config-vars', {
+        body: {
+            [varKey]: varValue
+        }
+    }).then(async (app) => {
+        await message.client.sendMessage(message.jid,Lang.SET_WEL, MessageType.text);
+    });
+}));
+
+CBot.applyCMD({pattern: 'setbye', fromMe: true, desc: Lang.BYE_DESC, dontAddCommandList: true,  deleteCommand: false}, (async (message, match) => {    
+    if (message.reply_message === false || message.reply_message.image === false) return await message.client.sendMessage(message.jid,Lang.NEED_PHOTO);
+    
+    var location = await message.client.downloadAndSaveMediaMessage({
+        key: {
+            remoteJid: message.reply_message.jid,
+            id: message.reply_message.id
+        },
+        message: message.reply_message.data.quotedMessage
+    });
+    const anu = await CBotUploader(Config.IMGBB, location)
+    const varKey = "BYE_LOGO"
+    const varValue = anu.display_url
+    await heroku.patch(baseURI + '/config-vars', {
+        body: {
+            [varKey]: varValue
+        }
+    }).then(async (app) => {
+        await message.client.sendMessage(message.jid,Lang.SET_BYE, MessageType.text);
+    });
+}));

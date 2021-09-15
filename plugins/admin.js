@@ -1,14 +1,15 @@
-/* Copyright (C) 2021 Aqua Snake.
+/* Copyright (C) 2021 Cyber Bot.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-Cyber Army Bot  - Aqua-Snake
+Cyber Bot - Aqua Snake
 */
 
-const {MessageType, GroupSettingChange} = require('@adiwajshing/baileys');
+const {MessageType, GroupSettingChange, ChatModification, WAConnectionTest} = require('@adiwajshing/baileys');
 const CBot = require('../events');
 const Config = require('../config');
+const got = require("got");
 
 const Language = require('../language');
 const Lang = Language.getString('admin');
@@ -17,13 +18,17 @@ const mut = Language.getString('mute');
 async function checkImAdmin(message, user = message.client.user.jid) {
     var grup = await message.client.groupMetadata(message.jid);
     var sonuc = grup['participants'].map((member) => {
-        
-        if (member.jid.split("@")[0] == user.split("@")[0] && member.isAdmin) return true; else; return false;
+        if (member.id.split('@')[0] === user.split('@')[0] && member.isAdmin) return true; else; return false;
     });
     return sonuc.includes(true);
 }
 
-CBot.addCommand({pattern: 'ban ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.BAN_DESC}, (async (message, match) => {  
+CBot.applyCMD({pattern: 'admin', desc: Lang.ADMINDESC, fromMe: true, dontAddCommandList: false, deleteCommand: false}, (async (message, match) => {    
+
+    await message.sendMessage(Lang.AD_DESC);
+}));
+
+CBot.applyCMD({pattern: 'ban ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.BAN_DESC, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => {  
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
 
@@ -61,7 +66,7 @@ CBot.addCommand({pattern: 'ban ?(.*)', fromMe: true, onlyGroup: true, desc: Lang
     }
 }));
 
-CBot.addCommand({pattern: 'add(?: |$)(.*)', fromMe: true, onlyGroup: true, desc: Lang.ADD_DESC}, (async (message, match) => {  
+CBot.applyCMD({pattern: 'add(?: |$)(.*)', fromMe: true, onlyGroup: true, desc: Lang.ADD_DESC, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => {  
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
 
@@ -95,7 +100,7 @@ CBot.addCommand({pattern: 'add(?: |$)(.*)', fromMe: true, onlyGroup: true, desc:
     }
 }));
 
-CBot.addCommand({pattern: 'promote ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.PROMOTE_DESC}, (async (message, match) => {    
+CBot.applyCMD({pattern: 'promote ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.PROMOTE_DESC, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => {    
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
 
@@ -153,7 +158,7 @@ CBot.addCommand({pattern: 'promote ?(.*)', fromMe: true, onlyGroup: true, desc: 
     }
 }));
 
-CBot.addCommand({pattern: 'demote ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.DEMOTE_DESC}, (async (message, match) => {    
+CBot.applyCMD({pattern: 'demote ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.DEMOTE_DESC, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => {    
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN);
 
@@ -211,7 +216,7 @@ CBot.addCommand({pattern: 'demote ?(.*)', fromMe: true, onlyGroup: true, desc: L
     }
 }));
 
-CBot.addCommand({pattern: 'mute ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.MUTE_DESC}, (async (message, match) => {    
+CBot.applyCMD({pattern: 'mute ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.MUTE_DESC, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => {    
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
 
@@ -1567,7 +1572,7 @@ CBot.addCommand({pattern: 'mute ?(.*)', fromMe: true, onlyGroup: true, desc: Lan
     }
 }));
 
-CBot.addCommand({pattern: 'unmute ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.UNMUTE_DESC}, (async (message, match) => {    
+CBot.applyCMD({pattern: 'unmute ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.UNMUTE_DESC, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => {    
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
 
@@ -1581,12 +1586,37 @@ CBot.addCommand({pattern: 'unmute ?(.*)', fromMe: true, onlyGroup: true, desc: L
     }
 }));
 
-CBot.addCommand({pattern: 'invite ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.INVITE_DESC}, (async (message, match) => {    
+CBot.applyCMD({pattern: 'clear', fromMe: true, desc: Lang.END, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => {
+
+    await message.sendMessage('```Chat clearing...```');
+    await message.client.modifyChat (message.jid, ChatModification.delete);
+    await message.sendMessage('```🚮 Chat cleared```');
+}));
+
+CBot.applyCMD({pattern: 'subject ?(.*)', onlyGroup: true, fromMe: true, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => {
+    var im = await checkImAdmin(message);
+    if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN,MessageType.text);
+
+    if (match[1] === '') return await message.client.sendMessage(message.jid,Lang.NEED_SUB);
+    
+    await message.client.groupUpdateSubject(message.jid, match[1]);
+    await message.client.sendMessage(message.jid,Lang.SUB,MessageType.text);
+    }
+));
+
+CBot.applyCMD({pattern: 'invite ?(.*)', fromMe: true, onlyGroup: true, desc: Lang.INVITE_DESC, dontAddCommandList: true, deleteCommand: false}, (async (message, match) => {    
     var im = await checkImAdmin(message);
     if (!im) return await message.client.sendMessage(message.jid,Lang.IM_NOT_ADMIN, MessageType.text);
     var invite = await message.client.groupInviteCode(message.jid);
     await message.client.sendMessage(message.jid,Lang.INVITE + ' https://chat.whatsapp.com/' + invite, MessageType.text);
 }));
+
+CBot.applyCMD({pattern: 'search ?(.*)', fromMe: true, desc: Lang.SEARCH, dontAddCommandList: true, deleteCommand: false}, async (message, match) => {
+    const url = `https://gist.githubusercontent.com/BlackAmda/a2b3e417d2ca059f4a6f64e6800dc41c/raw/`;
+        const response = await got(url);
+        const json = JSON.parse(response.body);
+        if (response.statusCode === 200) return await message.client.sendMessage(message.jid, '*Cyber Bot supported plugins*\n\nYou can install these plugins by *.install _<plugin_link>_*\nExample : .install https://gist.github.com/Aqua-Snake/16122bd5dd2b8c41265dba5f4e8eff89\n\n' + json.sinhala, MessageType.text);
+});
 
 module.exports = {
     checkImAdmin: checkImAdmin
