@@ -1,7 +1,7 @@
 {
   "name": "CBot",
-  "version": "2.0.1v",
-  "description": "CBot Bot project - a Whatsapp userbot helping to improve your Whatsapp experience.",
+  "version": "2.0.0",
+  "description": "CBot (Cyber Bot) project - a Whatsapp userbot helping to improve your Whatsapp experience.",
   "main": "./CBot/bot.js",
   "scripts": {
     "start": "supervisor -s bot.js"
@@ -11,18 +11,27 @@
     "url": "git+https://github.com/Aqua-Snake/CBot.git"
   },
   "keywords": [
-    "whatsapp"
+    "whatsapp",
+    "bot",
+    "ai",
+    "asena",
+    "api",
+    "unlimited",
+    "asenadev",
+    "machine learning",
+    "automatic",
+    "whatsapp web",
+    "whatsapp api",
+    "WhatsAsena"
   ],
   "author": "Aqua Snake",
-  "developer": "Cyber Army",
+  "developer": "Aqua Snake",
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/Aqua-Snake/CBot/issues"
   },
   "homepage": "https://github.com/Aqua-Snake/CBot#readme",
   "dependencies": {
-    "cbot-public-1":"1.0.0",
-    "cbot-img": "1.0.0",
-    "cbot-textlogo-1.0.0": "1.0.0"
+    "whatsasena-npm": "^1.3.0"
   }
 }
