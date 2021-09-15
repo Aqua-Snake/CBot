@@ -9,7 +9,7 @@ Cyber Army Bot  - Aqua-Snake
 const fs = require("fs");
 const path = require("path");
 const events = require("./events");
-const CBot = require('CBot-public-1');
+const CBot = require('whatsasena-npm');
 const chalk = require('chalk');
 const axios = require('axios');
 const config = require('./config');
