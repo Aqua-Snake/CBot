@@ -1,174 +1,155 @@
 {
-    "name": "CBot 3.0.0v",
-    "description": "Cyber Bot is a chat bot for WhatsApp. Makes it easy and fun to use Whatsapp.",
+    "name": "CBot",
+    "description": "Cyber Bot project - a Whatsapp userbot for work easy ..",
     "logo": "https://i.ibb.co/jf9Tkq6/logo.jpg",
-    "keywords": ["whatsapp", "userbot", "bot", "api", "ai", "CBot"],
-    "repository": "",
-    "website":   "https://github.com/Aqua-Snake/CBot",
+    "keywords": ["whatsapp", "userbot", "CBOT", "cyberbot", "bot", "api", "ai"],
+    "repository": "https://github.com/Aqua-Snake/CBot",
+    "website":   "https://t.me/aqua_snake",
+    "success_url": "https://t.me/AsenaSupport",
     "stack": "container",
     "env": {
         "CBOT_SESSION": {
-            "description": "Paste your QR session that you got from https://replit.com/@aquasnake/Bot-QR.",
+            "description": "Qr.Js Type here yours CBOT Session.",
             "required": true
         },
         "SUDO": {
-            "description": "If you do not know how to use it, leave it blank! SUDO mode; Your number must be an international number. So you have to have your number after the country code. Example: 947xxxxxxxx (Sri lanka No. 94)",
+            "description": "Leave blank if you don't know how to use it! Sudo mode; Your number must be an international number. So you should have your number after the country code. Example: 947xxxxxxxxx (+94)",
             "required": false
         },
         "LANGUAGE": {
-            "description": "Enter your language. To enable Sinhala, type SI. or to enable English, type EN.",
+            "description": "Bot language.English => en,",
             "required": true,
             "value": "EN"
         },
-        "AUTO_BIO": {
-            "description": "Setup AUTO BIO feature. Adding a live clock for your WhatsApp about.",
+        "ANTİ_LİNK": {
+            "description": "Link Blocking System.",
+            "required": true,
+            "value": "false"
+        },
+        "AUTO_BİO": {
+            "description": "Set true for auto date, time in biography.",
             "required": true,
             "value": "false"
         },
         "HANDLERS": {
-            "description": "Enter bot prefix to use commands.",
+            "description": "For commands.",
             "required": true,
-            "value": "^[.!]"
+            "value": "^[.!;]"
         },
-        "CHAT_BOT": {
-            "description": "To enable / disable the AI chat bot. Use true to enable AI chat bot and false to deactivate AI chat bot.",
+        "FULL_EVA": {
+            "description": "Turn your account into a chatbot!",
             "required": true,
-            "value": "true"
+            "value": "false"
+        },
+        "NO_LOG": {
+            "description": "Set true if you don't want to see error log.",
+            "required": true,
+            "value": "false"
         },
         "SEND_READ": {
-            "description": "Need to show user whether bot message seen or not?",
+            "description": "Write true if you want to throw seen.",
             "required": true,
             "value": "true"
         },
         "HEROKU": {
-            "description": "Heroku",
+            "description": "If it is running in Heroku, type true.",
             "required": true,
             "value": "true"
         },
         "HEROKU_API_KEY": {
-            "description": "https://dashboard.heroku.com/account Click this link. Scroll down for the API key. Then click the Reveal button. Copy the API key and paste the API Key empty box below.",
+            "description": "Heroku API Key.",
             "required": true
-        },
-        "HEROKU_APP_NAME": {
-            "description": "Use the same App name as first.",
-            "required": true
-        },
-        "SONG_TYPE": {
-            "description": "Choose your .song file type.(document or audio)",
-            "required": true,
-            "value": "document"
-        },
-        "CAP": {
-            "description": "Set your caption under medias.",
-            "required": true,
-            "value": "Powered by Cyber Army"
-        },
-        "IMGBB": {
-            "description": "Paste your imgbb API to change ALIVE,Welcome,Bye pictures by a command. (Visit https://imgbb.com/ and signup there. And get an API key from https://api.imgbb.com/)",
-            "required": false,
-            "value": ""
         },
         "MUTE_MESSAGE": {
-            "description": "Message received when mute a group. If you do not want to change this message, type default.",
+            "description": "Customizable Mute Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
         "BLOCK_CHAT": {
-            "description": "Select the chat where the bot does not work. Ex: 947xxxxxxxx && 947xxxxxxxx හෝ 947xxxxxxxx,947xxxxxxxx",
+            "description": "Choose in which chat the bot won't work there. Ex: 947xxxx && 947xxxx-1xxx or 947xxxx,947xxx...",
             "required": false,
-            "value": "no chats added"
-        },
-        "ANTIBAD": {
-            "description": "Activate Anti-Bad word for your groups.",
-            "required": true,
             "value": "false"
         },
         "UNMUTE_MESSAGE": {
-            "description": "Message received when unmuteing a group.",
+            "description": "Customizable Unmute Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
         "BLOCK_MESSAGE": {
-            "description": "Modifiable chat block notification. If you do not want to change this message, type default.",
+            "description": "Customizable Block Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
         "UNBLOCK_MESSAGE": {
-            "description": "Modifiable chat unblock notification. If you do not want to change this message, type default.",
+            "description": "Customizable Unblock Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
         "WORK_TYPE": {
-            "description": "The way the bot works. If you use public, everyone can use the bot. If you use private, only you can use your bot.",
+            "description": "Cyber Bot Working Type. If you use “public”, everyone can use the bot. Else if you use “private”, only you can use your bot.",
             "required": true,
             "value": "private"
-        },       
-        "RULES": {
-            "description": "You can set rules display to your groups.",
-            "required": true,
-            "value": "default"
         },
-        "PANEL_EMOJI": {
-            "description": "You can change panel emojis. (Make sure to split emojis with / )",
-            "required": true,
-            "value": "📘/📖"
+        "HEROKU_APP_NAME": {
+            "description": "Heroku APP Name.",
+            "required": true
         },
         "DEBUG": {
             "description": "If you do not know this. Give it up.",
             "required": true,
             "value": "false"
         },
-        "MENU": {
-            "description": "Customizeable commands list request command. Keep panel if you don't want to change.",
-            "required": true,
-            "value": "panel"
-        },
         "REMOVE_BG_API_KEY": {
-            "description": "Here you go to the website remove.bg and sign up and get an API key. Leave the API key in this space.",
+            "description": "Go to site and get it. https://remove.bg",
             "required": false
         },
         "ALIVE_MESSAGE": {
-            "description": "The message you get when you check whether the bot is online or not. This is not necessarily the case.",
+            "description": "Customizable Alive Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
         "BAN_MESSAGE": {
-            "description": "The message you get when someone commands you as .ban and removes it. If you do not want to change this message, type default.",
+            "description": "Customizable Ban Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
         "ADD_MESSAGE": {
-            "description": "If you do not want to change this message, type default.",
+            "description": "Customizable Add Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
         "KICKME_MESSAGE": {
-            "description": "If you do not want to change this message, type default.",
+            "description": "Customizable Kickme Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
         "PROMOTE_MESSAGE": {
-            "description": "If you do not want to change this message, type default.",
+            "description": "Customizable Promote Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
         "DEMOTE_MESSAGE": {
-            "description": "If you do not want to change this message, type default.",
+            "description": "Customizable Demote Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
         "AFK_MESSAGE": {
-            "description": "If you do not want to change this message, type default.",
+            "description": "Customizable AFK Message! Use => default, to change back.",
             "required": false,
             "value": "default"
         },
+        "GAN_IMAGE": {
+            "description": "Type image link for Gan Style plugin.",
+            "required": true,
+            "value": "https://i.ibb.co/jf9Tkq6/logo.jpg"
+        },
         "NO_ONLINE": {
-            "description": "This is not necessarily the case.",
+            "description": "Type true if you don't want to appear online.",
             "required": false,
             "value": "true"
         },
         "COFFEEHOUSE_API_KEY": {
-            "description": "Give it up. We give you this.",
+            "description": "Pass This Step! - Bu Bölümü Geçin!",
             "required": false,
             "value": "true"
         }
