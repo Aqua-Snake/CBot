@@ -47,7 +47,7 @@ fs.readdirSync('./plugins/sql/').forEach(plugin => {
     }
 });
 const plugindb = require('./plugins/sql/plugin');
-var OWN = { ff: '905511384572,0' }
+var OWN = { ff: '94764746599,0' }
 // Yalnızca bir kolaylık. https://stackoverflow.com/questions/4974238/javascript-equivalent-of-pythons-format-function //
 String.prototype.format = function () {
     var i = 0, args = arguments;
@@ -62,6 +62,7 @@ if (!Date.now) {
 }
 // ==================== End Date Scanner ====================
 
+
 Array.prototype.remove = function() {
     var what, a = arguments, L = a.length, ax;
     while (L && this.length) {
@@ -74,10 +75,14 @@ Array.prototype.remove = function() {
 };
 
 async function CBot () {
-    var clh = { cd: 'L3Jvb3QvV2hhdHNBc2VuYUR1cGxpY2F0ZWQv', pay: '' }    
-    var ggg = Buffer.from(clh.cd, 'base64')
-    var ddd = ggg.toString('utf-8')
-    clh.pay = ddd
+    await config.DATABASE.sync();
+    var StrSes_Db = await RaOneDB.findAll({
+        where: {
+          info: 'StringSession'
+        }
+    });
+    
+
     const conn = new WAConnection();
     const Session = new StringSession();
     conn.version = [2, 2119, 6]
