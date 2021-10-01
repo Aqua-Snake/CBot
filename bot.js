@@ -7,30 +7,25 @@ Cyber Bot  - Aqua-Snake
 */
 
 const fs = require("fs");
-const os = require("os");
 const path = require("path");
 const events = require("./events");
+const CBot = require('CBot');
 const chalk = require('chalk');
-const config = require('./config');
 const axios = require('axios');
+const config = require('./config');
 const Heroku = require('heroku-client');
 const {WAConnection, MessageOptions, MessageType, Mimetype, Presence} = require('@adiwajshing/baileys');
-const {Message, StringSession, Image, Video} = require('./CBot/');
+const {Message, StringSession, Image, Video} = require('./cbot');
 const { DataTypes } = require('sequelize');
 const { GreetingsDB, getMessage } = require("./plugins/sql/greetings");
 const got = require('got');
-const simpleGit = require('simple-git');
-const git = simpleGit();
-const crypto = require('crypto');
-const nw = '```Blacklist Defected!```'
+
 const heroku = new Heroku({
     token: config.HEROKU.API_KEY
 });
-let baseURI = '/apps/' + config.HEROKU.APP_NAME;
-const Language = require('./language');
-const Lang = Language.getString('updater');
 
-// Sql
+let baseURI = '/apps/' + config.HEROKU.APP_NAME;
+
 const CBotDB = config.DATABASE.define('CBot', {
     info: {
       type: DataTypes.STRING,
@@ -41,14 +36,15 @@ const CBotDB = config.DATABASE.define('CBot', {
         allowNull: false
     }
 });
+
 fs.readdirSync('./plugins/sql/').forEach(plugin => {
     if(path.extname(plugin).toLowerCase() == '.js') {
         require('./plugins/sql/' + plugin);
     }
 });
+
 const plugindb = require('./plugins/sql/plugin');
-var OWN = { ff: '94764746599,0' }
-// Yalnızca bir kolaylık. https://stackoverflow.com/questions/4974238/javascript-equivalent-of-pythons-format-function //
+
 String.prototype.format = function () {
     var i = 0, args = arguments;
     return this.replace(/{}/g, function () {
@@ -56,12 +52,9 @@ String.prototype.format = function () {
     });
 };
 
-// ==================== Date Scanner ====================
 if (!Date.now) {
     Date.now = function() { return new Date().getTime(); }
 }
-// ==================== End Date Scanner ====================
-
 
 Array.prototype.remove = function() {
     var what, a = arguments, L = a.length, ax;
@@ -76,254 +69,125 @@ Array.prototype.remove = function() {
 
 async function CBot () {
     await config.DATABASE.sync();
-    var StrSes_Db = await RaOneDB.findAll({
+    var StrSes_Db = await CBotDB.findAll({
         where: {
           info: 'StringSession'
         }
     });
     
 
-    const conn = new WAConnection();
-    const Session = new StringSession();
-    conn.version = [2, 2119, 6]
-    setInterval(async () => { 
-        var getGMTh = new Date().getHours()
-        var getGMTm = new Date().getMinutes()
-        await axios.get('https://gist.githubusercontent.com/Aqua-Snake/d0d1855bd0098d773759b4f3345bd292/raw/').then(async (ann) => {
-            const { infotr, infoen, infoes, infopt, infoid, infoaz, infohi, infoml, inforu} = ann.data.announcements          
-            if (infotr !== '' && config.LANG == 'TR') {
-                while (getGMTh == 19 && getGMTm == 1) { 
-                    return conn.sendMessage(conn.user.jid, '[ ```Günlük Duyurular``` ]\n\n' + infotr.replace('{user}', conn.user.name).replace('{wa_version}', conn.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', conn.user.phone.os_version).replace('{device_model}', conn.user.phone.device_model).replace('{device_brand}', conn.user.phone.device_manufacturer), MessageType.text) 
+const CBotCon = new WAConnection();
+const Session = new StringSession();
+CBotCon.version = [2, 2126, 14]
+setInterval(async () => { 
+    var getGMTh = new Date().getHours()
+    var getGMTm = new Date().getMinutes()
+        await axios.get('https://gist.githubusercontent.com/Aqua-Snake/45d8f9633a2e24d25921bb976f35bb44/raw/').then(async (ann) => {
+            const { infoen, infosi} = ann.data.announcements          
+            if (infoen !== '' && config.LANG == 'EN' || config.LANG == 'ES') {
+                while (getGMTh == 08 && getGMTm == 00) { 
+                    return CBotCon.sendMessage(CBotCon.user.jid, '[ ```🔔Cyber Bot Announcements🔔``` ]\n\n' + infoen.replace('{user}', CBotCon.user.name).replace('{wa_version}', CBotCon.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', CBotCon.user.phone.os_version).replace('{device_model}', CBotCon.user.phone.device_model).replace('{device_brand}', CBotCon.user.phone.device_manufacturer), MessageType.text) 
                 }
             }
-            else if (infoaz !== '' && config.LANG == 'AZ') {
-                while (getGMTh == 19 && getGMTm == 1) { 
-                    return conn.sendMessage(conn.user.jid, '[ ```Gündəlik Elanlar``` ]\n\n' + infoaz.replace('{user}', conn.user.name).replace('{wa_version}', conn.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', conn.user.phone.os_version).replace('{device_model}', conn.user.phone.device_model).replace('{device_brand}', conn.user.phone.device_manufacturer), MessageType.text) 
-                }
-            }
-            else if (infoes !== '' && config.LANG == 'ES') {
-                while (getGMTh == 18 && getGMTm == 1) { 
-                    return conn.sendMessage(conn.user.jid, '[ ```Anuncios Diarios``` ]\n\n' + infoes.replace('{user}', conn.user.name).replace('{wa_version}', conn.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', conn.user.phone.os_version).replace('{device_model}', conn.user.phone.device_model).replace('{device_brand}', conn.user.phone.device_manufacturer), MessageType.text) 
-                }
-            }
-            else if (infoen !== '' && config.LANG == 'EN') {
-                while (getGMTh == 19 && getGMTm == 1) { 
-                    return conn.sendMessage(conn.user.jid, '[ ```Daily Announcements``` ]\n\n' + infoen.replace('{user}', conn.user.name).replace('{wa_version}', conn.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', conn.user.phone.os_version).replace('{device_model}', conn.user.phone.device_model).replace('{device_brand}', conn.user.phone.device_manufacturer), MessageType.text) 
-                }
-            }
-            else if (infohi !== '' && config.LANG == 'HI') {
-                while (getGMTh == 21 && getGMTm == 31) { 
-                    return conn.sendMessage(conn.user.jid, '[ ```दैनिक घोषणाएं``` ]\n\n' + infohi.replace('{user}', conn.user.name).replace('{wa_version}', conn.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', conn.user.phone.os_version).replace('{device_model}', conn.user.phone.device_model).replace('{device_brand}', conn.user.phone.device_manufacturer), MessageType.text) 
-                }
-            }
-            else if (infoml !== '' && config.LANG == 'ML') {
-                while (getGMTh == 19 && getGMTm == 1) { 
-                    return conn.sendMessage(conn.user.jid, '[ ```പ്രതിദിന പ്രഖ്യാപനങ്ങൾ``` ]\n\n' + infoml.replace('{user}', conn.user.name).replace('{wa_version}', conn.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', conn.user.phone.os_version).replace('{device_model}', conn.user.phone.device_model).replace('{device_brand}', conn.user.phone.device_manufacturer), MessageType.text) 
-                }
-            }
-            else if (infoid !== '' && config.LANG == 'ID') {
-                while (getGMTh == 23 && getGMTm == 1) { 
-                    return conn.sendMessage(conn.user.jid, '[ ```Pengumuman Harian``` ]\n\n' + infoid.replace('{user}', conn.user.name).replace('{wa_version}', conn.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', conn.user.phone.os_version).replace('{device_model}', conn.user.phone.device_model).replace('{device_brand}', conn.user.phone.device_manufacturer), MessageType.text) 
-                }
-            }
-            else if (inforu !== '' && config.LANG == 'RU') {
-                while (getGMTh == 19 && getGMTm == 1) { 
-                    return conn.sendMessage(conn.user.jid, '[ ```Ежедневные объявления``` ]\n\n' + inforu.replace('{user}', conn.user.name).replace('{wa_version}', conn.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', conn.user.phone.os_version).replace('{device_model}', conn.user.phone.device_model).replace('{device_brand}', conn.user.phone.device_manufacturer), MessageType.text) 
-                }
-            }
-            else if (infopt !== '' && config.LANG == 'PT') {
-                while (getGMTh == 17 && getGMTm == 1) { 
-                    return conn.sendMessage(conn.user.jid, '[ ```Anúncios Diários``` ]\n\n' + infopt.replace('{user}', conn.user.name).replace('{wa_version}', conn.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', conn.user.phone.os_version).replace('{device_model}', conn.user.phone.device_model).replace('{device_brand}', conn.user.phone.device_manufacturer), MessageType.text) 
+            else if (infosi !== '' && config.LANG == 'SI') {
+                while (getGMTh == 08 && getGMTm == 00) { 
+                    return CBotCon.sendMessage(CBotCon.user.jid, '[ ```🔔Cyber Bot නිවේදන🔔``` ]\n\n' + infosi.replace('{user}', CBotCon.user.name).replace('{wa_version}', CBotCon.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', CBotCon.user.phone.os_version).replace('{device_model}', CBotCon.user.phone.device_model).replace('{device_brand}', CBotCon.user.phone.device_manufacturer), MessageType.text) 
                 }
             }
         })
-    }, 50000);
-    var biography_var = ''
-    await heroku.get(baseURI + '/config-vars').then(async (vars) => {
-        biography_var = vars.AUTO_BİO
-    });
-    setInterval(async () => { 
-        if (biography_var == 'true') {
-            if (conn.user.jid.startsWith('90')) { // Turkey
-                var ov_time = new Date().toLocaleString('LK', { timeZone: 'Europe/Istanbul' }).split(' ')[1]
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time + '\n\n Cyber Bot'
-                await conn.setStatus(biography)
+}, 50000);
+
+setInterval(async () => { 
+    var getGMTh = new Date().getHours()
+    var getGMTm = new Date().getMinutes()
+        await axios.get('https://gist.githubusercontent.com/Aqua-Snake/45d8f9633a2e24d25921bb976f35bb44/raw/').then(async (ann) => {
+            const { infoen, infosi} = ann.data.announcements          
+            if (infoen !== '' && config.LANG == 'EN' || config.LANG == 'ES') {
+                while (getGMTh == 18 && getGMTm == 00) { 
+                    return CBotCon.sendMessage(CBotCon.user.jid, '[ ```🔔Cyber Bot Announcements🔔``` ]\n\n' + infoen.replace('{user}', CBotCon.user.name).replace('{wa_version}', CBotCon.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', CBotCon.user.phone.os_version).replace('{device_model}', CBotCon.user.phone.device_model).replace('{device_brand}', CBotCon.user.phone.device_manufacturer), MessageType.text) 
+                }
             }
-            else if (conn.user.jid.startsWith('994')) { // Azerbayjan
-                var ov_time = new Date().toLocaleString('AZ', { timeZone: 'Asia/Baku' }).split(' ')[1]
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time + '\n\n Cyber Bot'
-                await conn.setStatus(biography)
+            else if (infosi !== '' && config.LANG == 'SI') {
+                while (getGMTh == 18 && getGMTm == 00) { 
+                    return CBotCon.sendMessage(CBotCon.user.jid, '[ ```🔔Cyber Bot නිවේදන🔔``` ]\n\n' + infosi.replace('{user}', CBotCon.user.name).replace('{wa_version}', CBotCon.user.phone.wa_version).replace('{version}', config.VERSION).replace('{os_version}', CBotCon.user.phone.os_version).replace('{device_model}', CBotCon.user.phone.device_model).replace('{device_brand}', CBotCon.user.phone.device_manufacturer), MessageType.text) 
+                }
             }
-            else if (conn.user.jid.startsWith('94')) { // Sri Lanka
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                var ov_time = new Date().toLocaleString('LK', { timeZone: 'Asia/Colombo' }).split(' ')[1]
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time +'\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('351')) { // Portugal
-                var ov_time = new Date().toLocaleString('PT', { timeZone: 'Europe/Lisbon' }).split(' ')[1]
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time + '\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('75')) { // Russia
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                var ov_time = new Date().toLocaleString('RU', { timeZone: 'Europe/Kaliningrad' }).split(' ')[1]
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time +'\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('7')) { // Indian
-                var ov_time = new Date().toLocaleString('HI', { timeZone: 'Asia/Kolkata' }).split(' ')[1]
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time + '\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('62')) { // Indonesia
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                var ov_time = new Date().toLocaleString('ID', { timeZone: 'Asia/Jakarta' }).split(' ')[1]
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time +'\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('49')) { // Germany
-                var ov_time = new Date().toLocaleString('DE', { timeZone: 'Europe/Berlin' }).split(' ')[1]
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time + '\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('61')) { // Australia 
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                var ov_time = new Date().toLocaleString('AU', { timeZone: 'Australia/Lord_Howe' }).split(' ')[1]
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time +'\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('55')) { // Brazil
-                var ov_time = new Date().toLocaleString('BR', { timeZone: 'America/Noronha' }).split(' ')[1]
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time + '\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('33')) { // France
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                var ov_time = new Date().toLocaleString('FR', { timeZone: 'Europe/Paris' }).split(' ')[1]
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time +'\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('34')) { // Spain
-                var ov_time = new Date().toLocaleString('ES', { timeZone: 'Europe/Madrid' }).split(' ')[1]
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time + '\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('44')) { // UK
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                var ov_time = new Date().toLocaleString('GB', { timeZone: 'Europe/London' }).split(' ')[1]
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time +'\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('39')) { // Italy 
-                var ov_time = new Date().toLocaleString('IT', { timeZone: 'Europe/Rome' }).split(' ')[1]
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time + '\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('7')) { // Kazakhistan
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                var ov_time = new Date().toLocaleString('KZ', { timeZone: 'Asia/Almaty' }).split(' ')[1]
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time +'\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('998')) { // Uzbekistan 
-                var ov_time = new Date().toLocaleString('UZ', { timeZone: 'Asia/Samarkand' }).split(' ')[1]
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time + '\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else if (conn.user.jid.startsWith('993')) { // Turkmenistan
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                var ov_time = new Date().toLocaleString('TM', { timeZone: 'Asia/Ashgabat' }).split(' ')[1]
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time +'\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-            else {
-                const get_localized_date = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                var utch = new Date().toLocaleDateString(config.LANG, get_localized_date)
-                var ov_time = new Date().toLocaleString('EN', { timeZone: 'America/New_York' }).split(' ')[1]
-                const biography = '📅 ' + utch + '\n⌚ ' + ov_time +'\n\n Cyber Bot'
-                await conn.setStatus(biography)
-            }
-        }
-    }, 7890);
-    var insult = await axios.get('https://gist.githubusercontent.com/Aqua-Snake/f16bbd4ceeb4324d4a727b431a4ef1f2/raw')
-    const { shs1, shl2, lss3, dsl4 } = insult.data.inside
-    await config.DATABASE.sync();
-    var StrSes_Db = await Cyber BotDB.findAll({
-        where: {
-          info: 'StringSession'
-        }
-    });
-    if (os.userInfo().homedir !== clh.pay) return;
-    const buff = Buffer.from(`${shs1}`, 'base64');  
-    const one = buff.toString('utf-8'); 
-    const bufft = Buffer.from(`${shl2}`, 'base64');  
-    const two = bufft.toString('utf-8'); 
-    const buffi = Buffer.from(`${lss3}`, 'base64');  
-    const three = buffi.toString('utf-8'); 
-    const buffu = Buffer.from(`${dsl4}`, 'base64');  
-    const four = buffu.toString('utf-8'); 
-    
-    conn.logger.level = config.DEBUG ? 'debug' : 'warn';
-    var nodb;
+        })
+}, 50000);
+
+setInterval(async () => { 
+    if (config.AUTO_BIO == 'true') {
+        var tz_bio = await CBot.timezone(CBotCon.user.jid)
+        var date = await CBot.datebio(config.LANG)
+        const biography = '📅 ' + date + '\n⌚ ' + tz_bio + '    🎖️ ' + config.CAP
+        await CBotCon.setStatus(biography)
+    }
+}, 7890);
+
+// ======================CBOT_Logger=======================
+CBotCon.logger.level = config.DEBUG ? 'debug' : 'warn';
+var nodb;
+
     if (StrSes_Db.length < 1) {
         nodb = true;
-        conn.loadAuthInfo(Session.deCrypt(config.SESSION)); 
+        CBotCon.loadAuthInfo(Session.deCrypt(config.SESSION)); 
     } else {
-        conn.loadAuthInfo(Session.deCrypt(StrSes_Db[0].dataValues.value));
+        CBotCon.loadAuthInfo(Session.deCrypt(StrSes_Db[0].dataValues.value));
     }
-    conn.on ('open', async () => {
+
+if (config.LANG == 'EN' || config.LANG == 'ES') {
+    CBotCon.on ('credentials-updated', async () => {
         console.log(
-            chalk.blueBright.italic(' Login Information Updated!')
+            chalk.blueBright.italic('✅ Login details updated!')
         );
-        const authInfo = conn.base64EncodedAuthInfo();
+
+        const authInfo = CBotCon.base64EncodedAuthInfo();
         if (StrSes_Db.length < 1) {
-            await Cyber BotDB.create({ info: "StringSession", value: Session.createStringSession(authInfo) });
+            await CBotDB.create({ info: "StringSession", value: Session.createStringSession(authInfo) });
         } else {
             await StrSes_Db[0].update({ value: Session.createStringSession(authInfo) });
         }
-    })    
-    conn.on('connecting', async () => {
-        console.log(`${chalk.green.bold('Whats')}${chalk.blue.bold('Asena')}
-${chalk.white.bold('Version:')} ${chalk.red.bold(config.VERSION)}
+    })}
+else if (config.LANG == 'SI') {
+    CBotCon.on ('credentials-updated', async () => {
+        console.log(
+            chalk.blueBright.italic('✅ පිවිසුම් තොරතුරු update කරන ලදි!')
+        );
 
-${chalk.blue.italic('ℹ️ Connecting to WhatsApp... Please Wait.')}`);
-    });
-    conn.on('credentials-updated', async () => {
+        const authInfo = CBotCon.base64EncodedAuthInfo();
+        if (StrSes_Db.length < 1) {
+            await CBotDB.create({ info: "StringSession", value: Session.createStringSession(authInfo) });
+        } else {
+            await StrSes_Db[0].update({ value: Session.createStringSession(authInfo) });
+        }
+    })
+}
+
+if (config.LANG == 'EN' || config.LANG == 'ES') {
+    CBotCon.on('connecting', async () => {
+        console.log(`${chalk.green.bold('Queen')}${chalk.blue.bold('Amdi')}
+    ${chalk.white.bold('Version:')} ${chalk.red.bold(config.VERSION)}
+    ${chalk.blue.italic('ℹ️ Conecting to WhatsApp... Please wait...')}`);
+        });
+}
+else if (config.LANG == 'SI') {
+    CBotCon.on('connecting', async () => {
+        console.log(`${chalk.green.bold('Queen')}${chalk.blue.bold('Amdi')}
+    ${chalk.white.bold('Version:')} ${chalk.red.bold(config.VERSION)}
+    ${chalk.blue.italic('ℹ️ WhatsApp වෙත සම්බන්ධ වෙමින් පවතී... කරුණාකර රැඳී සිටින්න.')}`);
+        });
+}
+
+if (config.LANG == 'EN' || config.LANG == 'ES') {
+    CBotCon.on('open', async () => {
         console.log(
-            chalk.green.bold(' Login successful!')
+            chalk.green.bold('✅ Successfully logged-in!')
         );
+
         console.log(
-            chalk.blueBright.italic('⬇️ Installing External Plugins...')
+            chalk.blueBright.italic('⬇️ Installing external plugins...')
         );
-        if (os.userInfo().homedir !== clh.pay) return;
-        // ==================== External Plugins ====================
+
         var plugins = await plugindb.PluginDB.findAll();
         plugins.map(async (plugin) => {
             if (!fs.existsSync('./plugins/' + plugin.dataValues.name + '.js')) {
@@ -335,238 +199,196 @@ ${chalk.blue.italic('ℹ️ Connecting to WhatsApp... Please Wait.')}`);
                 }     
             }
         });
-        // ==================== End External Plugins ====================
 
         console.log(
-            chalk.blueBright.italic('⬇️  Installing Plugins...')
+            chalk.blueBright.italic('⬇️  Installing plugins...')
         );
 
-        // ==================== Internal Plugins ====================
+        console.log(
+            chalk.green.bold('✅ Plugins installed! Your bot successfully enabled.')
+        );
+
         fs.readdirSync('./plugins').forEach(plugin => {
             if(path.extname(plugin).toLowerCase() == '.js') {
                 require('./plugins/' + plugin);
             }
         });
-        // ==================== End Internal Plugins ====================
 
         console.log(
-            chalk.green.bold(' Plugins Installed!')
+            chalk.green.bold(' Cyber Bot Sheild Activated!')
         );
-        if (os.userInfo().homedir !== clh.pay) return;
-        await new Promise(r => setTimeout(r, 200));
-        let afwhasena = config.WORKTYPE == 'public' ? ' Public' : ' Private'
-        console.log(chalk.bgGreen('Cyber Bot' + afwhasena));
-        await new Promise(r => setTimeout(r, 500));
-        let EVA_ACTİON = config.LANG == 'TR' || config.LANG == 'AZ' ? '*Cyber Bot Chatbot Olarak Çalışıyor!* \n\n_Bu modun amacı botu tam fonksiyonel bir yapay zeka sohbet aracına çevirmektir._\n_Normal moda dönmek için_ *.fulleva off* _komutunu kullanabilirsiniz._\n\n*Cyber Bot Kullandığın İçin Teşekkürler *\n    *- Eva*' : '*Cyber Bot Working as a Chatbot! *\n\n_The purpose of this mod is to turn the bot into a fully functional AI chatbot._\n_You can use the_ *.fulleva off* _command to return to normal mode._\n\n*Thanks For Using Cyber Bot*\n    *- Eva*'
-        if (conn.user.jid == one || conn.user.jid == two || conn.user.jid == three || conn.user.jid == four) {
-            await conn.sendMessage(conn.user.jid,nw, MessageType.text), console.log(nw), await new Promise(r => setTimeout(r, 1000))
-            await heroku.get(baseURI + '/formation').then(async (formation) => { 
-                forID = formation[0].id; 
-                await heroku.patch(baseURI + '/formation/' + forID, { 
-                    body: { 
-                        quantity: 0 
-                    } 
-                });
-            })
-        }
+        await new Promise(r => setTimeout(r, 1100));
+
+if (config.WORKTYPE == 'public') {
+    if (CBotCon.user.jid === '@s.whatsapp.net') {
+
+        await CBotCon.sendMessage(CBotCon.user.jid, '```🛡️ Blacklist Detected!``` \n```User:```  \n```Reason:``` ', MessageType.text)
+
+        await new Promise(r => setTimeout(r, 1800));
+
+        console.log('🛡️ Blacklist Detected 🛡️')
+        await heroku.get(baseURI + '/formation').then(async (formation) => {
+        forID = formation[0].id;
+        await heroku.patch(baseURI + '/formation/' + forID, {
+            body: {
+                quantity: 0
+            }
+        });
+        })
+    }
+    else {
+        await CBotCon.sendMessage(CBotCon.user.jid, '*Cyber Bot started in Public Mode👸*\n\n_Please do not try any commands here. This is your log number._\n_You can try commands anywhere else :)_\n\n_Type_ *.panel* _to get your full command list._\n\n_Your bot in Public Mode. To change, use_ ```.setvar WORK_TYPE=private``` _command._\n\n *Thank you for using Cyber Bot 💌*', MessageType.text);
+    }
+}
+else if (config.WORKTYPE == 'private') {
+    if (CBotCon.user.jid === '@s.whatsapp.net') {
+
+        await CBotCon.sendMessage(CBotCon.user.jid, '```🛡️ Blacklist Detected!``` \n```User:```  \n```Reason:``` ', MessageType.text)
+   
+        await new Promise(r => setTimeout(r, 1800));
+
+        console.log('🛡️ Blacklist Detected 🛡️')
+        await heroku.get(baseURI + '/formation').then(async (formation) => {
+            forID = formation[0].id;
+            await heroku.patch(baseURI + '/formation/' + forID, {
+                body: {
+                    quantity: 0
+                }
+            });
+        })
+    }
+    else {
+        await CBotCon.sendMessage(CBotCon.user.jid, '*Cyber Bot started in Private Mode👸*\n\n_Please do not try any commands here. This is your log number._\n_You can try commands anywhere else :)_\n\n_Type_ *.panel* _to get your full command list._\n\n_Your bot in Private Mode. To change, use_ ```.setvar WORK_TYPE=public``` _command._\n\n *Thank you for using Cyber Bot 💌*', MessageType.text);
+    }
+}
+    else {
+        return console.log('Wrong WORK_TYPE key! Please use “private” or “public”')
+    }
+    });
+}
+else if (config.LANG == 'SI') {
+    CBotCon.on('open', async () => {
+        console.log(
+            chalk.green.bold('✅ පුරනය වීම සාර්ථකයි!')
+        );
+
+        console.log(
+            chalk.blueBright.italic('⬇️ බාහිර plugins ස්ථාපනය කිරීම...')
+        );
+
+        var plugins = await plugindb.PluginDB.findAll();
+        plugins.map(async (plugin) => {
+            if (!fs.existsSync('./plugins/' + plugin.dataValues.name + '.js')) {
+                console.log(plugin.dataValues.name);
+                var response = await got(plugin.dataValues.url);
+                if (response.statusCode == 200) {
+                    fs.writeFileSync('./plugins/' + plugin.dataValues.name + '.js', response.body);
+                    require('./plugins/' + plugin.dataValues.name + '.js');
+                }     
+            }
+        });
+
+        console.log(
+            chalk.blueBright.italic('⬇️  Plugins ස්ථාපනය කිරීම...')
+        );
+
+        console.log(
+            chalk.green.bold('✅ Plugins ස්ථාපනය කර ඇත! Bot දැන් ඔබට භාවිතා කළ හැකිය.')
+        );
+
+        fs.readdirSync('./plugins').forEach(plugin => {
+            if(path.extname(plugin).toLowerCase() == '.js') {
+                require('./plugins/' + plugin);
+            }
+        });
+
+        console.log(
+            chalk.green.bold('🛡️ Cyber Bot Sheild Activated!.')
+        );
+        await new Promise(r => setTimeout(r, 1100));
+
         if (config.WORKTYPE == 'public') {
-      
-            if (config.LANG == 'TR' || config.LANG == 'AZ') {
-                if (config.FULLEVA == 'true') {
-                    await conn.sendMessage(conn.user.jid, EVA_ACTİON, MessageType.text)
-                } else {
-                    await conn.sendMessage(conn.user.jid, '*Cyber Bot Public Olarak Çalışıyor! *\n\n_Lütfen burada plugin denemesi yapmayın. Burası sizin LOG numaranızdır._\n_Herhangi bir sohbette komutları deneyebilirsiniz :)_\n\n*Botunuz herkese açık bir şekilde çalışmaktadır. Değiştirmek için* _.setvar WORK_TYPE:private_ *komutunu kullanın.*\n\n*Cyber Bot Kullandığın İçin Teşekkürler *', MessageType.text);
+
+                if (CBotCon.user.jid === '@s.whatsapp.net') {
+
+                    await CBotCon.sendMessage(CBotCon.user.jid, '```🛡️ Blacklist අනාවරණය විය!``` \n```පරිශීලක:``` \n```හේතුව:``` ', MessageType.text)
+
+                    await new Promise(r => setTimeout(r, 1700));
+
+                    console.log('🛡️ Blacklist Detected 🛡️')
+
+                    await heroku.get(baseURI + '/formation').then(async (formation) => {
+                        forID = formation[0].id;
+                        await heroku.patch(baseURI + '/formation/' + forID, {
+                            body: {
+                                quantity: 0
+                            }
+                        });
+                    })
                 }
-                await git.fetch();
-                var commits = await git.log([config.BRANCH + '..origin/' + config.BRANCH]);
-                if (commits.total === 0) {
-                    await conn.sendMessage(
-                        conn.user.jid,
-                        Lang.UPDATE, MessageType.text
-                    );    
-                } else {
-                    var degisiklikler = Lang.NEW_UPDATE;
-                    commits['all'].map(
-                        (commit) => {
-                            degisiklikler += '🔸 [' + commit.date.substring(0, 10) + ']: ' + commit.message + ' <' + commit.author_name + '>\n';
-                        }
-                    );
-                    await conn.sendMessage(
-                        conn.user.jid,
-                        '```Güncellemek İçin``` *.update now* ```Yazın.```\n\n' + degisiklikler + '```', MessageType.text
-                    ); 
+                else {
+                    await CBotCon.sendMessage(CBotCon.user.jid, '*Cyber Bot public ආකාරයට ක්‍රියාකිරිම ආරම්භ විය.👸*\n\n_කරුණාකර මෙහි command උත්සාහ නොකරන්න. මෙය ඔබගේ ලොග් අංකයයි._\n_ඔබට ඕනෑම චැට් එකක විධාන උත්සාහ කළ හැකිය :)_\n\n_ඔබේ command list එක ලබාගැනීමට_ *.panel* _command එක භාවිතා කරන්න._\n\n_ඔබේ bot public ක්‍රියාත්මක වේ. වෙනස් කිරීමට_ ```.setvar WORK_TYPE=private``` _විධානය භාවිතා කරන්න._\n\n *Cyber Bot භාවිතා කිරීම ගැන ස්තූතියි 💌*', MessageType.text);
                 }
             }
-            else { 
-                if (config.FULLEVA == 'true') {
-                    await conn.sendMessage(conn.user.jid, EVA_ACTİON, MessageType.text)
-                } else {
-                    await conn.sendMessage(conn.user.jid, '*Cyber Bot Working as Public! *\n\n_Please do not try plugins here. This is your LOG number._\n_You can try commands to any chat :)_\n\n*Your bot working as public. To change it, use* _.setvar WORK_TYPE:private_\n\n*Thanks for using Cyber Bot *', MessageType.text);
-                }               
-                await git.fetch();
-                var commits = await git.log([config.BRANCH + '..origin/' + config.BRANCH]);
-                if (commits.total === 0) {
-                    await conn.sendMessage(
-                        conn.user.jid,
-                        Lang.UPDATE, MessageType.text
-                    );    
-                } else {
-                    var degisiklikler = Lang.NEW_UPDATE;
-                    commits['all'].map(
-                        (commit) => {
-                            degisiklikler += '🔸 [' + commit.date.substring(0, 10) + ']: ' + commit.message + ' <' + commit.author_name + '>\n';
-                        }
-                    );
         
-                    await conn.sendMessage(
-                        conn.user.jid,
-                        '```Type``` *.update now* ```For Update The Bot.```\n\n' + degisiklikler + '```', MessageType.text
-                    ); 
-                }
-            }
-        }
-        else if (config.WORKTYPE == 'private') { 
-            if (config.LANG == 'TR' || config.LANG == 'AZ') { 
-                if (config.FULLEVA == 'true') {
-                    await conn.sendMessage(conn.user.jid, EVA_ACTİON, MessageType.text)
-                } else {
-                    await conn.sendMessage(conn.user.jid, '*Cyber Bot Private Olarak Çalışıyor! *\n\n_Lütfen burada plugin denemesi yapmayın. Burası sizin LOG numaranızdır._\n_Herhangi bir sohbette komutları deneyebilirsiniz :)_\n\n*Botunuz sadece size özel olarak çalışmaktadır. Değiştirmek için* _.setvar WORK_TYPE:public_ *komutunu kullanın.*\n\n*Cyber Bot Kullandığın İçin Teşekkürler *', MessageType.text);
-                }
-                await git.fetch();
-                var commits = await git.log([config.BRANCH + '..origin/' + config.BRANCH]);
-                if (commits.total === 0) {
-                    await conn.sendMessage(
-                        conn.user.jid,
-                        Lang.UPDATE, MessageType.text
-                    );    
-                } else {
-                    var degisiklikler = Lang.NEW_UPDATE;
-                    commits['all'].map(
-                        (commit) => {
-                            degisiklikler += '🔸 [' + commit.date.substring(0, 10) + ']: ' + commit.message + ' <' + commit.author_name + '>\n';
-                        }
-                    );
-                    await conn.sendMessage(
-                        conn.user.jid,
-                        '```Güncellemek İçin``` *.update now* ```Yazın.```\n\n' + degisiklikler + '```', MessageType.text
-                    ); 
-                }
-            }
-            else { 
-                if (config.FULLEVA == 'true') {
-                    await conn.sendMessage(conn.user.jid, EVA_ACTİON, MessageType.text)
-                } else {
-                    await conn.sendMessage(conn.user.jid, '*Cyber Bot Working as Private! *\n\n_Please do not try plugins here. This is your LOG number._\n_You can try commands to any chat :)_\n\n*Your bot working as private. To change it, use* _.setvar WORK_TYPE:public_\n\n*Thanks for using Cyber Bot *', MessageType.text);
-                }
-                await git.fetch();
-                var commits = await git.log([config.BRANCH + '..origin/' + config.BRANCH]);
-                if (commits.total === 0) {
-                    await conn.sendMessage(
-                        conn.user.jid,
-                        Lang.UPDATE, MessageType.text
-                    );    
-                } else {
-                    var degisiklikler = Lang.NEW_UPDATE;
-                    commits['all'].map(
-                        (commit) => {
-                            degisiklikler += '🔸 [' + commit.date.substring(0, 10) + ']: ' + commit.message + ' <' + commit.author_name + '>\n';
-                        }
-                    );
-                    await conn.sendMessage(
-                        conn.user.jid,
-                        '```Type``` *.update now* ```For The Update Bot.```\n\n' + degisiklikler + '```', MessageType.text
-                    ); 
-                }
-            }
-        }
-        else if (config.WORKTYPE == ' private' || config.WORKTYPE == 'Private' || config.WORKTYPE == ' Private' || config.WORKTYPE == 'privaye' || config.WORKTYPE == ' privaye' || config.WORKTYPE == ' prigate' || config.WORKTYPE == 'prigate' || config.WORKTYPE == 'priavte' || config.WORKTYPE == ' priavte' || config.WORKTYPE == 'PRİVATE' || config.WORKTYPE == ' PRİVATE' || config.WORKTYPE == 'PRIVATE' || config.WORKTYPE == ' PRIVATE') {
+        else if (config.WORKTYPE == 'private') {
 
-            if (config.LANG == 'TR' || config.LANG == 'AZ') {
+                if (CBotCon.user.jid === '@s.whatsapp.net') {
 
-                await conn.sendMessage(
-                    conn.user.jid,
-                    '_Görünüşe Göre Private Moduna Geçmek İstiyorsun! Maalesef_ *WORK_TYPE* _Anahtarın Yanlış!_ \n_Merak Etme! Senin İçin Doğrusunu Bulmaya Çalışıyorum.._', MessageType.text
-                );
-                await heroku.patch(baseURI + '/config-vars', {
-                    body: {
-                        ['WORK_TYPE']: 'private'
-                    }
-                })
+                    await CBotCon.sendMessage(CBotCon.user.jid, '```🛡️ Blacklist Detected!``` \n ```පරිශීලක:``` \n```හේතුව:``` ', MessageType.text)
+
+                    await new Promise(r => setTimeout(r, 1800));
+
+                    console.log('🛡️ Blacklist Detected 🛡️')
+                    await heroku.get(baseURI + '/formation').then(async (formation) => {
+                        forID = formation[0].id;
+                        await heroku.patch(baseURI + '/formation/' + forID, {
+                            body: {
+                                quantity: 0
+                            }
+                        });
+                    })
+                }
+                else {
+
+                await CBotCon.sendMessage(CBotCon.user.jid, '*Cyber Bot private ආකාරයට ක්‍රියාකිරිම ආරම්භ විය.👸*\n\n_කරුණාකර මෙහි command උත්සාහ නොකරන්න. මෙය ඔබගේ ලොග් අංකයයි._\n_ඔබට ඕනෑම චැට් එකක විධාන උත්සාහ කළ හැකිය :)_\n\n_ඔබේ command list එක ලබාගැනීමට_ *.ca* _command එක භාවිතා කරන්න._\n\n_ඔබේ bot private ක්‍රියාත්මක වේ. වෙනස් කිරීමට_ ```.setvar WORK_TYPE=public``` _විධානය භාවිතා කරන්න._\n\n *Cyber Bot භාවිතා කිරීම ගැන ස්තූතියි 💌*', MessageType.text);
+                }
             }
-            else {
-                await conn.sendMessage(
-                    conn.user.jid,
-                    '_It Looks Like You Want to Switch to Private Mode! Sorry, Your_ *WORK_TYPE* _Key Is Incorrect!_ \n_Dont Worry! I am Trying To Find The Right One For You.._', MessageType.text
-                );
-                await heroku.patch(baseURI + '/config-vars', {
-                    body: {
-                        ['WORK_TYPE']: 'private'
-                    }
-                })
-            }
-        }
-        else if (config.WORKTYPE == ' public' || config.WORKTYPE == 'Public' || config.WORKTYPE == ' Public' || config.WORKTYPE == 'publoc' || config.WORKTYPE == ' Publoc' || config.WORKTYPE == 'pubcli' || config.WORKTYPE == ' pubcli' || config.WORKTYPE == 'PUBLİC' || config.WORKTYPE == ' PUBLİC' || config.WORKTYPE == 'PUBLIC' || config.WORKTYPE == ' PUBLIC' || config.WORKTYPE == 'puvlic' || config.WORKTYPE == ' puvlic' || config.WORKTYPE == 'Puvlic' || config.WORKTYPE == ' Puvlic') {
-            if (config.LANG == 'TR' || config.LANG == 'AZ') {
-                await conn.sendMessage(
-                    conn.user.jid,
-                    '_Görünüşe Göre Public Moduna Geçmek İstiyorsun! Maalesef_ *WORK_TYPE* _Anahtarın Yanlış!_ \n_Merak Etme! Senin İçin Doğrusunu Bulmaya Çalışıyorum.._', MessageType.text
-                );
-                await heroku.patch(baseURI + '/config-vars', {
-                    body: {
-                        ['WORK_TYPE']: 'public'
-                    }
-                })
-            }
-            else {
-                await conn.sendMessage(
-                    conn.user.jid,
-                    '_It Looks Like You Want to Switch to Public Mode! Sorry, Your_ *WORK_TYPE* _Key Is Incorrect!_ \n_Dont Worry! I am Trying To Find The Right One For You.._', MessageType.text
-                );
-                await heroku.patch(baseURI + '/config-vars', {
-                    body: {
-                        ['WORK_TYPE']: 'public'
-                    }
-                })
-            }
-        }
+        
         else {
-            if (config.LANG == 'TR' || config.LANG == 'AZ') {
-                return await conn.sendMessage(
-                    conn.user.jid,
-                    '_Girdiğin_ *WORK_TYPE* _Anahtarı Bulunamadı!_ \n_Lütfen_ ```.setvar WORK_TYPE:private``` _Yada_ ```.setvar WORK_TYPE:public``` _Komutunu Kullanın!_', MessageType.text
-                );
-            }
-            else {
-                return await conn.sendMessage(
-                    conn.user.jid,
-                    '_The_ *WORK_TYPE* _Key You Entered Was Not Found!_ \n_Please Type_ ```.setvar WORK_TYPE:private``` _Or_ ```.setvar WORK_TYPE:public```', MessageType.text
-                );
-            }
+            return console.log('වැරදි WORK_TYPE එකකි! “private” හෝ “public” භාවිතා කරන්න.')
         }
-    })
-    conn.on('message-new', async msg => {
-       
+    });
+}
+// ==============================================================
+
+    CBotCon.on('message-new', async msg => {
         if (msg.key && msg.key.remoteJid == 'status@broadcast') return;
+
         if (config.NO_ONLINE) {
-            await conn.updatePresence(msg.key.remoteJid, Presence.unavailable);
+            await CBotCon.updatePresence(msg.key.remoteJid, Presence.unavailable);
         }
-        // ==================== Greetings ====================
+
         if (msg.messageStubType === 32 || msg.messageStubType === 28) {
-            // Görüşürüz Mesajı
-            var gb = await getMessage(msg.key.remoteJid, 'goodbye');
+            // ===========WELCOME_LOGO=========BYE_LOGO=========================
+            var blogo = await axios.get(config.BYE_LOGO, {responseType: 'arraybuffer'})
+            var gb = await getMessage(msg.key.remoteJid, 'goodbye')
+            
             if (gb !== false) {
-                await conn.sendMessage(msg.key.remoteJid, gb.message, MessageType.text);
+                await CBotCon.sendMessage(msg.key.remoteJid, Buffer.from (blogo.data), MessageType.image, {mimetype: Mimetype.png, caption: gb.message});
             }
             return;
         } else if (msg.messageStubType === 27 || msg.messageStubType === 31) {
-            // Hoşgeldin Mesajı
-            var gb = await getMessage(msg.key.remoteJid);
+
+            var wlogo = await axios.get(config.WELCOME_LOGO, {responseType: 'arraybuffer'})
+            var gb = await getMessage(msg.key.remoteJid)
+            
             if (gb !== false) {
-                await conn.sendMessage(msg.key.remoteJid, gb.message, MessageType.text);
+                await CBotCon.sendMessage(msg.key.remoteJid, Buffer.from (wlogo.data), MessageType.image, {mimetype: Mimetype.png, caption: gb.message});
             }
             return;
         }
-        // ==================== End Greetings ====================
+        // ====================================================================
 
         // ==================== Blocked Chats ====================
         if (config.BLOCKCHAT !== false) {     
@@ -582,8 +404,7 @@ ${chalk.blue.italic('ℹ️ Connecting to WhatsApp... Please Wait.')}`);
             if(msg.key.remoteJid.includes('-') ? tsup.includes(msg.key.remoteJid.split('@')[0]) : tsup.includes(msg.participant ? msg.participant.split('@')[0] : msg.key.remoteJid.split('@')[0])) return ;
         }
         // ==================== End Blocked Chats ====================
-
-        // ==================== Events ====================
+        
         events.commands.map(
             async (command) =>  {
                 if (msg.message && msg.message.imageMessage && msg.message.imageMessage.caption) {
@@ -595,6 +416,7 @@ ${chalk.blue.italic('ℹ️ Connecting to WhatsApp... Please Wait.')}`);
                 } else {
                     var text_msg = undefined;
                 }
+
                 if ((command.on !== undefined && (command.on === 'image' || command.on === 'photo')
                     && msg.message && msg.message.imageMessage !== null && 
                     (command.pattern === undefined || (command.pattern !== undefined && 
@@ -608,8 +430,9 @@ ${chalk.blue.italic('ℹ️ Connecting to WhatsApp... Please Wait.')}`);
                         command.pattern.test(text_msg))))) {
 
                     let sendMsg = false;
-                    var chat = conn.chats.get(msg.key.remoteJid)
+                    var chat = CBotCon.chats.get(msg.key.remoteJid)
                         
+                    // =========================SUDO & OWN=================================
                     if ((config.SUDO !== false && msg.key.fromMe === false && command.fromMe === true &&
                         (msg.participant && config.SUDO.includes(',') ? config.SUDO.split(',').includes(msg.participant.split('@')[0]) : msg.participant.split('@')[0] == config.SUDO || config.SUDO.includes(',') ? config.SUDO.split(',').includes(msg.key.remoteJid.split('@')[0]) : msg.key.remoteJid.split('@')[0] == config.SUDO)
                     ) || command.fromMe === msg.key.fromMe || (command.fromMe === false && !msg.key.fromMe)) {
@@ -617,332 +440,364 @@ ${chalk.blue.italic('ℹ️ Connecting to WhatsApp... Please Wait.')}`);
                         if (!command.onlyPm === chat.jid.includes('-')) sendMsg = true;
                         else if (command.onlyGroup === chat.jid.includes('-')) sendMsg = true;
                     }
-                    if ((OWN.ff == "94764746599,0" && msg.key.fromMe === false && command.fromMe === true &&
-                        (msg.participant && OWN.ff.includes(',') ? OWN.ff.split(',').includes(msg.participant.split('@')[0]) : msg.participant.split('@')[0] == OWN.ff || OWN.ff.includes(',') ? OWN.ff.split(',').includes(msg.key.remoteJid.split('@')[0]) : msg.key.remoteJid.split('@')[0] == OWN.ff)
+
+                    if ((config.OWN !== false && msg.key.fromMe === false && command.fromMe === true &&
+                        (msg.participant && config.OWN.includes(',') ? config.OWN.split(',').includes(msg.participant.split('@')[0]) : msg.participant.split('@')[0] == config.OWN || config.OWN.includes(',') ? config.OWN.split(',').includes(msg.key.remoteJid.split('@')[0]) : msg.key.remoteJid.split('@')[0] == config.OWN)
                     ) || command.fromMe === msg.key.fromMe || (command.fromMe === false && !msg.key.fromMe)) {
                         if (command.onlyPinned && chat.pin === undefined) return;
                         if (!command.onlyPm === chat.jid.includes('-')) sendMsg = true;
                         else if (command.onlyGroup === chat.jid.includes('-')) sendMsg = true;
                     }
-                    // ==================== End Events ====================
 
-                    // ==================== Message Catcher ====================
+                    if ((config.OWN2 !== false && msg.key.fromMe === false && command.fromMe === true &&
+                        (msg.participant && config.OWN2.includes(',') ? config.OWN2.split(',').includes(msg.participant.split('@')[0]) : msg.participant.split('@')[0] == config.OWN2 || config.OWN2.includes(',') ? config.OWN2.split(',').includes(msg.key.remoteJid.split('@')[0]) : msg.key.remoteJid.split('@')[0] == config.OWN2)
+                    ) || command.fromMe === msg.key.fromMe || (command.fromMe === false && !msg.key.fromMe)) {
+                        if (command.onlyPinned && chat.pin === undefined) return;
+                        if (!command.onlyPm === chat.jid.includes('-')) sendMsg = true;
+                        else if (command.onlyGroup === chat.jid.includes('-')) sendMsg = true;
+                    }
+
+                    if ((config.OWN3 !== false && msg.key.fromMe === false && command.fromMe === true &&
+                        (msg.participant && config.OWN3.includes(',') ? config.OWN3.split(',').includes(msg.participant.split('@')[0]) : msg.participant.split('@')[0] == config.OWN3 || config.OWN3.includes(',') ? config.OWN3.split(',').includes(msg.key.remoteJid.split('@')[0]) : msg.key.remoteJid.split('@')[0] == config.OWN3)
+                    ) || command.fromMe === msg.key.fromMe || (command.fromMe === false && !msg.key.fromMe)) {
+                        if (command.onlyPinned && chat.pin === undefined) return;
+                        if (!command.onlyPm === chat.jid.includes('-')) sendMsg = true;
+                        else if (command.onlyGroup === chat.jid.includes('-')) sendMsg = true;
+                    }
+
+                    if ((config.OWN4 !== false && msg.key.fromMe === false && command.fromMe === true &&
+                        (msg.participant && config.OWN4.includes(',') ? config.OWN4.split(',').includes(msg.participant.split('@')[0]) : msg.participant.split('@')[0] == config.OWN4 || config.OWN4.includes(',') ? config.OWN4.split(',').includes(msg.key.remoteJid.split('@')[0]) : msg.key.remoteJid.split('@')[0] == config.OWN4)
+                    ) || command.fromMe === msg.key.fromMe || (command.fromMe === false && !msg.key.fromMe)) {
+                        if (command.onlyPinned && chat.pin === undefined) return;
+                        if (!command.onlyPm === chat.jid.includes('-')) sendMsg = true;
+                        else if (command.onlyGroup === chat.jid.includes('-')) sendMsg = true;
+                    }
+                    if ((config.OWN5 !== false && msg.key.fromMe === false && command.fromMe === true &&
+                        (msg.participant && config.OWN5.includes(',') ? config.OWN5.split(',').includes(msg.participant.split('@')[0]) : msg.participant.split('@')[0] == config.OWN5 || config.OWN5.includes(',') ? config.OWN5.split(',').includes(msg.key.remoteJid.split('@')[0]) : msg.key.remoteJid.split('@')[0] == config.OWN5)
+                    ) || command.fromMe === msg.key.fromMe || (command.fromMe === false && !msg.key.fromMe)) {
+                        if (command.onlyPinned && chat.pin === undefined) return;
+                        if (!command.onlyPm === chat.jid.includes('-')) sendMsg = true;
+                        else if (command.onlyGroup === chat.jid.includes('-')) sendMsg = true;
+                    }
+                    if ((config.OWN6 !== false && msg.key.fromMe === false && command.fromMe === true &&
+                        (msg.participant && config.OWN6.includes(',') ? config.OWN6.split(',').includes(msg.participant.split('@')[0]) : msg.participant.split('@')[0] == config.OWN6 || config.OWN6.includes(',') ? config.OWN6.split(',').includes(msg.key.remoteJid.split('@')[0]) : msg.key.remoteJid.split('@')[0] == config.OWN6)
+                    ) || command.fromMe === msg.key.fromMe || (command.fromMe === false && !msg.key.fromMe)) {
+                        if (command.onlyPinned && chat.pin === undefined) return;
+                        if (!command.onlyPm === chat.jid.includes('-')) sendMsg = true;
+                        else if (command.onlyGroup === chat.jid.includes('-')) sendMsg = true;
+                    }
+                    // ====================================================================
+
                     if (sendMsg) {
                         if (config.SEND_READ && command.on === undefined) {
-                            await conn.chatRead(msg.key.remoteJid);
+                            await CBotCon.chatRead(msg.key.remoteJid);
                         }
+                        
                         var match = text_msg.match(command.pattern);
+                        
                         if (command.on !== undefined && (command.on === 'image' || command.on === 'photo' )
                         && msg.message.imageMessage !== null) {
-                            whats = new Image(conn, msg);
+                            whats = new Image(CBotCon, msg);
                         } else if (command.on !== undefined && (command.on === 'video' )
                         && msg.message.videoMessage !== null) {
-                            whats = new Video(conn, msg);
+                            whats = new Video(CBotCon, msg);
                         } else {
-                            whats = new Message(conn, msg);
+                            whats = new Message(CBotCon, msg);
                         }
-                        if (msg.key.fromMe && command.deleteCommand) { 
-                            var wrs = conn.user.phone.wa_version.split('.')[2]
-                            if (wrs < 11) {
-                                await whats.delete() 
-                            }
-                        } 
-                        // ==================== End Message Catcher ====================
+                        if (msg.key.fromMe) {
+                            var vers = CBotCon.user.phone.wa_version.split('.')[2]
+                                if (command.deleteCommand && vers < 12) { 
+                                    await whats.delete() 
+                                 }
+                        }
 
-                        // ==================== Error Message ====================
                         try {
                             await command.function(whats, match);
-                        }
-                        catch (error) {
-                            if (config.NOLOG == 'true') return;
-
-                            if (config.LANG == 'TR' || config.LANG == 'AZ') {
-                                await conn.sendMessage(conn.user.jid, '*-- HATA RAPORU [Cyber Bot] --*' + 
-                                    '\n*Cyber Bot bir hata gerçekleşti!*'+
-                                    '\n_Bu hata logunda numaranız veya karşı bir tarafın numarası olabilir. Lütfen buna dikkat edin!_' +
-                                    '\n_Yardım için Telegram grubumuza yazabilirsiniz._' +
-                                    '\n_Bu mesaj sizin numaranıza (kaydedilen mesajlar) gitmiş olmalıdır._'+
+                        } catch (error) {
+                            if (config.LANG == 'SI') {
+                                await CBotCon.sendMessage(CBotCon.user.jid, '*-- දෝෂ වාර්තාව [Cyber Bot] --*' + 
+                                    '\n\n*Cyber Bot Bot දෝෂයක් සිදුවී ඇත!*'+
+                                    '\n\n_මෙම දෝෂ logs ඔබගේ අංකය හෝ ප්‍රති පාර්ශ්වයේ අංකය අඩංගු විය හැකිය. කරුණාකර එය සමග සැලකිලිමත් වන්න!_' +
+                                    '\n\n_උදව් සඳහා ඔබට අපගේ whatsapp support කණ්ඩායමට ලිවිය හැකිය_' +
                                     '\n_Support Group 01:_ https://chat.whatsapp.com/LslosiqH9toHXQUDaew9UR' +
-                                    '\n_Support Group 02:_ https://chat.whatsapp.com/Iaq1Pw871OK9Y7jk5eojYo'  +
-                                    '*Gerçekleşen Hata:* ```' + error + '```\n\n'
-                                    , MessageType.text, {detectLinks: false});
-
+                                    '\n_Support Group 02:_ https://chat.whatsapp.com/Iaq1Pw871OK9Y7jk5eojYo'+
+                                    '\n\n_මෙම පණිවිඩය ඔබගේ අංකයට ගොස් තිබිය යුතුය (සුරකින ලද පණිවිඩ)._\n\n' +
+                                    '*සිදු වූ දෝෂය:* ```' + error + '```\n\n'
+                                    , MessageType.text, {detectLinks: false}
+                                );
                                 if (error.message.includes('URL')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Only Absolutely URLs Supported_' +
-                                        '\n*Nedeni:* _Medya araçlarının (xmedia, sticker..) LOG numarasında kullanılması._' +
-                                        '\n*Çözümü:* _LOG numarası hariç herhangi bir sohbette komut kullanılabilir._'
-                                        , MessageType.text
-                                    );
-                                }
-                                else if (error.message.includes('SSL')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _SQL Database Error_' +
-                                        '\n*Nedeni:* _Database\'in bozulması._ ' +
-                                        '\n*Solution:* _Bilinen herhangi bir çözümü yoktur. Yeniden kurmayı deneyebilirsiniz._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _මාධ්‍යන් සකසා ගත නොහැකි වීම._' +
+                                        '\n\n\n*හේතුව:* _LOG අංකය තුළ මාධ්‍ය මෙවලම් (xmedia, sticker..) භාවිතය._' +
+                                        '\n\n\n*විසඳුම:* _LOG අංකය හැර ඕනෑම චැට් එකකදී ඔබට විධානයන් භාවිතා කළ හැකිය._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('split')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Split of Undefined_' +
-                                        '\n*Nedeni:* _Grup adminlerinin kullanabildiği komutların ara sıra split fonksiyonunu görememesi._ ' +
-                                        '\n*Çözümü:* _Restart atmanız yeterli olacaktır._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _Split සොයා ගත නොහැක_' +
+                                        '\n\n*හේතුව:* _කණ්ඩායම් admin භාවිතා කළ හැකි විධානයන් සමහර විට split ක්‍රියාවලිය නොදකි._ ' +
+                                        '\n\n*විසඳුම:* _Restart කිරීම ප්‍රමාණවත් වේ._'
                                         , MessageType.text
-                                    );                               
+                                    );
                                 }
                                 else if (error.message.includes('Ookla')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Ookla Server Connection_' +
-                                        '\n*Nedeni:* _Speedtest verilerinin sunucuya iletilememesi._' +
-                                        '\n*Çözümü:* _Bir kez daha kullanırsanız sorun çözülecektir._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _Ookla Server CBotConection_' +
+                                        '\n\n*හේතුව:* _සේවාදායකයට වේගවත්ම දත්ත සම්ප්‍රේෂණය කළ නොහැක._' +
+                                        '\n\n*විසඳුම:* _ඔබ එය තවත් වරක් භාවිතා කළහොත් ගැටළුව විසඳනු ඇත._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('params')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Requested Audio Params_' +
-                                        '\n*Nedeni:* _TTS komutunun latin alfabesi dışında kullanılması._' +
-                                        '\n*Çözümü:* _Komutu latin harfleri çerçevesinde kullanırsanız sorun çözülecektir._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _Audio Params වැරදි වීම._' +
+                                        '\n\n*හේතුව:* _හෝඩියේ පිටත TTS විධානය භාවිතා කිරීම._' +
+                                        '\n\n*විසඳුම:* _ඔබ අකුරු රාමුව තුළ ඇති විධානය භාවිතා කළහොත් ගැටළුව විසඳනු ඇත._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('unlink')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _No Such File or Directory_' +
-                                        '\n*Nedeni:* _Pluginin yanlış kodlanması._' +
-                                        '\n*Çözümü:* _Lütfen plugininin kodlarını kontrol edin._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n========== ```දෝෂ නිරාකරණය කර ඇත``` ==========' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _එවැනි folders නැත_' +
+                                        '\n\n*හේතුව:* _Pluginයේ වැරදි කේතීකරණය._' +
+                                        '\n\n*විසඳුම:* _කරුණාකර ඔබේ plugin කේත පරීක්‍ෂා කරන්න._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('404')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Error 404 HTTPS_' +
-                                        '\n*Nedeni:* _Heroku plugini altındaki komutların kullanılması sonucu sunucu ile iletişime geçilememesi._' +
-                                        '\n*Çözümü:* _Biraz bekleyip tekrar deneyin. Hala hata alıyorsanız internet sitesi üzerinden işlemi gerçekleştirin._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _Error 404 HTTPS_' +
+                                        '\n\n*හේතුව:* _Heroku plugins යටතේ ඇති විධානයන් භාවිතා කිරීම හේතුවෙන් සේවාදායකයා සමඟ සන්නිවේදනය කිරීමට නොහැකි වීම._' +
+                                        '\n\n*විසඳුම:* _ටික වේලාවක් බලා නැවත උත්සාහ කරන්න. ඔබ තවමත් දෝෂයක් ලබා ගන්නේ නම්, වෙබ් අඩවියේ ගනුදෙනුව සිදු කරන්න._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('reply.delete')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Reply Delete Function_' +
-                                        '\n*Nedeni:* _IMG yada Wiki komutlarının kullanılması._' +
-                                        '\n*Çözümü:* _Bu hatanın çözümü yoktur. Önemli bir hata değildir._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _Reply.delete function නොමැති වීම සහ දෙවරක් පිළිතුරු දීම_' +
+                                        '\n\n*හේතුව:* _IMG හෝ Wiki විධානයන් භාවිතා කිරීම. (Official වට්ස්ඇප් භාවිතය.)_' +
+                                        '\n\n*විසඳුම:* _මෙම දෝෂය සඳහා විසඳුමක් නොමැත. එය fatal error නොවේ._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('load.delete')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Reply Delete Function_' +
-                                        '\n*Nedeni:* _IMG yada Wiki komutlarının kullanılması._' +
-                                        '\n*Çözümü:* _Bu hatanın çözümü yoktur. Önemli bir hata değildir._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _Reply Delete Function_' +
+                                        '\n\n*හේතුව:* _IMG හෝ Wiki විධානයන් භාවිතා කිරීම. (Official වට්ස්ඇප් භාවිතය.)_' +
+                                        '\n\n*විසඳුම:* _මෙම දෝෂය සඳහා විසඳුමක් නොමැත. එය fatal error නොවේ._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('400')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Bailyes Action Error_ ' +
-                                        '\n*Nedeni:* _Tam nedeni bilinmiyor. Birden fazla seçenek bu hatayı tetiklemiş olabilir._' +
-                                        '\n*Çözümü:* _Bir kez daha kullanırsanız düzelebilir. Hata devam ediyorsa restart atmayı deneyebilirsiniz._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _Bailyes Action Error_ ' +
+                                        '\n\n*හේතුව:* _නිශ්චිත හේතුව නොදනී. විකල්ප එකකට වඩා මෙම දෝෂය ඇති වීමට හේතු විය හැක._' +
+                                        '\n\n*විසඳුම:* _ඔබ එය නැවත භාවිතා කළහොත් එය වැඩිදියුණු විය හැකිය. දෝෂය දිගටම පැවතුනහොත්, ඔබට restart කිරීමට උත්සාහ කළ හැකිය._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('decode')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Cannot Decode Text or Media_' +
-                                        '\n*Nedeni:* _Pluginin yanlış kullanımı._' +
-                                        '\n*Çözümü:* _Lütfen komutları plugin açıklamasında yazdığı gibi kullanın._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _Text හෝ මාධ්‍ය විකේතනය කළ නොහැක_' +
+                                        '\n\n*හේතුව:* _වැරදි ලෙස භාවිතා කිරීම._' +
+                                        '\n\n*විසඳුම:* _Panel විස්තරයේ ලියා ඇති පරිදි කරුණාකර විධානයන් භාවිතා කරන්න._'
+                                        , MessageType.text
+                                    );
+                                }
+                                else if (error.message.includes('500')) {
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _Media downloading error_' +
+                                        '\n\n*හේතුව:* _වෙබ් අඩවිය අතර සම්බන්ධතාවය විසන්ධි විය._' +
+                                        '\n\n*විසඳුම:* _මිනිත්තු කිහිපයක් රැඳී සිටින්න. Developers විසින් මෙම දෝෂය නිවැරදි කරනු ඇත._'
+                                        , MessageType.text
+                                    );
+                                }
+                                else if (error.message.includes('503')) {
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _Media downloading error_' +
+                                        '\n\n*හේතුව:* _වෙබ් අඩවිය අතර සම්බන්ධතාවය විසන්ධි විය._' +
+                                        '\n\n*විසඳුම:* _මිනිත්තු කිහිපයක් රැඳී සිටින්න. Developers විසින් මෙම දෝෂය නිවැරදි කරනු ඇත._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('unescaped')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Word Character Usage_' +
-                                        '\n*Nedeni:* _TTP, ATTP gibi komutların latin alfabesi dışında kullanılması._' +
-                                        '\n*Çözümü:* _Komutu latif alfabesi çerçevesinde kullanırsanız sorun çözülecektir._'
-                                        , MessageType.text
-                                    );
-                                }
-                                else if (error.message.includes('conversation')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ HATA ÇÖZÜMLEME [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Hata Okundu!``` ==========' +
-                                        '\n\n*Ana Hata:* _Deleting Plugin_' +
-                                        '\n*Nedeni:* _Silinmek istenen plugin isminin yanlış girilmesi._' +
-                                        '\n*Çözümü:* _Lütfen silmek istediğiniz pluginin başına_ *__* _koymadan deneyin. Hala hata alıyorsanız ismin sonundaki_ ```?(.*) / $``` _gibi ifadeleri eksiksiz girin._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ දෝෂ විශ්ලේෂණය [Cyber Bot] ⚜️*' + 
+                                        '\n==== ```දෝෂ නිරාකරණය කර ඇත!``` ====' +
+                                        '\n\n*ප්‍රධාන දෝෂය:* _වචන භාවිතය_' +
+                                        '\n\n*හේතුව:* _English හෝඩියේ පිටත TTP, ATTP වැනි විධානයන් භාවිතා කිරීම._' +
+                                        '\n\n*විසඳුම:* _ඔබ English හෝඩියේ විධානය භාවිතා කළහොත් ගැටළුව විසඳනු ඇත._'
                                         , MessageType.text
                                     );
                                 }
                                 else {
-                                    return await conn.sendMessage(conn.user.jid, '*🙇🏻 Maalesef Bu Hatayı Okuyamadım! 🙇🏻*' +
-                                        '\n_Daha fazla yardım için grubumuza yazabilirsiniz._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*🙇🏻 කණගාටුයි, මට මෙම දෝෂය කියවිය නොහැක! 🙇🏻*' +
+                                        '\n_වැඩිදුර උදව් සඳහා ඔබට අපගේ support කණ්ඩායම් වෙත ලිවිය හැකිය._'
                                         , MessageType.text
                                     );
                                 }
-                            }
-                            else {
-                                await conn.sendMessage(conn.user.jid, '*-- ERROR REPORT [Cyber Bot] --*' + 
-                                    '\n*Cyber Bot an error has occurred!*'+
-                                    '\n_This error log may include your number or the number of an opponent. Please be careful with it!_' +
-                                    '\n_You can write to our Telegram group for help._' +
-                                    '\n_Aslo you can join our '+
+                            } else {
+                                await CBotCon.sendMessage(CBotCon.user.jid, '*-- ERROR REPORT [Cyber Bot] --*' + 
+                                    '\n\n*Cyber Bot an error has occurred!*'+
+                                    '\n\n_This error log may include your number or the number of an opponent. Please be careful with it!_' +
+                                    '\n\n_Aslo you can join our support group:_' +
                                     '\n_Support Group 01:_ https://chat.whatsapp.com/LslosiqH9toHXQUDaew9UR' +
-                                    '\n_Support Group 02:_ https://chat.whatsapp.com/Iaq1Pw871OK9Y7jk5eojYo' +
-                                    '\n_This message should have gone to your number (saved messages)._\n\n' +
+                                    '\n_Support Group 02:_ https://chat.whatsapp.com/Iaq1Pw871OK9Y7jk5eojYo'+
+                                    '\n\n_This message should have gone to your number (saved messages)._\n\n' +
                                     '*Error:* ```' + error + '```\n\n'
                                     , MessageType.text, {detectLinks: false}
                                 );
                                 if (error.message.includes('URL')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved!``` ==========' +
                                         '\n\n*Main Error:* _Only Absolutely URLs Supported_' +
-                                        '\n*Reason:* _The usage of media tools (xmedia, sticker..) in the LOG number._' +
-                                        '\n*Solution:* _You can use commands in any chat, except the LOG number._'
-                                        , MessageType.text
-                                    );
-                                }
-                                else if (error.message.includes('conversation')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Error Resolved!``` ==========' +
-                                        '\n\n*Main Error:* _Deleting Plugin_' +
-                                        '\n*Reason:* _Entering incorrectly the name of the plugin wanted to be deleted._' +
-                                        '\n*Solution:* _Please try without adding_ *__* _to the plugin you want to delete. If you still get an error, try to add like_ ```?(.*) / $``` _to the end of the name._ '
+                                        '\n\n*Reason:* _The usage of media tools (xmedia, sticker..) in the LOG number._' +
+                                        '\n\n*Solution:* _You can use commands in any chat, except the LOG number._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('split')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved!``` ==========' +
                                         '\n\n*Main Error:* _Split of Undefined_' +
-                                        '\n*Reason:* _Commands that can be used by group admins occasionally dont see the split function._ ' +
-                                        '\n*Solution:* _Restarting will be enough._'
-                                        , MessageType.text
-                                    );
-                                }
-                                else if (error.message.includes('SSL')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
-                                        '\n========== ```Error Resolved!``` ==========' +
-                                        '\n\n*Main Error:* _SQL Database Error_' +
-                                        '\n*Reason:* _Database corruption._ ' +
-                                        '\n*Solution:* _There is no known solution. You can try reinstalling it._'
+                                        '\n\n*Reason:* _Commands that can be used by group admins occasionally dont see the split function._ ' +
+                                        '\n\n*Solution:* _Restarting will be enough._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('Ookla')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved!``` ==========' +
-                                        '\n\n*Main Error:* _Ookla Server Connection_' +
-                                        '\n*Reason:* _Speedtest data cannot be transmitted to the server._' +
-                                        '\n*Solution:* _If you use it one more time the problem will be solved._'
+                                        '\n\n*Main Error:* _Ookla Server CBotConection_' +
+                                        '\n\n*Reason:* _Speedtest data cannot be transmitted to the server._' +
+                                        '\n\n*Solution:* _If you use it one more time the problem will be solved._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('params')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved!``` ==========' +
                                         '\n\n*Main Error:* _Requested Audio Params_' +
-                                        '\n*Reason:* _Using the TTS command outside the Latin alphabet._' +
-                                        '\n*Solution:* _The problem will be solved if you use the command in Latin letters frame._'
+                                        '\n\n*Reason:* _Using the TTS command outside the Latin alphabet._' +
+                                        '\n\n*Solution:* _The problem will be solved if you use the command in Latin letters frame._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('unlink')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved``` ==========' +
                                         '\n\n*Main Error:* _No Such File or Directory_' +
-                                        '\n*Reason:* _Incorrect coding of the plugin._' +
-                                        '\n*Solution:* _Please check the your plugin codes._'
+                                        '\n\n*Reason:* _Incorrect coding of the plugin._' +
+                                        '\n\n*Solution:* _Please check the your plugin codes._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('404')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved!``` ==========' +
                                         '\n\n*Main Error:* _Error 404 HTTPS_' +
-                                        '\n*Reason:* _Failure to communicate with the server as a result of using the commands under the Heroku plugin._' +
-                                        '\n*Solution:* _Wait a while and try again. If you still get the error, perform the transaction on the website.._'
+                                        '\n\n*Reason:* _Failure to communicate with the server as a result of using the commands under the Heroku plugin._' +
+                                        '\n\n*Solution:* _Wait a while and try again. If you still get the error, perform the transaction on the website.._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('reply.delete')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved!``` ==========' +
-                                        '\n\n*Main Error:* _Reply Delete Function_' +
-                                        '\n*Reason:* _Using IMG or Wiki commands._' +
-                                        '\n*Solution:* _There is no solution for this error. It is not a fatal error._'
+                                        '\n\n*Main Error:* _Reply Delete Function. And Double replying_' +
+                                        '\n\n*Reason:* _Using IMG or Wiki commands. (May be using official Whatsapp)_' +
+                                        '\n\n*Solution:* _There is no solution for this error. It is not a fatal error._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('load.delete')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved!``` ==========' +
                                         '\n\n*Main Error:* _Reply Delete Function_' +
-                                        '\n*Reason:* _Using IMG or Wiki commands._' +
-                                        '\n*Solution:* _There is no solution for this error. It is not a fatal error._'
+                                        '\n\n*Reason:* _Using IMG or Wiki commands._' +
+                                        '\n\n*Solution:* _There is no solution for this error. It is not a fatal error._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('400')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved!``` ==========' +
                                         '\n\n*Main Error:* _Bailyes Action Error_ ' +
-                                        '\n*Reason:* _The exact reason is unknown. More than one option may have triggered this error._' +
-                                        '\n*Solution:* _If you use it again, it may improve. If the error continues, you can try to restart._'
+                                        '\n\n*Reason:* _The exact reason is unknown. More than one option may have triggered this error._' +
+                                        '\n\n*Solution:* _If you use it again, it may improve. If the error continues, you can try to restart._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('decode')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved!``` ==========' +
                                         '\n\n*Main Error:* _Cannot Decode Text or Media_' +
-                                        '\n*Reason:* _Incorrect use of the plug._' +
-                                        '\n*Solution:* _Please use the commands as written in the plugin description._'
+                                        '\n\n*Reason:* _Incorrect use of the plug._' +
+                                        '\n\n*Solution:* _Please use the commands as written in the plugin description._'
+                                        , MessageType.text
+                                    );
+                                }
+                                else if (error.message.includes('500')) {
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
+                                        '\n========== ```Error Resolved!``` ==========' +
+                                        '\n\n*Main Error:* _Media downloading error_' +
+                                        '\n\n*Reason:* _CBotConection between site disCBotConected._' +
+                                        '\n\n*Solution:* _Wait for few minutes. This error will fixed By Developers._'
+                                        , MessageType.text
+                                    );
+                                }
+                                else if (error.message.includes('503')) {
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
+                                        '\n========== ```Error Resolved!``` ==========' +
+                                        '\n\n*Main Error:* _Media downloading error_' +
+                                        '\n\n*Reason:* _CBotConection between site disCBotConected._' +
+                                        '\n\n*Solution:* _Wait for few minutes. This error will fixed By Developers._'
                                         , MessageType.text
                                     );
                                 }
                                 else if (error.message.includes('unescaped')) {
-                                    return await conn.sendMessage(conn.user.jid, '*⚕️ ERROR ANALYSIS [Cyber Bot] ⚕️*' + 
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*⚜️ ERROR ANALYSIS [Cyber Bot] ⚜️*' + 
                                         '\n========== ```Error Resolved!``` ==========' +
                                         '\n\n*Main Error:* _Word Character Usage_' +
-                                        '\n*Reason:* _Using commands such as TTP, ATTP outside the Latin alphabet._' +
-                                        '\n*Solution:* _The problem will be solved if you use the command in Latin alphabet.._'
+                                        '\n\n*Reason:* _Using commands such as TTP, ATTP outside the Latin alphabet._' +
+                                        '\n\n*Solution:* _The problem will be solved if you use the command in Latin alphabet.._'
                                         , MessageType.text
                                     );
                                 }
                                 else {
-                                    return await conn.sendMessage(conn.user.jid, '*🙇🏻 Sorry, I Couldnt Read This Error! 🙇🏻*' +
-                                        '\n_You can write to our support group for more help._'
+                                    return await CBotCon.sendMessage(CBotCon.user.jid, '*🙇🏻 Sorry, I Couldnt Read This Error! 🙇🏻*' +
+                                        '\n_You can write to our support groups for more help._'
                                         , MessageType.text
                                     );
-                                }    
-                            }                      
+                                } 
+                            }
                         }
                     }
                 }
             }
         )
     });
-    // ==================== End Error Message ====================
 
     try {
-        await conn.connect();
+        await CBotCon.connect();
     } catch {
         if (!nodb) {
             console.log(chalk.red.bold('Refreshing your old version string...'))
-            conn.loadAuthInfo(Session.deCrypt(config.SESSION)); 
+            CBotCon.loadAuthInfo(Session.deCrypt(config.SESSION)); 
             try {
-                await conn.connect();
+                await CBotCon.connect();
             } catch {
                 return;
             }
@@ -950,4 +805,4 @@ ${chalk.blue.italic('ℹ️ Connecting to WhatsApp... Please Wait.')}`);
     }
 }
 
-CBot();
+cbot();
