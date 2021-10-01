@@ -41,7 +41,7 @@ module.exports = {
     UNMUTEMSG: process.env.UNMUTE_MESSAGE === undefined ? 'default' : process.env.UNMUTE_MESSAGE,
     CHAT_BOT: process.env.CHAT_BOT === undefined ? 'true' : process.env.CHAT_BOT,
     SONG_TYPE: process.env.SONG_TYPE === undefined ? 'document' : process.env.SONG_TYPE,
-    CAP: process.env.CAP === undefined ? 'Powered by Cyber Army' : process.env.CAP,
+    CAP: process.env.CAP === undefined ? 'Powered by Cyber Bot' : process.env.CAP,
     CCLEAR_JID: process.env.CCLEAR_JID === undefined ? 'default' : process.env.CCLEAR_JID,
     WORKTYPE: process.env.WORK_TYPE === undefined ? 'public' : process.env.WORK_TYPE,
     PROMOTEMSG: process.env.PROMOTE_MESSAGE === undefined ? 'default' : process.env.PROMOTE_MESSAGE,
