@@ -1,10 +1,10 @@
 <div align="center">
 
-## Cyber Army Bot
+## Cyber Bot
 
 
   
-![Cyber Army Bot Logo](https://i.ibb.co/jf9Tkq6/logo.jpg)
+![Cyber Bot Logo](https://i.ibb.co/h26VWqL/CyberBot.jpg)
 
 </div>
 
