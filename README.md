@@ -54,6 +54,9 @@
 [Aqua-Snake](https://t.me/Aqua_Snake) |
 Author, Base, Bug Fixes, Modules |
 
+![Aqua-Snake Logo](https://media.giphy.com/media/oQKWEqvuxfHPIo77NN/giphy.gif)
+	
+	
 </div>
 
 	
