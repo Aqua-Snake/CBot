@@ -54,12 +54,11 @@
 [Aqua-Snake](https://t.me/Aqua_Snake) |
 Author, Base, Bug Fixes, Modules |
 
-![Aqua-Snake Logo](https://media.giphy.com/media/oQKWEqvuxfHPIo77NN/giphy.gif)
-	
-	
+
 </div>
 
-	
+##
+
 ```
 CBot (Cyber Bot) - CBot Userbot is Open Source software open to development. 
 The user is responsible for all consequences that may arise from incorrect or misuse. 
@@ -76,7 +75,7 @@ Marketing CBot for money, making it available or having any material value
 the user is responsible.
 ```
 
-
+##
 
 ### Simple Method
 
