@@ -82,7 +82,11 @@ $ node bot.js
 
 ## Developers
 
-[![Aqua-Snake](https://github.com/Aqua-Snake.png?size=100)](https://github.com/Aqua-Snake)
+[![Aqua-Snake](https://github.com/Aqua-Snake.png?size=100)](https://github.com/Aqua-Snake) |
+----|
+[Aqua-Snake](https://t.me/Aqua_Snake) |
+Author, Base, Bug Fixes, Modules |
+
 
 ### ⚠️ Warning! 
 ```
