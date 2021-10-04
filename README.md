@@ -45,7 +45,18 @@
 </p>
 
 
+<div align="center">
 
+## Developers
+
+[![Aqua-Snake](https://github.com/Aqua-Snake.png?size=100)](https://github.com/Aqua-Snake) |
+----|
+[Aqua-Snake](https://t.me/Aqua_Snake) |
+Author, Base, Bug Fixes, Modules |
+
+</div>
+
+	
 ```
 CBot (Cyber Bot) - CBot Userbot is Open Source software open to development. 
 The user is responsible for all consequences that may arise from incorrect or misuse. 
@@ -63,6 +74,7 @@ the user is responsible.
 ```
 
 
+
 ### Simple Method
 
 [![Run on Repl.it](https://repl.it/badge/github/Aqua-Snake/CBot)](https://repl.it/@aquasnake/Bot-QR)
@@ -78,14 +90,6 @@ $ nano Config.env
 // Config.env create and edit.
 $ node bot.js
 ```
-
-
-## Developers
-
-[![Aqua-Snake](https://github.com/Aqua-Snake.png?size=100)](https://github.com/Aqua-Snake) |
-----|
-[Aqua-Snake](https://t.me/Aqua_Snake) |
-Author, Base, Bug Fixes, Modules |
 
 
 ### ⚠️ Warning! 
