@@ -49,7 +49,7 @@
 
 <div align="center">
 
-## Developers
+## Developer
 
 [![Aqua-Snake](https://github.com/Aqua-Snake.png?size=100)](https://github.com/Aqua-Snake) |
 ----|
