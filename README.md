@@ -80,7 +80,9 @@ $ node bot.js
 ```
 
 
-##
+## Developers
+
+[![Aqua-Snake](https://github.com/Aqua-Snake.png?size=100)](https://www.Aqua-Snake.codes)
 
 ### ⚠️ Warning! 
 ```
@@ -90,6 +92,7 @@ Absolutely, Bot executives do not accept responsibility.
 By establishing the Bot, you are deemed to have accepted these responsibilities.
 ```
 
+###
 
 ## License
 This project is protected by `GNU General Public Licence v3.0` license.
