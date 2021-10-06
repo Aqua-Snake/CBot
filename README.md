@@ -51,10 +51,10 @@
 
 ## Developer
 
-[![Aqua-Snake](https://github.com/Aqua-Snake.png?size=100)](https://github.com/Aqua-Snake) |
+[![Aqua-Snake](https://github.com/Aqua-Snake.png?size=100)](https://github.com/Aqua-Snake) | [![Aqua-Eagle](https://github.com/Eagle.png?size=100)](https://github.com/Aqua-Eagle) |
 ----|
-[Aqua-Snake](https://t.me/Aqua_Snake) |
-Author, Base, Bug Fixes, Modules |
+[Aqua-Snake](https://t.me/Aqua_Snake) | [Aqua-Eagle](https://github.com/Aqua-Eagle) |
+Author, Base, Bug Fixes, Modules | Developer, Base, Bug Fixes, Modules |
 
 
 </div>
