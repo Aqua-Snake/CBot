@@ -1,15 +1,17 @@
-/* Copyright (C) 2021 Aqua Snake.
+/* Copyright (C) 2020 Yusuf Usta.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-Cyber Army Bot  - Aqua-Snake
+WhatsAsena - Yusuf Usta
 */
 
+// Komutları burada tutacağız.
 var config = require('./config');
 var Commands = [];
 
-function applyCMD(info, func) {
+function addCommand(info, func) {
+    // Basit bir fonksiyon, komut eklemek için.
     var types = ['photo', 'image', 'text', 'message'];
 
     var infos = {
@@ -43,6 +45,6 @@ function applyCMD(info, func) {
 }
 
 module.exports = {
-    applyCMD: applyCMD,
+    addCommand: addCommand,
     commands: Commands
 }
