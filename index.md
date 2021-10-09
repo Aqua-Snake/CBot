@@ -1,4 +1,4 @@
-## Welcome to Cyber Bot Pages
+## Welcome to Cyber Bot Page
 
 <div align="center">
 
