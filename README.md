@@ -83,17 +83,8 @@ the user is responsible.
 
 [![Run on Repl.it](https://repl.it/badge/github/Aqua-Snake/CBot)](https://repl.it/@aquasnake/Bot-QR)
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Aqua-Snake/BOT)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Aqua-Snake/NBOT)
 
-### The Hard Method(Difficult to make)
-```js
-$ git clone https://github.com/Aqua-Snake/CBot.git
-$ cd Bot
-$ npm i
-$ nano Config.env
-// Config.env create and edit.
-$ node bot.js
-```
 
 ##
 
