@@ -2,11 +2,7 @@
 
 <div align="center">
 
-## Cyber Bot
-
-
-  
-![Cyber Bot Logo](https://i.ibb.co/h26VWqL/CyberBot.jpg)
+  <img src="https://i.ibb.co/h26VWqL/CyberBot.jpg" />
 
 </div>
 
@@ -47,9 +43,7 @@
 </p>
 
 
-##
 
-<div align="center">
 
 ## Developers
 
@@ -59,7 +53,6 @@
 Developer, Base, Bug Fixes, Modules | Developer, Base, Bug Fixes, Modules |
 
 
-</div>
 
 
 
