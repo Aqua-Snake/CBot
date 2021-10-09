@@ -89,7 +89,20 @@ Due to Userbot; Your WhatsApp account may be banned.
 This is an open source project, you are responsible for everything you do. 
 Absolutely, Bot executives do not accept responsibility.
 By establishing the Bot, you are deemed to have accepted these responsibilities.
+
+Your account may be banned for the following reasons:
+- Using .ban command for more than one user.
+- Using fake numbers.
+- Spamming Too Much (If someone complains)
 ```
+
+###
+
+### Can you read my messages?
+This project is open source so all the codes are clear. Neither less nor more; you can look what you want. **We absolutely do not have access to your accounts.**
+
+### What about our security?
+If you are concerned about security, you can install it on your own computer. If you think someone else has captured your data, simply click on **Whatsapp> Three Dots> Whatsapp Web> Logout** from all sessions button.
 
 
 
