@@ -61,7 +61,7 @@ Developer, Base, Bug Fixes, Modules | Developer, Base, Bug Fixes, Modules |
 
 </div>
 
-##
+
 
 ```
 CBot (Cyber Bot) - CBot Userbot is Open Source software open to development. 
@@ -79,7 +79,7 @@ Marketing CBot for money, making it available or having any material value
 the user is responsible.
 ```
 
-##
+
 
 ### Simple Method
 
@@ -88,7 +88,7 @@ the user is responsible.
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Aqua-Snake/CBOT)
 
 
-##
+
 
 ### ⚠️ Warning! 
 ```
@@ -98,7 +98,7 @@ Absolutely, Bot executives do not accept responsibility.
 By establishing the Bot, you are deemed to have accepted these responsibilities.
 ```
 
-###
+
 
 ## License
 This project is protected by `GNU General Public Licence v3.0` license.
@@ -106,9 +106,9 @@ This project is protected by `GNU General Public Licence v3.0` license.
 ### Disclaimer
 `WhatsApp` name, its variations and the logo are registered trademarks of Facebook. We have nothing to do with the registered trademark
 
- ##
+
  
- ## Special Thanks to 
+## Special Thanks to 
 
 - [Yusuf Usta](https://github.com/yusufusta) 
 - [Thiccy](https://github.com/phaticusthiccy)
