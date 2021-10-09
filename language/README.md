@@ -1,5 +1,5 @@
 ## Languages :- 
- ```               AZ = Azerice 
+ ```            AZ = Azerice 
                 EN = English 
                 TR = Türkçe 
                 MI = Malayalam 
@@ -9,3 +9,5 @@
                 PT = Portuguese 
                 RU = Russian 
  ```
+ 
+ ### ```SI = Sinahala``` Comming soon...
