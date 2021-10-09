@@ -1,9 +1,9 @@
-/* Copyright (C) 2021 Aqua-Snake.
+/* Copyright (C) 2020 Yusuf Usta.
 
 Licensed under the  GPL-3.0 License;
 you may not use this file except in compliance with the License.
 
-Cyber Army Bot - Aqua Snake
+WhatsAsena - Yusuf Usta
 */
 
 const fs = require('fs');
@@ -13,7 +13,7 @@ class StringSession {
     }
 
     deCrypt(string = undefined) {
-        if ('CBOT_SESSION' in process.env && string === undefined) {
+        if ('ASENA_SESSION' in process.env && string === undefined) {
             string = process.env.STRING_SESSION;
         } else if (string !== undefined) {
             if (fs.existsSync(string)) {
@@ -28,7 +28,7 @@ class StringSession {
     }
 
     createStringSession(dict) {
-        return 'CBOT;;;' + Buffer.from(JSON.stringify(dict)).toString('base64');
+        return 'ASENA;;;' + Buffer.from(JSON.stringify(dict)).toString('base64');
     }
 }
 
