@@ -1,37 +1,122 @@
-## Welcome to GitHub Pages
+## Welcome to Cyber Bot Pages
 
-You can use the [editor on GitHub](https://github.com/Aqua-Snake/CBot/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+<div align="center">
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Cyber Bot
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+  
+![Cyber Bot Logo](https://i.ibb.co/h26VWqL/CyberBot.jpg)
 
-```markdown
-Syntax highlighted code block
+</div>
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
+<p align="center">
+	<a href="httsp://github.com/Aqua-Snake/CBot">
+    <img src="https://img.shields.io/github/repo-size/Aqua-Snake/CBot?color=purple&label=Repo%20Size&style=plastic">
+ 
+ </a>
+   <a href="https://github.com/Aqua-Snake/CBot/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/Aqua-Snake/CBot?color=purple&label=Lisance&style=plastic">
 
-1. Numbered
-2. List
+  </a>
+  <a href="https://github.com/Aqua-Snake/CBot">
+    <img src="https://img.shields.io/github/languages/top/Aqua-Snake/CBot?color=purple&label=Javascript&style=plastic">
 
-**Bold** and _Italic_ and `Code` text
+  </a>
+</p>
 
-[Link](url) and ![Image](src)
+<p align="center">
+  <a href="https://github.com/Aqua-Snake">
+    <img src="https://img.shields.io/static/v1?label=Author&message=Aqua-Snake&color=purple&style=plastic">
+
+  </a>
+  <a href="https://t.me/cbot_support">
+    <img src="https://img.shields.io/badge/Telegram-CBot%20Support-purple&style=plastic">
+
+   </a>
+  <a href="https://t.me/aqua_snake">
+    <img src="https://img.shields.io/badge/Telegram-CBot%20Contact-purple&style=plastic">
+
+   </a>
+</p>
+
+ 
+ <p align="center">
+  <img src="https://img.shields.io/static/v1?label=Powered%20by&message=Cyber%20Army&color=yellow&style=plastic">
+</p>
+
+
+##
+
+<div align="center">
+
+## Developers
+
+[![Aqua-Snake](https://github.com/Aqua-Snake.png?size=100)](https://github.com/Aqua-Snake) | [![Aqua-Eagle](https://github.com/Aqua-Eagle.png?size=100)](https://github.com/Aqua-Eagle) |
+----|----|
+[Aqua-Snake](https://t.me/Aqua_Snake) | [Aqua-Eagle](https://github.com/Aqua-Eagle) |
+Developer, Base, Bug Fixes, Modules | Developer, Base, Bug Fixes, Modules |
+
+
+</div>
+
+##
+
+```
+CBot (Cyber Bot) - CBot Userbot is Open Source software open to development. 
+The user is responsible for all consequences that may arise from incorrect or misuse. 
+Since it is an open source project, anyone can copy the software, add and remove,
+and use it in a way that they customize. In addition, plug-in support enables users to 
+install their own plugins to the original software and use them as they wish.
+Using the bot out of purpose will explicitly ban you.
+Usage is entirely the user's responsibility, CBot is an 
+infrastructure only. Just as the operating system is not responsible 
+for the work done with the programs that are installed later, CBot 
+is not responsible for the usage purpose and method of the users.
+Marketing CBot for money, making it available or having any material value
+ıt is strictly forbidden to offer it for sale with anything. All legal investigations that may arise
+the user is responsible.
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+##
 
-### Jekyll Themes
+### Simple Method
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Aqua-Snake/CBot/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+[![Run on Repl.it](https://repl.it/badge/github/Aqua-Snake/CBot)](https://repl.it/@aquasnake/Bot-QR)
 
-### Support or Contact
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Aqua-Snake/CBOT)
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+
+##
+
+### ⚠️ Warning! 
+```
+Due to Userbot; Your WhatsApp account may be banned.
+This is an open source project, you are responsible for everything you do. 
+Absolutely, Bot executives do not accept responsibility.
+By establishing the Bot, you are deemed to have accepted these responsibilities.
+```
+
+###
+
+## License
+This project is protected by `GNU General Public Licence v3.0` license.
+
+### Disclaimer
+`WhatsApp` name, its variations and the logo are registered trademarks of Facebook. We have nothing to do with the registered trademark
+
+ ##
+ 
+ ## Special Thanks to 
+
+- [Yusuf Usta](https://github.com/yusufusta) 
+- [Thiccy](https://github.com/phaticusthiccy)
+
+## Base Bot 
+[WhatsAsenaDuplicated](https://github.com/phaticusthiccy/WhatsAsenaDuplicated)
+
+
+[GitHub](https://github.com/Aqua-Snake/) 
+[Telegram](https://t.me/aqua_snake)
+
