@@ -111,5 +111,6 @@ This project is protected by `GNU General Public Licence v3.0` license.
 
 
 [GitHub](https://github.com/Aqua-Snake/) 
+[Web](https://aqua-snake.github.io/Aqua-Snake/) 
 [Telegram](https://t.me/Aqua_Snake)
 
