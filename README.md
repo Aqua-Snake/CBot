@@ -29,7 +29,7 @@
     <img src="https://img.shields.io/static/v1?label=Author&message=Aqua-Snake&color=purple&style=plastic">
 
   </a>
-  <a href="https://t.me/Bot_support_for_users">
+  <a href="https://t.me/cbot_support">
     <img src="https://img.shields.io/badge/Telegram-CBot%20Support-purple&style=plastic">
 
    </a>
@@ -49,12 +49,12 @@
 
 <div align="center">
 
-## Developer
+## Developers
 
 [![Aqua-Snake](https://github.com/Aqua-Snake.png?size=100)](https://github.com/Aqua-Snake) | [![Aqua-Eagle](https://github.com/Aqua-Eagle.png?size=100)](https://github.com/Aqua-Eagle) |
 ----|----|
 [Aqua-Snake](https://t.me/Aqua_Snake) | [Aqua-Eagle](https://github.com/Aqua-Eagle) |
-Author, Base, Bug Fixes, Modules | Developer, Base, Bug Fixes, Modules |
+Developer, Base, Bug Fixes, Modules | Developer, Base, Bug Fixes, Modules |
 
 
 </div>
@@ -104,4 +104,12 @@ This project is protected by `GNU General Public Licence v3.0` license.
 ### Disclaimer
 `WhatsApp` name, its variations and the logo are registered trademarks of Facebook. We have nothing to do with the registered trademark
 
+ ##
  
+ ## Special Thanks to 
+
+- [Yusuf Usta](https://github.com/yusufusta) 
+- [Thiccy](https://github.com/phaticusthiccy)
+
+## Base Bot 
+[WhatsAsenaDuplicated](https://github.com/phaticusthiccy/WhatsAsenaDuplicated)
