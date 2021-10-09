@@ -81,7 +81,7 @@ the user is responsible.
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Aqua-Snake/CBOT)
 
 
-
+### Few thing about bot
 
 ### ⚠️ Warning! 
 ```
@@ -96,7 +96,7 @@ Your account may be banned for the following reasons:
 - Spamming Too Much (If someone complains)
 ```
 
-###
+
 
 ### Can you read my messages?
 This project is open source so all the codes are clear. Neither less nor more; you can look what you want. **We absolutely do not have access to your accounts.**
