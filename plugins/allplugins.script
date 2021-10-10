@@ -108,5 +108,6 @@ All plugins =
                 .short
                 .calc
                 .whois
+                .antispam
                 
                 
