@@ -4,7 +4,7 @@
 
 
   
-![Cyber Bot Logo](https://i.ibb.co/h26VWqL/CyberBot.jpg)
+![Cyber Bot Logo](https://i.ibb.co/5sTw0GW/cyberbot.jpg)
 
 </div>
 
