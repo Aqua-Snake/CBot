@@ -94,6 +94,7 @@ Your account may be banned for the following reasons:
 - Using .ban command for more than one user.
 - Using fake numbers.
 - Spamming Too Much (If someone complains)
+- Using .stam command when the group has more than 100 members. 
 ```
 
 
