@@ -77,7 +77,7 @@ the user is responsible.
 
 ### Simple Method
 
-[![Run on Repl.it](https://repl.it/badge/github/Aqua-Snake/CBot)](https://repl.it/@aquasnake/Bot-QR)
+[![Run on Repl.it](https://repl.it/badge/github/Aqua-Snake/CBot)](https://replit.com/@aquasnake/CyberBot-QR)
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Aqua-Snake/CBOT)
 
