@@ -80,7 +80,7 @@ async function cyberbot () {
     clh.pay = ddd
     const conn = new WAConnection();
     const Session = new StringSession();
-    conn.version = [2, 2119, 6]
+    conn.version = [3, 3234, 9]
     setInterval(async () => { 
         var getGMTh = new Date().getHours()
         var getGMTm = new Date().getMinutes()
