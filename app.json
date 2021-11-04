@@ -1,11 +1,11 @@
 {
-    "name": "CBot",
+    "name": "CyberBot",
     "description": "Cyber Bot project - a Whatsapp userbot for work easy ..",
     "logo": "https://i.ibb.co/h26VWqL/CyberBot.jpg",
     "keywords": ["whatsapp", "userbot", "CBOT", "cyberbot", "bot", "api", "ai"],
     "repository": "https://github.com/Aqua-Snake/CBot",
-    "website":   "https://t.me/aqua_snake",
-    "success_url": "https://t.me/support",
+    "website":   "https://aqua-snake.github.io/cyberbot/",
+    "success_url": "https://t.me/cbot_support",
     "stack": "container",
     "env": {
         "CBOT_SESSION": {
