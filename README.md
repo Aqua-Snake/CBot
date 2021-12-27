@@ -1,5 +1,6 @@
 ## Visit to Our Offcial Website [Cyber Bot Web](https://aqua-snake.github.io/cyberbot/)
 
+### Note - This bot not work for new groups
 
 <div align="center">
 
