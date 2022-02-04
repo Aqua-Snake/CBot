@@ -1,4 +1,4 @@
-## Visit to Our Offcial Website [Cyber Bot Web](https://aqua-snake.github.io/cyberbot/)
+## Visit to Our Offcial Website [Cyber Bot Web](https://aqua-snake.github.io/cyberbotweb/)
 
 ### Note - This bot not work for new groups
 
